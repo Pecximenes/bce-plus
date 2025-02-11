@@ -1,19 +1,44 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+import Entidades.Livro;
+import Entidades.Bibliotecario;
+import java.awt.Image;
+import java.awt.MediaTracker;
+import java.io.File;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 
 /**
  *
  * @author samuelcds
  */
-public class cadastroLivro extends javax.swing.JFrame {
 
-    /**
-     * Creates new form cadastroLivro
-     */
-    public cadastroLivro() {
+public class cadastroLivro extends javax.swing.JFrame {
+     private Bibliotecario bibliotecario;
+     private Livro livro;
+
+    public cadastroLivro(Bibliotecario bibliotecario) {
+        this.bibliotecario = bibliotecario;
+        
         initComponents();
+    }
+    
+    public cadastroLivro(Livro livro) {
+        this.livro = livro;
+        initComponents();
+        
+        if (livro != null) {
+            tituloInserido.setText(livro.getTitulo());
+            autorInserido.setText(livro.getAutor());
+            editora.setText(livro.getEditora());
+            anoInserido.setText(String.valueOf(livro.getAnoPublicacao()));
+            copiaFisica.setSelected(livro.isDisponivelFisico());
+            livroRaro.setSelected(livro.isLivroRaro());
+            copiaDigital.setSelected(livro.isDisponivelDigital());
+            caminhoImagem.setText(livro.getCaminhoImagem());
+            Categoria.setText(livro.getCategoria());
+        }
+        
     }
 
     /**
@@ -39,18 +64,19 @@ public class cadastroLivro extends javax.swing.JFrame {
         livroRaro = new javax.swing.JCheckBox();
         caminhoImagem = new javax.swing.JTextField();
         selecImagem = new javax.swing.JToggleButton();
-        imagemLocal = new javax.swing.JPanel();
         caminhoPDF = new javax.swing.JTextField();
         pdfSelec = new javax.swing.JButton();
         botaoCalcelar = new javax.swing.JButton();
         botaoSalvar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        Categoria = new javax.swing.JTextField();
+        imagemLocal = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(51, 51, 51));
 
         CadastroDeLivros.setFont(new java.awt.Font("Annapurna SIL", 1, 24)); // NOI18N
+        CadastroDeLivros.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         CadastroDeLivros.setText("Cadastro de Livros");
 
         Titulo.setText("Título:");
@@ -73,6 +99,8 @@ public class cadastroLivro extends javax.swing.JFrame {
 
         livroRaro.setText("Livro Raro.");
 
+        caminhoImagem.setEditable(false);
+
         selecImagem.setText("Selecionar Imagem");
         selecImagem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -80,17 +108,7 @@ public class cadastroLivro extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout imagemLocalLayout = new javax.swing.GroupLayout(imagemLocal);
-        imagemLocal.setLayout(imagemLocalLayout);
-        imagemLocalLayout.setHorizontalGroup(
-            imagemLocalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 241, Short.MAX_VALUE)
-        );
-        imagemLocalLayout.setVerticalGroup(
-            imagemLocalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 294, Short.MAX_VALUE)
-        );
-
+        caminhoPDF.setEditable(false);
         caminhoPDF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 caminhoPDFActionPerformed(evt);
@@ -98,14 +116,27 @@ public class cadastroLivro extends javax.swing.JFrame {
         });
 
         pdfSelec.setText("Selecionar PDF");
+        pdfSelec.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pdfSelecActionPerformed(evt);
+            }
+        });
 
         botaoCalcelar.setText("Cancelar");
+        botaoCalcelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCalcelarActionPerformed(evt);
+            }
+        });
 
         botaoSalvar.setText("Salvar");
+        botaoSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoSalvarActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Categoria:");
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -114,66 +145,56 @@ public class cadastroLivro extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tituloInserido)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(autorInserido)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(editoraInserida, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tituloInserido)
+                            .addComponent(Titulo)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(autorInserido)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(editoraInserida, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(autor)
+                                .addGap(245, 245, 245)
+                                .addComponent(editora))
                             .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(anoInserido, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(Titulo)
+                                    .addComponent(jLabel2)
+                                    .addComponent(Categoria, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(39, 39, 39)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(autor)
-                                        .addGap(245, 245, 245)
-                                        .addComponent(editora))
+                                        .addComponent(copiaFisica)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(livroRaro))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(anoInserido, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel2)
-                                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(31, 31, 31)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(copiaFisica)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-                                                .addComponent(livroRaro))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(copiaDigital)
-                                                .addGap(0, 0, Short.MAX_VALUE)))))
-                                .addGap(31, 31, 31)))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(CadastroDeLivros)
-                        .addGap(198, 198, 198))
+                                        .addComponent(copiaDigital)
+                                        .addGap(0, 0, Short.MAX_VALUE)))))
+                        .addGap(31, 31, 31))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(imagemLocal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(imagemLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(42, 42, 42)
+                                .addGap(75, 75, 75)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
+                                    .addComponent(caminhoImagem)
+                                    .addComponent(caminhoPDF, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addGap(0, 0, Short.MAX_VALUE)
                                         .addComponent(botaoCalcelar)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(botaoSalvar))
-                                    .addComponent(caminhoImagem)
-                                    .addComponent(caminhoPDF))
-                                .addContainerGap())
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(botaoSalvar))))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(selecImagem)
-                                        .addGap(69, 69, 69))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(pdfSelec)
-                                        .addGap(73, 73, 73))))))))
+                                    .addComponent(selecImagem, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(pdfSelec, javax.swing.GroupLayout.Alignment.TRAILING)))))
+                    .addComponent(CadastroDeLivros, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -202,24 +223,24 @@ public class cadastroLivro extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(anoInserido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(Categoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(copiaDigital))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(imagemLocal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(caminhoImagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(selecImagem)
-                        .addGap(66, 66, 66)
+                        .addGap(31, 31, 31)
                         .addComponent(caminhoPDF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(pdfSelec)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(botaoSalvar)
-                            .addComponent(botaoCalcelar)))
-                    .addComponent(imagemLocal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(botaoCalcelar))))
+                .addContainerGap())
         );
 
         pack();
@@ -230,50 +251,76 @@ public class cadastroLivro extends javax.swing.JFrame {
     }//GEN-LAST:event_tituloInseridoActionPerformed
 
     private void selecImagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecImagemActionPerformed
-        // TODO add your handling code here:
+        JFileChooser arquivo = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Arquivos (JPG, JPEG e PNG)", "jpg", "jpeg", "png");
+        arquivo.setFileFilter(filter);
+        arquivo.setDialogTitle("Abrir Imagem");
+        arquivo.showOpenDialog(null);
+        File selecArq = arquivo.getSelectedFile();
+        caminhoImagem.setText(selecArq.getAbsolutePath());
+        
+        // Verifica se o arquivo selecionado não é nulo
+            if (selecArq != null) {
+                ImageIcon icon = new ImageIcon(selecArq.getPath());
+                // Verifica se a imagem foi carregada corretamente
+                if (icon.getImageLoadStatus() == MediaTracker.COMPLETE) {
+                    // Redimensionando a imagem para se ajustar à JLabel
+                    Image image = icon.getImage();
+                    Image newImg = image.getScaledInstance(imagemLocal.getWidth(), imagemLocal.getHeight(),
+                            java.awt.Image.SCALE_SMOOTH);
+                    icon = new ImageIcon(newImg);
+
+                    // Definindo a imagem na JLabel
+                    imagemLocal.setIcon(icon);
+
+                    caminhoImagem.setText(selecArq.getAbsolutePath());
+
+                } else {
+                    System.out.println("Erro ao carregar a imagem.");
+                }
+            } else {
+                System.out.println("Nenhum arquivo foi selecionado.");
+            }
     }//GEN-LAST:event_selecImagemActionPerformed
 
     private void caminhoPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caminhoPDFActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_caminhoPDFActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(cadastroLivro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(cadastroLivro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(cadastroLivro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(cadastroLivro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void botaoCalcelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCalcelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_botaoCalcelarActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new cadastroLivro().setVisible(true);
-            }
-        });
-    }
+    private void pdfSelecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pdfSelecActionPerformed
+        JFileChooser arquivo = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Arquivos PDF (PDF)", "pdf");
+        arquivo.setFileFilter(filter);
+        arquivo.setDialogTitle("Abrir PDF");
+        arquivo.showOpenDialog(null);
+        File selecArq = arquivo.getSelectedFile();
+        caminhoPDF.setText(selecArq.getAbsolutePath());
+    }//GEN-LAST:event_pdfSelecActionPerformed
+
+    private void botaoSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSalvarActionPerformed
+        Livro novoLivro = new Livro(tituloInserido.getText(), 
+                autorInserido.getText(),
+                editoraInserida.getText(), 
+                Integer.parseInt(anoInserido.getText()), 
+                copiaFisica.isSelected(), 
+                livroRaro.isSelected(), 
+                copiaDigital.isSelected(), 
+                caminhoImagem.getText(), 
+                bibliotecario, 
+                Categoria.getText());
+        
+        ArquivosAdicionar.adicionar(novoLivro);
+        this.dispose();
+    }//GEN-LAST:event_botaoSalvarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel CadastroDeLivros;
+    private javax.swing.JTextField Categoria;
     private javax.swing.JLabel Titulo;
     private javax.swing.JTextField anoInserido;
     private javax.swing.JLabel autor;
@@ -286,8 +333,7 @@ public class cadastroLivro extends javax.swing.JFrame {
     private javax.swing.JCheckBox copiaFisica;
     private javax.swing.JLabel editora;
     private javax.swing.JTextField editoraInserida;
-    private javax.swing.JPanel imagemLocal;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel imagemLocal;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JCheckBox livroRaro;
