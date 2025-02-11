@@ -46,17 +46,12 @@
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="Senha" alignment="0" max="32767" attributes="0"/>
                                           <Component id="CampoCPF" alignment="1" max="32767" attributes="0"/>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="CampoSenha" min="-2" pref="118" max="-2" attributes="0"/>
-                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                          </Group>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="Usuario" alignment="0" pref="118" max="32767" attributes="0"/>
-                                          <Component id="CampoUsuario" alignment="0" max="32767" attributes="0"/>
                                           <Group type="102" attributes="0">
                                               <Group type="103" groupAlignment="0" attributes="0">
                                                   <Component id="NomeCompleto" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -64,8 +59,13 @@
                                               </Group>
                                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                           </Group>
+                                          <Component id="CampoUsuario" alignment="0" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="CampoSenha" min="-2" pref="118" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -130,8 +130,8 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="CampoSenha" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="CampoGenero" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="CampoSenha" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -157,11 +157,12 @@
     <Component class="javax.swing.JComboBox" name="CampoGenero">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
+          <StringArray count="5">
+            <StringItem index="0" value="Selecione"/>
+            <StringItem index="1" value="Masculino"/>
+            <StringItem index="2" value="Feminino"/>
+            <StringItem index="3" value="Outro"/>
+            <StringItem index="4" value="Prefiro n&#xe3;o declarar"/>
           </StringArray>
         </Property>
       </Properties>
@@ -200,7 +201,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" attributes="0">
                   <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                   <Component id="botaoCalcelar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -263,11 +264,6 @@
         <Property name="text" type="java.lang.String" value="Senha:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="CampoSenha">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CampoSenhaActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JLabel" name="Professor">
       <Properties>
         <Property name="text" type="java.lang.String" value="Professor:"/>
@@ -294,10 +290,12 @@
         <Property name="text" type="java.lang.String" value="Repita senha:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="CampoRepSenha">
+    <Component class="javax.swing.JPasswordField" name="CampoSenha">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CampoRepSenhaActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CampoSenhaActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JPasswordField" name="CampoRepSenha">
     </Component>
   </SubComponents>
 </Form>

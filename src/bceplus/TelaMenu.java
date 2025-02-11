@@ -28,7 +28,6 @@ public class TelaMenu extends javax.swing.JFrame {
 
         RightComponent = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        LeftComponent = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -47,8 +46,6 @@ public class TelaMenu extends javax.swing.JFrame {
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/bceLogo.png"))); // NOI18N
         RightComponent.add(jLabel5);
-
-        LeftComponent.setPreferredSize(new java.awt.Dimension(400, 0));
 
         jPanel4.setPreferredSize(new java.awt.Dimension(400, 100));
 
@@ -142,9 +139,7 @@ public class TelaMenu extends javax.swing.JFrame {
                 .addGap(0, 229, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(LeftComponent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGap(0, 412, Short.MAX_VALUE)
                     .addComponent(RightComponent, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
@@ -154,9 +149,7 @@ public class TelaMenu extends javax.swing.JFrame {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(LeftComponent, javax.swing.GroupLayout.PREFERRED_SIZE, 563, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(RightComponent, javax.swing.GroupLayout.PREFERRED_SIZE, 563, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(RightComponent, javax.swing.GroupLayout.PREFERRED_SIZE, 563, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
@@ -219,7 +212,6 @@ public class TelaMenu extends javax.swing.JFrame {
     private javax.swing.JButton BotaoCadastro;
     private javax.swing.JButton BotaoEmprestimo;
     private javax.swing.JButton BotaoSair;
-    private javax.swing.JPanel LeftComponent;
     private javax.swing.JPanel RightComponent;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
