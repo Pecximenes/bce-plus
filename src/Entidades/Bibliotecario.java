@@ -8,6 +8,10 @@ package Entidades;
  *
  * @author samuelcds
  */
-class Bibliotecario {
+public class Bibliotecario {
+
+    public CharSequence getNome() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }
