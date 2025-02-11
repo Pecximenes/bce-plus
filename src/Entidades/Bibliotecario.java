@@ -8,18 +8,10 @@ package Entidades;
  *
  * @author pecximenes
  */
-<<<<<<< HEAD
-public class Bibliotecario {
-
-    public CharSequence getNome() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-=======
 public class Bibliotecario extends Pessoa {
     private String usuario;
     private String senha;
     private boolean primeiroLogin;
->>>>>>> 0da74fdbf5167e530ae19bca1574fce108505f25
     
     // Construtor
     public Bibliotecario(int id, String nome, String genero, String cpf, String usuario, String senha, boolean primeiroLogin) {

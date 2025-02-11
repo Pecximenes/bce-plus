@@ -38,7 +38,6 @@ public class cadastroLivro extends javax.swing.JFrame {
             caminhoImagem.setText(livro.getCaminhoImagem());
             Categoria.setText(livro.getCategoria());
         }
-        
     }
 
     /**

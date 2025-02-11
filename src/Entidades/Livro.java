@@ -12,7 +12,10 @@ public class Livro {
     private Bibliotecario bibliotecario;
     private String categoria;
 
-    public Livro(String titulo, String autor, String editora, int anoPublicacao, boolean disponivelFisico, boolean livroRaro, boolean disponivelDigital, String caminhoImagem, Bibliotecario bibliotecario, String categoria) {
+    public Livro(String titulo, String autor, String editora, 
+            int anoPublicacao, boolean disponivelFisico, boolean livroRaro, 
+            boolean disponivelDigital, String caminhoImagem, Bibliotecario bibliotecario, String categoria) {
+        
         this.titulo = titulo;
         this.autor = autor;
         this.editora = editora;
@@ -23,6 +26,7 @@ public class Livro {
         this.caminhoImagem = caminhoImagem;
         this.bibliotecario = bibliotecario;
         this.categoria = categoria;
+        
     }
 
     public String getTitulo() {
