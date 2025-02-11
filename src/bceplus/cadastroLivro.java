@@ -17,22 +17,26 @@ public class cadastroLivro extends javax.swing.JFrame {
      private Bibliotecario bibliotecario;
      private Livro livro;
 
-    public cadastroLivro(Bibliotecario bibliotecario, Livro livro = null) {
+    public cadastroLivro(Bibliotecario bibliotecario) {
         this.bibliotecario = bibliotecario;
-        this.livro = livro;
         
         initComponents();
+    }
+    
+    public cadastroLivro(Livro livro) {
+        this.livro = livro;
+        initComponents();
         
-        if (livro) {
+        if (livro != null) {
             tituloInserido.setText(livro.getTitulo());
             autorInserido.setText(livro.getAutor());
             editora.setText(livro.getEditora());
-            anoInserido.setText(livro.getAnoPublicacao());
+            anoInserido.setText(String.valueOf(livro.getAnoPublicacao()));
             copiaFisica.setSelected(livro.isDisponivelFisico());
             livroRaro.setSelected(livro.isLivroRaro());
             copiaDigital.setSelected(livro.isDisponivelDigital());
             caminhoImagem.setText(livro.getCaminhoImagem());
-            
+            Categoria.setText(livro.getCategoria());
         }
         
     }
