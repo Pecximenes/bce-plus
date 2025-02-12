@@ -1,18 +1,107 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
+import Entidades.Bibliotecario;
+import Entidades.Livro;
+import Entidades.Usuario;
+import Entidades.Emprestimo;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author samuelcds
  */
-public class Emprestimo extends javax.swing.JFrame {
+
+public class Emprestimos extends javax.swing.JFrame {
+    Bibliotecario bibliotecario;
+    Livro livro[];
+    Usuario user;
+    LocalDate devolucao;
+    LocalDate dataAtual = LocalDate.now();
+    Double multa;
 
     /**
      * Creates new form Emprestimo
      */
-    public Emprestimo() {
+    
+    public Emprestimos() {
+        initComponents();
+    }
+    
+    public Emprestimos(Usuario user, Livro[] livro) {
+        this.user = user;
+        this.livro = livro;
+        
+        textoUsuario.setText(user.getUsuario());
+        livroSelecionado.setText(livro.toString());
+        
+        if (user.isProfessor()) {
+            devolucao = dataAtual.plusDays(60);
+            
+            // Define um formato (por exemplo, dd/MM/yyyy)
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            
+            // Converte LocalDate para String
+            String dataFormatada = dataAtual.format(formato);
+            
+            dataDevolucao.setText(dataFormatada);
+            multa = 0.80;
+            valorMulta.setText("Valor da multa pelo atraso: 0,80/dia");
+        }
+        
+        if (!(user.isProfessor())) {
+            devolucao = dataAtual.plusDays(30);
+            
+            // Define um formato (por exemplo, dd/MM/yyyy)
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            
+            // Converte LocalDate para String
+            String dataFormatada = dataAtual.format(formato);
+            
+            dataDevolucao.setText(dataFormatada);
+            multa = 0.50;
+            valorMulta.setText("Valor da multa pelo atraso: 0,50/dia");
+        }
+    
+        initComponents();
+    }
+    
+    public Emprestimos(Bibliotecario bibliotecario, Usuario user, Livro[] livro) {
+        this.bibliotecario = bibliotecario;
+        this.user = user;
+        this.livro = livro;
+        textoUsuario.setText(user.getUsuario());
+        livroSelecionado.setText(Arrays.toString(livro));
+        
+        if (user.isProfessor()) {
+            devolucao = dataAtual.plusDays(40);
+            
+            // Define um formato (por exemplo, dd/MM/yyyy)
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            
+            // Converte LocalDate para String
+            String dataFormatada = dataAtual.format(formato);
+            
+            dataDevolucao.setText(dataFormatada);
+            multa = 2.00;
+            valorMulta.setText("Valor da multa pelo atraso: 2,00/dia");
+        }
+        
+        if (!(user.isProfessor())) {
+            devolucao = dataAtual.plusDays(20);
+            
+            // Define um formato (por exemplo, dd/MM/yyyy)
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            
+            // Converte LocalDate para String
+            String dataFormatada = dataAtual.format(formato);
+            
+            dataDevolucao.setText(dataFormatada);
+            multa = 1.50;
+            valorMulta.setText("Valor da multa pelo atraso: 1,50/dia");
+        }
+    
         initComponents();
     }
 
@@ -34,15 +123,15 @@ public class Emprestimo extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         dataDevolucao = new javax.swing.JTextPane();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        botaoFinalizar = new javax.swing.JButton();
+        botaoCancelar = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
-        localImagem = new javax.swing.JLabel();
+        valorMulta = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Annapurna SIL", 1, 24)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Realizar Emprestimo");
 
         jLabel2.setText("Usuario:");
@@ -65,41 +154,46 @@ public class Emprestimo extends javax.swing.JFrame {
         dataDevolucao.setEditable(false);
         jScrollPane2.setViewportView(dataDevolucao);
 
-        jButton1.setText("Finalizar Emprestimo");
+        botaoFinalizar.setText("Finalizar Emprestimo");
+        botaoFinalizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoFinalizarActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Cancelar");
+        botaoCancelar.setText("Cancelar");
+        botaoCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCancelarActionPerformed(evt);
+            }
+        });
 
-        jTextArea2.setEditable(false);
-        jTextArea2.setColumns(2);
-        jTextArea2.setRows(2);
-        jTextArea2.setTabSize(2);
-        jTextArea2.setText("Valor da multa pelo atraso:");
-        jScrollPane3.setViewportView(jTextArea2);
+        valorMulta.setEditable(false);
+        valorMulta.setColumns(2);
+        valorMulta.setRows(2);
+        valorMulta.setTabSize(2);
+        valorMulta.setText("Valor da multa pelo atraso:");
+        jScrollPane3.setViewportView(valorMulta);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(152, 152, 152)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(textoUsuario)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
-                            .addComponent(localImagem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jButton2)
+                                .addComponent(botaoCancelar)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton1))))
+                                .addComponent(botaoFinalizar))))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,12 +221,10 @@ public class Emprestimo extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(localImagem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jButton1)
-                                .addComponent(jButton2))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(botaoFinalizar)
+                            .addComponent(botaoCancelar)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -145,6 +237,29 @@ public class Emprestimo extends javax.swing.JFrame {
     private void textoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textoUsuarioActionPerformed
+
+    private void botaoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_botaoCancelarActionPerformed
+
+    private void botaoFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoFinalizarActionPerformed
+        
+        for (Livro i : livro) {
+            if (i.isLivroRaro() && (bibliotecario == null)) {
+                JOptionPane.showMessageDialog(null, "Você não possui autorização para realizar o Empréstimo de um Livro Raro, solicite a um bibliocário para realizar o empréstimo.é", "Erro", JOptionPane.ERROR_MESSAGE);
+                break;
+            }
+        }
+            
+        if (bibliotecario == null){
+            Emprestimo emprestimo = new Emprestimo(user, livro, devolucao, multa);
+            
+        }
+        Emprestimo emprestimo = new Emprestimo(user, bibliotecario,livro, devolucao, multa);
+        
+        
+        this.dispose();
+    }//GEN-LAST:event_botaoFinalizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -163,28 +278,30 @@ public class Emprestimo extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Emprestimo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Emprestimos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Emprestimo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Emprestimos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Emprestimo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Emprestimos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Emprestimo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Emprestimos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                new Emprestimo().setVisible(true);
+                new Emprestimos().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botaoCancelar;
+    private javax.swing.JButton botaoFinalizar;
     private javax.swing.JTextPane dataDevolucao;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -192,9 +309,8 @@ public class Emprestimo extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextArea livroSelecionado;
-    private javax.swing.JLabel localImagem;
     private javax.swing.JTextField textoUsuario;
+    private javax.swing.JTextArea valorMulta;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,4 +1,5 @@
 package Entidades;
+import java.time.LocalDate;
 
 import java.util.Date;
 
@@ -6,10 +7,17 @@ public class Emprestimo {
     private Usuario usuario;
     private Bibliotecario bibliotecario;
     private Livro[] livro;
-    private Date data;
-    private float multa;
+    private LocalDate data;
+    private Double multa;
 
-    public Emprestimo(Usuario usuario, Bibliotecario bibliotecario, Livro[] livro, Date data, float multa) {
+    public Emprestimo(Usuario usuario, Livro[] livro, LocalDate data, Double multa) {
+        this.usuario = usuario;
+        this.livro = livro;
+        this.data = data;
+        this.multa = multa;
+    }
+
+    public Emprestimo(Usuario usuario, Bibliotecario bibliotecario, Livro[] livro, LocalDate data, Double multa) {
         this.usuario = usuario;
         this.bibliotecario = bibliotecario;
         this.livro = livro;
@@ -41,19 +49,19 @@ public class Emprestimo {
         this.livro = livro;
     }
 
-    public Date getData() {
+    public LocalDate getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
 
-    public float getMulta() {
+    public Double getMulta() {
         return multa;
     }
 
-    public void setMulta(float multa) {
+    public void setMulta(Double multa) {
         this.multa = multa;
     }
     

@@ -109,4 +109,16 @@ public class Livro {
         this.categoria = categoria;
     }
     
+    public String toString() {
+        return "Título: " + titulo +
+               ", Autor: " + autor +
+               ", Editora: " + editora +
+               ", Ano: " + anoPublicacao +
+               ", Disponível Físico: " + (disponivelFisico ? "Sim" : "Não") +
+               ", Livro Raro: " + (livroRaro ? "Sim" : "Não") +
+               ", Disponível Digital: " + (disponivelDigital ? "Sim" : "Não") +
+               ", Caminho Imagem: " + caminhoImagem +
+               ", Bibliotecário: " + (bibliotecario != null ? bibliotecario.getNome() : "N/A") +
+               ", Categoria: " + categoria;
+    }
 }
