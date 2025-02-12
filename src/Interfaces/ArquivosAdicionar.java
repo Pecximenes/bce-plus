@@ -24,7 +24,7 @@ public interface ArquivosAdicionar {
                   .append(livro.isLivroRaro() ? "Sim" : "Não").append(",")
                   .append(livro.isDisponivelDigital() ? "Sim" : "Não").append(",")
                   .append(livro.getCaminhoImagem()).append(",")
-                  .append(livro.getBibliotecario().getNome()).append(",")
+                  .append(livro.getBibliotecario().getUsuario()).append(",")
                   .append(livro.getCategoria()).append("\n");
 
             System.out.println("Livro adicionado com sucesso!");

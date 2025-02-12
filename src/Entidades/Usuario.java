@@ -51,4 +51,12 @@ public class Usuario extends Pessoa {
     public void setLivros(Livro[] livrosEmprestados) {
         this.livrosEmprestados = livrosEmprestados;
     }
+<<<<<<< HEAD
 }
+=======
+
+    public boolean isProfessor() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+}
+>>>>>>> b9e430f8b58ee02d8cf518ea0000556c84afc30c
