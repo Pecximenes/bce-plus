@@ -5,6 +5,7 @@ import java.awt.MediaTracker;
 import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 
@@ -38,7 +39,6 @@ public class cadastroLivro extends javax.swing.JFrame {
             caminhoImagem.setText(livro.getCaminhoImagem());
             Categoria.setText(livro.getCategoria());
         }
-        
     }
 
     /**
@@ -302,6 +302,36 @@ public class cadastroLivro extends javax.swing.JFrame {
     }//GEN-LAST:event_pdfSelecActionPerformed
 
     private void botaoSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSalvarActionPerformed
+        
+        if (tituloInserido == null) {
+            JOptionPane.showMessageDialog(null, "Por favor, preencha o título do livro!", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        if (editoraInserida == null) {
+            JOptionPane.showMessageDialog(null, "Por favor, preencha o nome da editora!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        if (autorInserido == null) {
+            JOptionPane.showMessageDialog(null, "Por favor, preencha o nome do autor!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        if (anoInserido == null) {
+            JOptionPane.showMessageDialog(null, "Por favor, insira um ano de publicação válido!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        if (caminhoImagem == null) {
+            JOptionPane.showMessageDialog(null, "Por favor, selecione uma imagem para o livro!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        if (Categoria == null) {
+            JOptionPane.showMessageDialog(null, "Por favor, preencha a categoria do livro!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
         Livro novoLivro = new Livro(tituloInserido.getText(), 
                 autorInserido.getText(),
                 editoraInserida.getText(), 

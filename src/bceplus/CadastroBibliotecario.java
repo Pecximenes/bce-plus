@@ -3,7 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package bceplus;
-
+import Entidades.Bibliotecario;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Davy
@@ -39,13 +40,13 @@ public class CadastroBibliotecario extends javax.swing.JFrame {
         Usuario = new javax.swing.JLabel();
         CampoUsuario = new javax.swing.JTextField();
         Senha = new javax.swing.JLabel();
-        CampoSenha = new javax.swing.JTextField();
+        CampoSenhaTemp = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         Genero.setText("Gênero:");
 
-        CampoGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        CampoGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Masculino", "Feminino", "Outro", "Prefiro não declarar" }));
         CampoGenero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CampoGeneroActionPerformed(evt);
@@ -84,11 +85,11 @@ public class CadastroBibliotecario extends javax.swing.JFrame {
         imagemLocalLayout.setHorizontalGroup(
             imagemLocalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(imagemLocalLayout.createSequentialGroup()
-                .addGap(54, 54, 54)
+                .addContainerGap(85, Short.MAX_VALUE)
                 .addComponent(botaoCalcelar)
                 .addGap(18, 18, 18)
                 .addComponent(botaoSalvar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(23, 23, 23))
         );
         imagemLocalLayout.setVerticalGroup(
             imagemLocalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -110,10 +111,9 @@ public class CadastroBibliotecario extends javax.swing.JFrame {
 
         Senha.setText("Senha:");
 
-        CampoSenha.setText("12345");
-        CampoSenha.addActionListener(new java.awt.event.ActionListener() {
+        CampoSenhaTemp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CampoSenhaActionPerformed(evt);
+                CampoSenhaTempActionPerformed(evt);
             }
         });
 
@@ -125,68 +125,69 @@ public class CadastroBibliotecario extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(CampoNomeCompleto)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(133, 133, 133)
-                                .addComponent(imagemLocal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(Senha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(CampoCPF, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(CampoSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(0, 0, Short.MAX_VALUE)))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(Usuario, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
-                                            .addComponent(CampoUsuario)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(NomeCompleto)
-                                                    .addComponent(CPF))
-                                                .addGap(0, 0, Short.MAX_VALUE)))
-                                        .addGap(47, 47, 47)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(CampoGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Genero))
-                                .addGap(116, 116, 116)))
+                        .addComponent(CampoNomeCompleto)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(CadastroDeUsuario)
-                        .addGap(97, 97, 97))))
+                        .addComponent(Senha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(201, 201, 201))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(CampoCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Usuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(CPF)
+                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(68, 68, 68)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(CampoGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Genero))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(NomeCompleto)
+                            .addComponent(CampoSenhaTemp, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(CampoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(CadastroDeUsuario)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(imagemLocal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(12, Short.MAX_VALUE)
+                .addContainerGap(26, Short.MAX_VALUE)
                 .addComponent(CadastroDeUsuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(NomeCompleto)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(CampoNomeCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(CPF)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(CPF)
+                    .addComponent(Genero, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(CampoCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(CampoCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CampoGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Usuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(CampoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Senha)
-                    .addComponent(Genero))
+                .addComponent(Senha)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(CampoSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(CampoGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
-                .addComponent(imagemLocal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(CampoSenhaTemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(imagemLocal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -204,18 +205,49 @@ public class CadastroBibliotecario extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_CampoUsuarioActionPerformed
 
-    private void CampoSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CampoSenhaActionPerformed
+    private void CampoSenhaTempActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CampoSenhaTempActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_CampoSenhaActionPerformed
+    }//GEN-LAST:event_CampoSenhaTempActionPerformed
 
     private void botaoSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSalvarActionPerformed
         // TODO add your handling code here:
+        String nomeCompleto = CampoNomeCompleto.getText();
+        String cpf = CampoCPF.getText();
+        String genero = (String) CampoGenero.getSelectedItem();
+        String usuario = CampoUsuario.getText();
+        String senha = new String(CampoSenhaTemp.getPassword());
+
+        // Validação básica dos campos
+        if (nomeCompleto.isEmpty() || cpf.isEmpty() || genero.isEmpty() || usuario.isEmpty() || senha.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Todos os campos são obrigatórios!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        // Validação do campo "Gênero"
+        if (genero.equals("Selecione")) {
+            JOptionPane.showMessageDialog(this, "Por favor, selecione um gênero válido!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Criando um novo bibliotecário
+        Bibliotecario novoBibliotecario = new Bibliotecario(0, nomeCompleto, genero, cpf, usuario, senha, true);
+
+        JOptionPane.showMessageDialog(this, "Bibliotecário cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+        // Limpar os campos após o cadastro
+        limparCampos();
     }//GEN-LAST:event_botaoSalvarActionPerformed
 
     private void botaoCalcelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCalcelarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_botaoCalcelarActionPerformed
-
+    private void limparCampos() {
+        CampoNomeCompleto.setText("");
+        CampoCPF.setText("");
+        CampoGenero.setSelectedIndex(0);
+        CampoUsuario.setText("");
+        CampoSenhaTemp.setText("");
+    }
     /**
      * @param args the command line arguments
      */
@@ -260,7 +292,7 @@ public class CadastroBibliotecario extends javax.swing.JFrame {
     private javax.swing.JTextField CampoCPF;
     private javax.swing.JComboBox<String> CampoGenero;
     private javax.swing.JTextField CampoNomeCompleto;
-    private javax.swing.JTextField CampoSenha;
+    private javax.swing.JPasswordField CampoSenhaTemp;
     private javax.swing.JTextField CampoUsuario;
     private javax.swing.JLabel Genero;
     private javax.swing.JLabel NomeCompleto;

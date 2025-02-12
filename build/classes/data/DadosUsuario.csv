@@ -1,0 +1,11 @@
+id,nome,genero,senha,cpf,curso,cadastrado,usuario
+1,Carlos Silva,Masculino,senha123,123.456.789-00,Engenharia,True,carlos.silva
+2,Mariana Souza,Feminino,senha456,987.654.321-00,Medicina,False,mariana.souza
+3,João Pereira,Masculino,senha789,456.789.123-00,Direito,True,joao.pereira
+4,Ana Oliveira,Feminino,senha101,789.123.456-00,Arquitetura,False,ana.oliveira
+5,Pedro Santos,Masculino,senha202,321.654.987-00,Administração,True,pedro.santos
+6,Juliana Costa,Feminino,senha303,654.321.789-00,Psicologia,False,juliana.costa
+7,Fernando Almeida,Masculino,senha404,111.222.333-44,Economia,True,fernando.almeida
+8,Beatriz Lima,Feminino,senha505,555.666.777-88,Enfermagem,False,beatriz.lima
+9,Gustavo Rocha,Masculino,senha606,999.888.777-66,Computação,True,gustavo.rocha
+10,Camila Mendes,Feminino,senha707,333.444.555-22,Design,False,camila.mendes

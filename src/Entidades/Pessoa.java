@@ -6,20 +6,20 @@ package Entidades;
  * @author Davy
  */
 public class Pessoa {
-    private int id;
-    private String nome;
-    private String genero;
-    private String senha;
-    public String cpf;
+    protected int id;
+    protected String nome;
+    protected String genero;
+    protected String senha;
+    protected String cpf;
     
 
     // Construtor
-    public Pessoa(int id, String nome, String genero, String cpf, String senha) {
+    public Pessoa(int id, String nome, String genero, String senha, String cpf) {
         this.id = id;
         this.nome = nome;
         this.genero = genero;
-        this.cpf = cpf;
         this.senha = senha;
+        this.cpf = cpf;
     }
 
     // Métodos Getters e Setters

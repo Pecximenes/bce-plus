@@ -5,16 +5,15 @@ package Entidades;
  */
 public class Usuario extends Pessoa {
     private String curso;
-    private boolean cadastrado;
+    private boolean professor;
     private String usuario;
-    private String senha;
     private Livro[] livrosEmprestados;
 
     // Construtor
-    public Usuario(int id, String nome, String genero, String senha, String cpf, String curso, boolean cadastrado, String usuario, Livro[] livrosEmprestados) {
+    public Usuario(int id, String nome, String genero, String senha, String cpf, String curso, boolean professor, String usuario, Livro[] livrosEmprestados) {
         super(id, nome, genero, senha, cpf);
         this.curso = curso;
-        this.cadastrado = cadastrado;
+        this.professor = professor;
         this.usuario = usuario;
         this.livrosEmprestados = livrosEmprestados;
     }
@@ -28,12 +27,12 @@ public class Usuario extends Pessoa {
         this.curso = curso;
     }
 
-    public boolean isCadastrado() {
-        return cadastrado;
+    public boolean isProfessor() {
+        return professor;
     }
 
-    public void setCadastrado(boolean cadastrado) {
-        this.cadastrado = cadastrado;
+    public void setProfessor(boolean professor) {
+        this.professor = professor;
     }
 
     public String getUsuario() {

@@ -1,5 +1,10 @@
 package bceplus;
 
+import Entidades.Bibliotecario;
+import Entidades.Usuario;
+import Entidades.Livro;
+import java.awt.GridLayout;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -10,12 +15,30 @@ package bceplus;
  * @author samuelcds
  */
 public class listaLivros extends javax.swing.JFrame {
-
+    Usuario user;
+    Bibliotecario bibliotecario;
     /**
      * Creates new form listaLivros
      */
     public listaLivros() {
         initComponents();
+        
+        livrosPainel.setLayout(new GridLayout(0 ,4 ,10, 10));
+        
+    }
+    
+    public listaLivros(Usuario user) {
+        initComponents();
+        
+        livrosPainel.setLayout(new GridLayout(0 ,4 ,10, 10));
+        
+    }
+    
+    public listaLivros(Usuario user, Bibliotecario bibliotecario) {
+        initComponents();
+        
+        livrosPainel.setLayout(new GridLayout(0 ,4 ,10, 10));
+        
     }
 
     /**
@@ -29,9 +52,9 @@ public class listaLivros extends javax.swing.JFrame {
 
         tituloLivros = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
         botaoSelecionarLivro = new javax.swing.JButton();
         botaoEditarLivro = new javax.swing.JButton();
+        livrosPainel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,6 +72,17 @@ public class listaLivros extends javax.swing.JFrame {
         });
 
         botaoEditarLivro.setText("Editar Livro");
+
+        javax.swing.GroupLayout livrosPainelLayout = new javax.swing.GroupLayout(livrosPainel);
+        livrosPainel.setLayout(livrosPainelLayout);
+        livrosPainelLayout.setHorizontalGroup(
+            livrosPainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        livrosPainelLayout.setVerticalGroup(
+            livrosPainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 416, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -72,7 +106,7 @@ public class listaLivros extends javax.swing.JFrame {
                         .addComponent(botaoSelecionarLivro))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1)))
+                        .addComponent(livrosPainel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -83,8 +117,8 @@ public class listaLivros extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(livrosPainel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoSelecionarLivro)
                     .addComponent(botaoEditarLivro))
@@ -137,7 +171,7 @@ public class listaLivros extends javax.swing.JFrame {
     private javax.swing.JButton botaoEditarLivro;
     private javax.swing.JButton botaoSelecionarLivro;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel livrosPainel;
     private javax.swing.JLabel tituloLivros;
     // End of variables declaration//GEN-END:variables
 }

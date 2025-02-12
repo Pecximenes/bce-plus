@@ -1,0 +1,11 @@
+titulo,autor,editora,anoPublicacao,disponivelFisico,livroRaro,disponivelDigital,caminhoImagem,bibliotecario,categoria
+O Senhor dos Anéis,J.R.R. Tolkien,HarperCollins,1954,True,True,False,imagens/lotr.jpg,Carlos Silva,Fantasia
+1984,George Orwell,Companhia das Letras,1949,True,False,True,imagens/1984.jpg,Ana Souza,Distopia
+O Pequeno Príncipe,Antoine de Saint-Exupéry,Agir,1943,True,True,True,imagens/pequeno_principe.jpg,Pedro Santos,Infantil
+Dom Casmurro,Machado de Assis,Editora Garnier,1899,True,True,False,imagens/dom_casmurro.jpg,Juliana Costa,Romance
+A Revolução dos Bichos,George Orwell,Companhia das Letras,1945,True,False,True,imagens/revolucao_bichos.jpg,Fernando Almeida,Sátira
+O Código Da Vinci,Dan Brown,Arqueiro,2003,True,False,True,imagens/codigo_vinci.jpg,Mariana Souza,Mistério
+Harry Potter e a Pedra Filosofal,J.K. Rowling,Rocco,1997,True,False,True,imagens/hp1.jpg,Beatriz Lima,Fantasia
+A Arte da Guerra,Sun Tzu,Record,500,False,True,True,imagens/arte_guerra.jpg,Gustavo Rocha,Estratégia
+Orgulho e Preconceito,Jane Austen,Penguin,1813,True,True,False,imagens/orgulho_preconceito.jpg,Camila Mendes,Romance
+O Alquimista,Paulo Coelho,HarperOne,1988,True,False,True,imagens/alquimista.jpg,João Pereira,Filosofia
