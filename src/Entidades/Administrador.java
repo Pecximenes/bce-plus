@@ -8,16 +8,16 @@ package Entidades;
  *
  * @author pecximenes
  */
-public class Bibliotecario extends Pessoa {
+public class Administrador extends Pessoa {
     private String usuario;
     private String senha;
-    private boolean primeiroLogin;
+    private Bibliotecario[] bibliotecario;
     
     // Construtor
-    public Bibliotecario(int id, String nome, String genero, String cpf, String usuario, String senha, boolean primeiroLogin) {
+    public Administrador(int id, String nome, String genero, String cpf, String usuario, String senha, Bibliotecario[] bibliotecario) {
         super(id, nome, genero, senha, cpf);
         this.usuario = usuario;
-        this.primeiroLogin = primeiroLogin;
+        this.bibliotecario = bibliotecario;
     }
     
     // Métodos Getters e Setters
@@ -29,11 +29,11 @@ public class Bibliotecario extends Pessoa {
         this.usuario = usuario;
     }
 
-    public boolean getPrimeiroLogin() {
-        return primeiroLogin;
+    public Bibliotecario[] getBibliotecario() {
+        return bibliotecario;
     }
 
-    public void setPrimeiroLogin(boolean primeiroLogin) {
-        this.primeiroLogin = primeiroLogin;
+    public void setBibliotecarios(Bibliotecario[] bibliotecario) {
+        this.bibliotecario = bibliotecario;
     }   
 }

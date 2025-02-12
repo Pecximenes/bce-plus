@@ -1,0 +1,5 @@
+id,nome,genero,cpf,usuario,senha,primeiroLogin
+1,João Silva,M,123.456.789-00,joaosilva,senha123,True
+2,Maria Oliveira,F,987.654.321-00,mariaoliveira,senha456,False
+3,Carlos Souza,M,111.222.333-44,carlossouza,senha789,True
+4,Ana Lima,F,555.666.777-88,analima,senha321,False
