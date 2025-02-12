@@ -158,7 +158,7 @@ public class CSV {
                         bibliotecario,             // Bibliotecario
                         livrosEmprestados,         // Lista de livros emprestados
                         data,                      // Data
-                        Double.parseDouble(dados[1]) // Multa
+                        Double.valueOf(dados[1]) // Multa
                 );
                 emprestimos.add(emprestimo);
             }

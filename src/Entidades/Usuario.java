@@ -5,18 +5,32 @@ package Entidades;
  */
 public class Usuario extends Pessoa {
     private String curso;
-    private boolean professor;
+    private boolean cadastrado;
     private String usuario;
+    private String senha;
     private Livro[] livrosEmprestados;
+    private boolean ehProfessor;
 
     // Construtor
-    public Usuario(int id, String nome, String genero, String senha, String cpf, String curso, boolean professor, String usuario, Livro[] livrosEmprestados) {
+    public Usuario(int id, String nome, String genero, String senha, String cpf, String curso, boolean cadastrado, String usuario, Livro[] livrosEmprestados) {
         super(id, nome, genero, senha, cpf);
         this.curso = curso;
-        this.professor = professor;
+        this.cadastrado = cadastrado;
         this.usuario = usuario;
         this.livrosEmprestados = livrosEmprestados;
     }
+
+    public Usuario(int id, String nome, String genero, String senha, String cpf, String curso, boolean cadastrado, String usuario, Livro[] livrosEmprestados, boolean ehProfessor) {
+        super(id, nome, genero, senha, cpf);
+        this.curso = curso;
+        this.cadastrado = cadastrado;
+        this.usuario = usuario;
+        this.senha = senha;
+        this.livrosEmprestados = livrosEmprestados;
+        this.ehProfessor = ehProfessor;
+    }
+    
+    
 
     // Métodos Getters e Setters
     public String getCurso() {
@@ -27,12 +41,12 @@ public class Usuario extends Pessoa {
         this.curso = curso;
     }
 
-    public boolean isProfessor() {
-        return professor;
+    public boolean isCadastrado() {
+        return cadastrado;
     }
 
-    public void setProfessor(boolean professor) {
-        this.professor = professor;
+    public void setCadastrado(boolean cadastrado) {
+        this.cadastrado = cadastrado;
     }
 
     public String getUsuario() {
@@ -51,12 +65,8 @@ public class Usuario extends Pessoa {
     public void setLivros(Livro[] livrosEmprestados) {
         this.livrosEmprestados = livrosEmprestados;
     }
-<<<<<<< HEAD
-}
-=======
 
     public boolean isProfessor() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return ehProfessor;
     }
 }
->>>>>>> b9e430f8b58ee02d8cf518ea0000556c84afc30c

@@ -1,8 +1,10 @@
 import Entidades.Livro;
 import Entidades.Bibliotecario;
+import Entidades.CSV;
 import java.awt.Image;
 import java.awt.MediaTracker;
 import java.io.File;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -343,7 +345,11 @@ public class cadastroLivro extends javax.swing.JFrame {
                 bibliotecario, 
                 Categoria.getText());
         
-        ArquivosAdicionar.adicionar(novoLivro);
+        String caminhoLivro          = "src/data/DadosLivro.csv";
+        String caminhoBibliiotecario = "src/data/DadosBibliotecario.csv";
+        List<Bibliotecario> listaBibliotecarios  = CSV.CSVToListaBibliotecario(caminhoBibliiotecario);
+        List<Livro>         listaLivro           = CSV.CSVToListaLivro(caminhoLivro, listaBibliotecarios);
+        
         this.dispose();
     }//GEN-LAST:event_botaoSalvarActionPerformed
 

@@ -14,9 +14,6 @@ public class Pessoa {
     
 
     // Construtor
-<<<<<<< HEAD
-    public Pessoa(int id, String nome, String genero, String senha, String cpf) {
-=======
 
     public Pessoa(int id, String nome, String genero, String cpf, String senha) {
         this.id = id;
@@ -27,7 +24,7 @@ public class Pessoa {
     }
 
     public Pessoa(int id, String nome, String genero, String cpf) {
->>>>>>> b9e430f8b58ee02d8cf518ea0000556c84afc30c
+
         this.id = id;
         this.nome = nome;
         this.genero = genero;
@@ -74,8 +71,8 @@ public class Pessoa {
     public void setSenha(String senha) {
         this.senha = senha;
     }
-<<<<<<< HEAD
+
 }
-=======
-};
->>>>>>> b9e430f8b58ee02d8cf518ea0000556c84afc30c
+
+
+

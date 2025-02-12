@@ -1,7 +1,6 @@
 package Entidades;
-import java.time.LocalDate;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Emprestimo {
     private Usuario usuario;
@@ -64,6 +63,4 @@ public class Emprestimo {
     public void setMulta(Double multa) {
         this.multa = multa;
     }
-    
-    
 }
