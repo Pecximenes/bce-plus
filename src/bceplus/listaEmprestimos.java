@@ -1,3 +1,11 @@
+
+import Entidades.Bibliotecario;
+import Entidades.CSV;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import Entidades.Emprestimo;
+import Entidades.Livro;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -9,11 +17,26 @@
  */
 public class listaEmprestimos extends javax.swing.JFrame {
 
-    /**
-     * Creates new form listaEmprestimos
-     */
+    private void initializetabelaEmprestimos() {
+        DefaultTableModel modelEmprestimos = (DefaultTableModel) tabelaEmprestimos.getModel();
+        
+        String caminhoLivro          = "src/data/DadosLivro.csv";
+        String caminhoBibliiotecario = "src/data/DadosBibliotecario.csv";
+        List<Bibliotecario> listaBibliotecarios  = CSV.CSVToListaBibliotecario(caminhoBibliiotecario);
+        List<Livro>         listaLivro           = CSV.CSVToListaLivro(caminhoLivro, listaBibliotecarios);
+
+
+        for (Livro livro : listaLivro) {
+            modelEmprestimos.addRow(new Object[] {
+                livro.getTitulo(),
+                sessao.getSala(), 
+                sessao.getDataInicio(),
+                sessao.isEh3d()
+            });
+        }
     public listaEmprestimos() {
         initComponents();
+        initializetabelaEmprestimos();
     }
 
     /**

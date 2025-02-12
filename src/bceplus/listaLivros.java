@@ -1,15 +1,19 @@
 package bceplus;
 
 import Entidades.Bibliotecario;
+import Entidades.CSV;
 import Entidades.Usuario;
 import Entidades.Livro;
-import java.awt.Color;
-import java.awt.Dimension;
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.BorderFactory;
+import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
 /**
@@ -19,9 +23,11 @@ import javax.swing.SwingConstants;
 public class listaLivros extends javax.swing.JFrame {
     Usuario user;
     Bibliotecario bibliotecario;
-    /**
-     * Creates new form listaLivros
-     */
+    String caminhoLivro          = "src/data/DadosLivro.csv";
+    String caminhoBibliiotecario = "src/data/DadosBibliotecario.csv";
+    List<Bibliotecario> listaBibliotecarios  = CSV.CSVToListaBibliotecario(caminhoBibliiotecario);
+    List<Livro>         listaLivro           = CSV.CSVToListaLivro(caminhoLivro, listaBibliotecarios);
+
     public listaLivros() {
         initComponents();
         
@@ -34,6 +40,27 @@ public class listaLivros extends javax.swing.JFrame {
         
         livrosPainel.setLayout(new GridLayout(0 ,4 ,10, 10));
         
+        for (Livro livro : listaLivro) {
+            ImageIcon imagemOriginal = new ImageIcon(livro.getCaminhoImagem());
+            Image imgRedimensionada = imagemOriginal.getImage().getScaledInstance(20, 32, Image.SCALE_SMOOTH);
+            ImageIcon imagemLivro = new ImageIcon(imgRedimensionada);
+
+            JLabel labelLivro = new JLabel(imagemLivro);
+            labelLivro.setToolTipText(livro.getTitulo()); // Mostra o título ao passar o mouse
+            labelLivro.setHorizontalAlignment(SwingConstants.CENTER);
+
+            // Adiciona um evento de clique
+            labelLivro.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    JOptionPane.showMessageDialog(null, "Livro selecionado: " + livro.getTitulo());
+                }
+            });
+            livrosPainel.add(labelLivro);
+        }
+        // Adiciona o painel em um JScrollPane para permitir rolagem
+        JScrollPane scrollPane = new JScrollPane(livrosPainel);
+        add(scrollPane, BorderLayout.CENTER);
     }
     
     public listaLivros(Usuario user, Bibliotecario bibliotecario) {
@@ -133,7 +160,7 @@ public class listaLivros extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoSelecionarLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSelecionarLivroActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_botaoSelecionarLivroActionPerformed
 
     /**
