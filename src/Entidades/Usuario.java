@@ -9,6 +9,7 @@ public class Usuario extends Pessoa {
     private String usuario;
     private String senha;
     private Livro[] livrosEmprestados;
+    private boolean ehProfessor;
 
     // Construtor
     public Usuario(int id, String nome, String genero, String senha, String cpf, String curso, boolean cadastrado, String usuario, Livro[] livrosEmprestados) {
@@ -18,6 +19,18 @@ public class Usuario extends Pessoa {
         this.usuario = usuario;
         this.livrosEmprestados = livrosEmprestados;
     }
+
+    public Usuario(int id, String nome, String genero, String senha, String cpf, String curso, boolean cadastrado, String usuario, Livro[] livrosEmprestados, boolean ehProfessor) {
+        super(id, nome, genero, senha, cpf);
+        this.curso = curso;
+        this.cadastrado = cadastrado;
+        this.usuario = usuario;
+        this.senha = senha;
+        this.livrosEmprestados = livrosEmprestados;
+        this.ehProfessor = ehProfessor;
+    }
+    
+    
 
     // Métodos Getters e Setters
     public String getCurso() {
@@ -54,6 +67,6 @@ public class Usuario extends Pessoa {
     }
 
     public boolean isProfessor() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return ehProfessor;
     }
 }

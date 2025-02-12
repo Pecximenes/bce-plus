@@ -5,6 +5,7 @@
         <group>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             <file>file:/home/samuelcds/Documentos/TP1/trabalhoInfernoo/bce-plus/src/bceplus/CadastroUsuario.java</file>
             <file>file:/home/samuelcds/Documentos/TP1/trabalhoInfernoo/bce-plus/src/Entidades/Livro.java</file>
             <file>file:/home/samuelcds/Documentos/TP1/trabalhoInfernoo/bce-plus/src/Entidades/Usuario.java</file>
@@ -25,6 +26,14 @@
             <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/data/DadosUsuario.csv</file>
             <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/Entidades/Usuario.java</file>
 >>>>>>> 1e66e218488fd4f387aca7f7f88d2fecbb7b5b70
+=======
+            <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/Entidades/Pessoa.java</file>
+            <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/data/DadosUsuario.csv</file>
+            <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/Entidades/Usuario.java</file>
+            <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/bceplus/Login.java</file>
+            <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/Entidades/CSV.java</file>
+            <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/bceplus/BcePlus.java</file>
+>>>>>>> e7d25a5266311af87dbdbc116447ccc5fe392b31
         </group>
     </open-files>
 </project-private>

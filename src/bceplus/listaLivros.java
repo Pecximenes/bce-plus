@@ -3,12 +3,14 @@ package bceplus;
 import Entidades.Bibliotecario;
 import Entidades.Usuario;
 import Entidades.Livro;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
-
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 /**
  *
@@ -38,6 +40,8 @@ public class listaLivros extends javax.swing.JFrame {
         initComponents();
         
         livrosPainel.setLayout(new GridLayout(0 ,4 ,10, 10));
+        
+
         
     }
 
