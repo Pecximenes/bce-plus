@@ -4,6 +4,11 @@
  */
 package bceplus;
 
+import java.util.List;
+import Entidades.CSV;
+import Entidades.Usuario;
+import javax.swing.*;
+
 /**
  *
  * @author pedro
@@ -35,11 +40,11 @@ public class Login extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         User = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
+        usernameInput = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         Password = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        passwordInput = new javax.swing.JPasswordField();
         jPanel6 = new javax.swing.JPanel();
         jCheckBox1 = new javax.swing.JCheckBox();
         jLabel4 = new javax.swing.JLabel();
@@ -47,7 +52,6 @@ public class Login extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1920, 1080));
 
         RightComponent.setBackground(new java.awt.Color(255, 255, 255));
         RightComponent.setMaximumSize(new java.awt.Dimension(1920, 1080));
@@ -114,12 +118,13 @@ public class Login extends javax.swing.JFrame {
         User.setPreferredSize(new java.awt.Dimension(300, 40));
         User.setLayout(new java.awt.BorderLayout());
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        usernameInput.setName(""); // NOI18N
+        usernameInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                usernameInputActionPerformed(evt);
             }
         });
-        User.add(jTextField1, java.awt.BorderLayout.CENTER);
+        User.add(usernameInput, java.awt.BorderLayout.CENTER);
 
         jLabel2.setText("Usuário:");
         User.add(jLabel2, java.awt.BorderLayout.PAGE_START);
@@ -131,7 +136,7 @@ public class Login extends javax.swing.JFrame {
 
         jLabel3.setText("Senha:");
         Password.add(jLabel3, java.awt.BorderLayout.PAGE_START);
-        Password.add(jPasswordField1, java.awt.BorderLayout.PAGE_END);
+        Password.add(passwordInput, java.awt.BorderLayout.PAGE_END);
 
         jPanel5.add(Password);
 
@@ -173,6 +178,11 @@ public class Login extends javax.swing.JFrame {
         jPanel7.setPreferredSize(new java.awt.Dimension(400, 100));
 
         jButton2.setText("Login");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -198,13 +208,40 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void usernameInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameInputActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_usernameInputActionPerformed
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        String username = usernameInput.getText();
+        String password = passwordInput.getText();
+        
+        if (username.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Preencha o campo de usuário e senha!", "Erro", JOptionPane.ERROR_MESSAGE);
+        } else {
+            String caminhoUsuario = "src/data/DadosUsuario.csv";
+            CSV csv = new CSV();
+
+            List<Usuario> listaUsuarios = csv.CSVToListaUsuario(caminhoUsuario);
+
+            for (Usuario usuario : listaUsuarios) {
+                System.out.println(usuario.getSenha());
+                if (username.equals(usuario.getUsuario())) {
+                    if (password.equals(usuario.getSenha())) {
+                        JOptionPane.showMessageDialog(null, "Acesso liberado!", "Sucesso", JOptionPane.PLAIN_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Senha Incorreta!", "Erro", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            } 
+            JOptionPane.showMessageDialog(null, "Usuário não encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -225,7 +262,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPasswordField passwordInput;
+    private javax.swing.JTextField usernameInput;
     // End of variables declaration//GEN-END:variables
 }

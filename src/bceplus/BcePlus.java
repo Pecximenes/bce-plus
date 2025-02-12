@@ -4,6 +4,11 @@
  */
 package bceplus;
 
+import java.util.List;
+import Entidades.CSV;
+import Entidades.Usuario;
+import Entidades.Livro;
+
 /**
  *
  * @author pedro
@@ -20,6 +25,24 @@ public class BcePlus {
                 new Login().setVisible(true);
             }
         });
+
+//        String caminhoUsuario = "src/data/DadosUsuario.csv";
+//        String caminhoLivro = "src/data/DadosLivro.csv";
+//        CSV csv = new CSV();
+//        
+//        List<Usuario> listaUsuarios = csv.CSVToListaUsuario(caminhoUsuario);
+//        
+//        for (Usuario usuario : listaUsuarios) {
+//            System.out.println(usuario.getNome());
+//        }
+//        
+//        System.out.println("");
+//        
+//        List<Livro> listaLivros = csv.CSVToListaLivro(caminhoLivro);
+//        
+//        for (Livro livro : listaLivros) {
+//            System.out.println(livro.getTitulo());
+//        }
     }
     
 }

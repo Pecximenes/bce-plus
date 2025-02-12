@@ -14,12 +14,21 @@ public class Pessoa {
     
 
     // Construtor
+<<<<<<< HEAD
     public Pessoa(int id, String nome, String genero, String cpf, String senha) {
         this.id = id;
         this.nome = nome;
         this.genero = genero;
         this.cpf = cpf;
         this.senha = senha;
+=======
+    public Pessoa(int id, String nome, String genero, String senha, String cpf) {
+        this.id = id;
+        this.nome = nome;
+        this.genero = genero;
+        this.senha = senha;
+        this.cpf = cpf;
+>>>>>>> 1e66e218488fd4f387aca7f7f88d2fecbb7b5b70
     }
 
     // Métodos Getters e Setters
@@ -62,4 +71,8 @@ public class Pessoa {
     public void setSenha(String senha) {
         this.senha = senha;
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 1e66e218488fd4f387aca7f7f88d2fecbb7b5b70
