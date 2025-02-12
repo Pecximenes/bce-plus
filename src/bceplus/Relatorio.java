@@ -64,6 +64,10 @@ public class Relatorio extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+<<<<<<< HEAD
+=======
+        setPreferredSize(new java.awt.Dimension(600, 524));
+>>>>>>> origin/pedro
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.X_AXIS));
 
         ladoEsquerdo.setBackground(new java.awt.Color(255, 255, 255));
@@ -423,6 +427,7 @@ public class Relatorio extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+<<<<<<< HEAD
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -455,6 +460,8 @@ public class Relatorio extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+=======
+>>>>>>> origin/pedro
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

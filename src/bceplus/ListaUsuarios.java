@@ -46,6 +46,10 @@ public class ListaUsuarios extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+<<<<<<< HEAD
+=======
+        setPreferredSize(new java.awt.Dimension(822, 600));
+>>>>>>> origin/pedro
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.X_AXIS));
 
         ladoEsquerdo.setBackground(new java.awt.Color(255, 255, 255));
@@ -247,10 +251,13 @@ public class ListaUsuarios extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+<<<<<<< HEAD
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+=======
+>>>>>>> origin/pedro
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

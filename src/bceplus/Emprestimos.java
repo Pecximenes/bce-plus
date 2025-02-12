@@ -30,6 +30,8 @@ public class Emprestimos extends javax.swing.JFrame {
     }
     
     public Emprestimos(Usuario user, Livro[] livro) {
+        initComponents();
+        
         this.user = user;
         this.livro = livro;
         
@@ -63,11 +65,11 @@ public class Emprestimos extends javax.swing.JFrame {
             multa = 0.50;
             valorMulta.setText("Valor da multa pelo atraso: 0,50/dia");
         }
-    
-        initComponents();
     }
     
     public Emprestimos(Bibliotecario bibliotecario, Usuario user, Livro[] livro) {
+        initComponents();
+        
         this.bibliotecario = bibliotecario;
         this.user = user;
         this.livro = livro;
@@ -101,8 +103,6 @@ public class Emprestimos extends javax.swing.JFrame {
             multa = 1.50;
             valorMulta.setText("Valor da multa pelo atraso: 1,50/dia");
         }
-    
-        initComponents();
     }
 
     /**
@@ -136,6 +136,7 @@ public class Emprestimos extends javax.swing.JFrame {
 
         jLabel2.setText("Usuario:");
 
+        textoUsuario.setEditable(false);
         textoUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textoUsuarioActionPerformed(evt);

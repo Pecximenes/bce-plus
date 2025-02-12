@@ -3,11 +3,20 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/home/samuelcds/Documentos/TP1/trabalhoInfernoo/bce-plus/src/bceplus/CadastroUsuario.java</file>
             <file>file:/home/samuelcds/Documentos/TP1/trabalhoInfernoo/bce-plus/src/Entidades/Livro.java</file>
             <file>file:/home/samuelcds/Documentos/TP1/trabalhoInfernoo/bce-plus/src/Entidades/Usuario.java</file>
             <file>file:/home/samuelcds/Documentos/TP1/trabalhoInfernoo/bce-plus/src/bceplus/Emprestimos.java</file>
             <file>file:/home/samuelcds/Documentos/TP1/trabalhoInfernoo/bce-plus/src/bceplus/cadastroLivro.java</file>
+=======
+            <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/bceplus/listaLivros.java</file>
+            <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/bceplus/ListaUsuarios.java</file>
+            <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/bceplus/Login.java</file>
+            <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/bceplus/cadastroLivro.java</file>
+            <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/bceplus/listaEmprestimos.java</file>
+            <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/bceplus/Relatorio.java</file>
+>>>>>>> origin/pedro
         </group>
     </open-files>
 </project-private>
