@@ -1,8 +1,13 @@
+package bceplus;
+
+
+
+
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * ClioDeDados;
+import Entidades.Empreck nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package bceplus;
 /**
  *
  * @author samuelcds
@@ -17,9 +22,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class listaEmprestimos extends javax.swing.JFrame {
 
-    /**
-     * Creates new form listaEmprestimos
-     */
+
     public listaEmprestimos() {
         initComponents();
         

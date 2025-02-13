@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package bceplus;
 
 import java.util.List;
@@ -23,22 +19,23 @@ public class BcePlus {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        BancoDeDados bancoDeDados = BancoDeDados.getInstance();
-        
-        List<Administrador> listaAdmin = bancoDeDados.getAdmin();
-        
-        System.out.println(listaAdmin.get(listaAdmin.size() - 1).getNome());
-        System.out.println("");
-        Bibliotecario[] bibli = new Bibliotecario[0];
-        
-        Administrador admin = new Administrador(1, "Pedro Ximenes", "M", "000.000.000-00", "pecx", "teste", bibli);
-        
-        bancoDeDados.addAdmin(admin);
+        System.out.println("TEset");
+//        BancoDeDados bancoDeDados = BancoDeDados.getInstance();
+//        
+//        List<Administrador> listaAdmin = bancoDeDados.getAdmin();
+//        
+//        System.out.println(listaAdmin.get(listaAdmin.size() - 1).getNome());
+//        System.out.println("");
+//        Bibliotecario[] bibli = new Bibliotecario[0];
+//        
+//        Administrador admin = new Administrador(1, "Pedro Ximenes", "M", "000.000.000-00", "pecx", "teste", bibli);
+//        
+//        bancoDeDados.addAdmin(admin);
     
    /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new listaEmprestimos().setVisible(true);
+            new Login().setVisible(true);
         });
     
     }
-}
+};

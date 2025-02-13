@@ -10,6 +10,8 @@ import java.util.List;
 import Entidades.CSV;
 import Entidades.Usuario;
 import javax.swing.*;
+import Entidades.Administrador; // Importação da classe Administrador
+import Entidades.Bibliotecario; // Importação da classe Bibliotecario
 
 /**
  *
@@ -224,30 +226,73 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        String username = usernameInput.getText();
+            String username = usernameInput.getText();
         String password = passwordInput.getText();
-        
+
         if (username.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Preencha o campo de usuário e senha!", "Erro", JOptionPane.ERROR_MESSAGE);
         } else {
             String caminhoUsuario = "src/data/DadosUsuario.csv";
+            String caminhoAdmin = "src/data/DadosAdmin.csv";
+            String caminhoBibliotecario = "src/data/DadosBibliotecario.csv";
             CSV csv = new CSV();
 
             List<Usuario> listaUsuarios = csv.CSVToListaUsuario(caminhoUsuario);
+            List<Administrador> listaAdmins = csv.CSVToListaAdministrador(caminhoAdmin);
+            List<Bibliotecario> listaBibliotecarios = csv.CSVToListaBibliotecario(caminhoBibliotecario);
 
-            for (Usuario usuario : listaUsuarios) {
-                System.out.println(usuario.getSenha());
-                if (username.equals(usuario.getUsuario())) {
-                    if (password.equals(usuario.getSenha())) {
-                        JOptionPane.showMessageDialog(null, "Acesso liberado!", "Sucesso", JOptionPane.PLAIN_MESSAGE);
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Senha Incorreta!", "Erro", JOptionPane.ERROR_MESSAGE);
+            boolean loginSucesso = false;
+            String tipoUsuario = "";
+
+            // Verifica se é um administrador
+            for (Administrador admin : listaAdmins) {
+                if (username.equals(admin.getUsuario()) && password.equals(admin.getSenha())) {
+                    loginSucesso = true;
+                    tipoUsuario = "admin";
+                    break;
+                }
+            }
+
+            // Verifica se é um bibliotecário
+            if (!loginSucesso) {
+                for (Bibliotecario bibliotecario : listaBibliotecarios) {
+                    if (username.equals(bibliotecario.getUsuario()) && password.equals(bibliotecario.getSenha())) {
+                        loginSucesso = true;
+                        tipoUsuario = "bibliotecario";
+                        break;
                     }
                 }
-            } 
-            JOptionPane.showMessageDialog(null, "Usuário não encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+
+            // Verifica se é um usuário comum (aluno/professor)
+            if (!loginSucesso) {
+                for (Usuario usuario : listaUsuarios) {
+                    if (username.equals(usuario.getUsuario()) && password.equals(usuario.getSenha())) {
+                        loginSucesso = true;
+                        tipoUsuario = usuario.isCadastrado() ? "professor" : "comum";
+                        break;
+                    }
+                }
+            }
+
+            if (loginSucesso) {
+                JOptionPane.showMessageDialog(null, "Acesso liberado!", "Sucesso", JOptionPane.PLAIN_MESSAGE);
+
+                // Abre a tela de menu com o tipo de usuário
+                final String tipoUsuarioFinal = tipoUsuario;
+
+                // Abre a tela de menu com o tipo de usuário
+                java.awt.EventQueue.invokeLater(() -> {
+                    new TelaMenu(tipoUsuarioFinal).setVisible(true);
+                });
+
+                // Fecha a tela de login
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuário ou senha incorretos!", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
         }
-        
+    
     }//GEN-LAST:event_jButton2ActionPerformed
 
 
