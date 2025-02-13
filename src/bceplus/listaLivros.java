@@ -1,15 +1,15 @@
 package bceplus;
 
+import Entidades.BancoDeDados;
 import Entidades.Bibliotecario;
-import Entidades.CSV;
 import Entidades.Usuario;
 import Entidades.Livro;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -23,52 +23,106 @@ import javax.swing.SwingConstants;
 public class listaLivros extends javax.swing.JFrame {
     Usuario user;
     Bibliotecario bibliotecario;
-    String caminhoLivro          = "src/data/DadosLivro.csv";
-    String caminhoBibliiotecario = "src/data/DadosBibliotecario.csv";
-    List<Bibliotecario> listaBibliotecarios  = CSV.CSVToListaBibliotecario(caminhoBibliiotecario);
-    List<Livro>         listaLivro           = CSV.CSVToListaLivro(caminhoLivro, listaBibliotecarios);
+    BancoDeDados banco = BancoDeDados.getInstance();
+    
 
     public listaLivros() {
         initComponents();
         
         livrosPainel.setLayout(new GridLayout(0 ,4 ,10, 10));
         
+        for (Livro livro : banco.getLivro()) {
+            try {
+                // Verifica se o caminho da imagem não é nulo ou vazio
+                String caminhoImagem = livro.getCaminhoImagem();
+                ImageIcon imagemLivro;
+
+                if (caminhoImagem != null && !caminhoImagem.isEmpty()) {
+                    ImageIcon imagemOriginal = new ImageIcon(caminhoImagem);
+                    Image imgRedimensionada = imagemOriginal.getImage().getScaledInstance(100, 150, Image.SCALE_SMOOTH);
+                    imagemLivro = new ImageIcon(imgRedimensionada);
+                } else {
+                    // Imagem padrão caso não tenha uma imagem válida
+                    imagemLivro = new ImageIcon("/home/samuelcds/Imagens/juri.jpeg");
+                }
+
+                JLabel labelLivro = new JLabel(imagemLivro);
+                labelLivro.setToolTipText(livro.getTitulo()); // Mostra título ao passar o mouse
+                labelLivro.setHorizontalAlignment(SwingConstants.CENTER);
+
+                // Adiciona evento de clique para selecionar livro
+                labelLivro.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        JOptionPane.showMessageDialog(null, "Livro selecionado: " + livro.getTitulo());
+                    }
+                });
+
+                livrosPainel.add(labelLivro);
+            } catch (Exception e) {
+                System.out.println("Erro ao carregar imagem: " + e.getMessage());
+            }
+        }
+
+        // Ajusta o tamanho do painel para evitar problemas de exibição
+        livrosPainel.setPreferredSize(new Dimension(450, 300)); 
+
+        // Adiciona painel com rolagem
+        JScrollPane scrollPane = new JScrollPane(livrosPainel);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        add(scrollPane, BorderLayout.CENTER);
+        
     }
     
     public listaLivros(Usuario user) {
         initComponents();
-        
-        livrosPainel.setLayout(new GridLayout(0 ,4 ,10, 10));
-        
-        for (Livro livro : listaLivro) {
-            ImageIcon imagemOriginal = new ImageIcon(livro.getCaminhoImagem());
-            Image imgRedimensionada = imagemOriginal.getImage().getScaledInstance(20, 32, Image.SCALE_SMOOTH);
-            ImageIcon imagemLivro = new ImageIcon(imgRedimensionada);
 
-            JLabel labelLivro = new JLabel(imagemLivro);
-            labelLivro.setToolTipText(livro.getTitulo()); // Mostra o título ao passar o mouse
-            labelLivro.setHorizontalAlignment(SwingConstants.CENTER);
+        livrosPainel.setLayout(new GridLayout(0, 4, 10, 10)); // Grade flexível
 
-            // Adiciona um evento de clique
-            labelLivro.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    JOptionPane.showMessageDialog(null, "Livro selecionado: " + livro.getTitulo());
+        for (Livro livro : banco.getLivro()) {
+            try {
+                // Verifica se o caminho da imagem não é nulo ou vazio
+                String caminhoImagem = livro.getCaminhoImagem();
+                ImageIcon imagemLivro;
+
+                if (caminhoImagem != null && !caminhoImagem.isEmpty()) {
+                    ImageIcon imagemOriginal = new ImageIcon(caminhoImagem);
+                    Image imgRedimensionada = imagemOriginal.getImage().getScaledInstance(100, 150, Image.SCALE_SMOOTH);
+                    imagemLivro = new ImageIcon(imgRedimensionada);
+                } else {
+                    // Imagem padrão caso não tenha uma imagem válida
+                    imagemLivro = new ImageIcon("/home/samuelcds/Imagens/juri.jpeg");
                 }
-            });
-            livrosPainel.add(labelLivro);
+
+                JLabel labelLivro = new JLabel(imagemLivro);
+                labelLivro.setToolTipText(livro.getTitulo()); // Mostra título ao passar o mouse
+                labelLivro.setHorizontalAlignment(SwingConstants.CENTER);
+
+                // Adiciona evento de clique para selecionar livro
+                labelLivro.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        JOptionPane.showMessageDialog(null, "Livro selecionado: " + livro.getTitulo());
+                    }
+                });
+
+                livrosPainel.add(labelLivro);
+            } catch (Exception e) {
+                System.out.println("Erro ao carregar imagem: " + e.getMessage());
+            }
         }
-        // Adiciona o painel em um JScrollPane para permitir rolagem
+
+        // Ajusta o tamanho do painel para evitar problemas de exibição
+        livrosPainel.setPreferredSize(new Dimension(450, 300)); 
+
+        // Adiciona painel com rolagem
         JScrollPane scrollPane = new JScrollPane(livrosPainel);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         add(scrollPane, BorderLayout.CENTER);
     }
     
     public listaLivros(Usuario user, Bibliotecario bibliotecario) {
         initComponents();
-        
-        livrosPainel.setLayout(new GridLayout(0 ,4 ,10, 10));
-        
-
         
     }
 
@@ -103,6 +157,11 @@ public class listaLivros extends javax.swing.JFrame {
         });
 
         botaoEditarLivro.setText("Editar Livro");
+        botaoEditarLivro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoEditarLivroActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout livrosPainelLayout = new javax.swing.GroupLayout(livrosPainel);
         livrosPainel.setLayout(livrosPainelLayout);
@@ -163,10 +222,16 @@ public class listaLivros extends javax.swing.JFrame {
         
     }//GEN-LAST:event_botaoSelecionarLivroActionPerformed
 
+    private void botaoEditarLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEditarLivroActionPerformed
+        JOptionPane.showMessageDialog(null, "Voce não possui autorizacao para alterar livros!", "Erro", JOptionPane.ERROR_MESSAGE);
+        return;
+    }//GEN-LAST:event_botaoEditarLivroActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -189,7 +254,6 @@ public class listaLivros extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(listaLivros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

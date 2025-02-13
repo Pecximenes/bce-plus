@@ -36,4 +36,4 @@ public class Bibliotecario extends Pessoa {
     public void setPrimeiroLogin(boolean primeiroLogin) {
         this.primeiroLogin = primeiroLogin;
     }   
-}
+};

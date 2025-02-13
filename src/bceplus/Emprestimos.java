@@ -1,4 +1,5 @@
 
+import Entidades.BancoDeDados;
 import Entidades.Bibliotecario;
 import Entidades.Livro;
 import Entidades.Usuario;
@@ -6,6 +7,7 @@ import Entidades.Emprestimo;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -258,6 +260,8 @@ public class Emprestimos extends javax.swing.JFrame {
         }
         Emprestimo emprestimo = new Emprestimo(user, bibliotecario,livro, devolucao, multa);
         
+        BancoDeDados banquinho = BancoDeDados.getInstance();
+        banquinho.addEmprestimo(emprestimo);
         
         this.dispose();
     }//GEN-LAST:event_botaoFinalizarActionPerformed

@@ -6,6 +6,7 @@ import java.util.List;
  *
  * @author pedro
  */
+
 public class BancoDeDados {
     private static BancoDeDados instance;
     
@@ -34,7 +35,6 @@ public class BancoDeDados {
         Livro[] listaLivrosEmprestados = { listaLivro.get(0) };
         listaEmprestimos     = CSV.CSVToListaEmprestimo(caminhoEmprestimo, listaUsuarios, listaBibliotecarios, listaLivrosEmprestados);
 
-        
     }
     
     

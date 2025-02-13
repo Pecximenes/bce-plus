@@ -1,4 +1,6 @@
 
+import Entidades.Administrador;
+import Entidades.BancoDeDados;
 import Entidades.Bibliotecario;
 import Entidades.CSV;
 import java.util.List;
@@ -17,26 +19,9 @@ import Entidades.Livro;
  */
 public class listaEmprestimos extends javax.swing.JFrame {
 
-    private void initializetabelaEmprestimos() {
-        DefaultTableModel modelEmprestimos = (DefaultTableModel) tabelaEmprestimos.getModel();
-        
-        String caminhoLivro          = "src/data/DadosLivro.csv";
-        String caminhoBibliiotecario = "src/data/DadosBibliotecario.csv";
-        List<Bibliotecario> listaBibliotecarios  = CSV.CSVToListaBibliotecario(caminhoBibliiotecario);
-        List<Livro>         listaLivro           = CSV.CSVToListaLivro(caminhoLivro, listaBibliotecarios);
 
-
-        for (Livro livro : listaLivro) {
-            modelEmprestimos.addRow(new Object[] {
-                livro.getTitulo(),
-                sessao.getSala(), 
-                sessao.getDataInicio(),
-                sessao.isEh3d()
-            });
-        }
     public listaEmprestimos() {
         initComponents();
-        initializetabelaEmprestimos();
     }
 
     /**

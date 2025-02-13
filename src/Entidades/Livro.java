@@ -121,4 +121,4 @@ public class Livro {
                ", Bibliotecário: " + (bibliotecario != null ? bibliotecario.getNome() : "N/A") +
                ", Categoria: " + categoria;
     }
-}
+};

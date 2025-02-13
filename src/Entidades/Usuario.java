@@ -25,7 +25,6 @@ public class Usuario extends Pessoa {
         this.curso = curso;
         this.cadastrado = cadastrado;
         this.usuario = usuario;
-        this.senha = senha;
         this.livrosEmprestados = livrosEmprestados;
         this.ehProfessor = ehProfessor;
     }
