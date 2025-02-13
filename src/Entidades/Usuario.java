@@ -20,29 +20,15 @@ public class Usuario extends Pessoa {
         this.livrosEmprestados = livrosEmprestados;
     }
 
-<<<<<<< HEAD
     public Usuario(int id, String nome, String genero, String senha, String cpf, String curso, boolean cadastrado, String usuario, Livro[] livrosEmprestados, boolean ehProfessor) {
         super(id, nome, genero, senha, cpf);
         this.curso = curso;
-        this.cadastrado = cadastrado;
+        this.ehProfessor = cadastrado;
         this.usuario = usuario;
         this.livrosEmprestados = livrosEmprestados;
         this.ehProfessor = ehProfessor;
     }
-=======
-//    public Usuario(int id, String nome, String genero, String senha, String cpf, String curso, boolean cadastrado, String usuario, Livro[] livrosEmprestados, boolean ehProfessor) {
-//        super(id, nome, genero, senha, cpf);
-//        this.curso = curso;
-//        this.cadastrado = cadastrado;
-//        this.usuario = usuario;
-//        this.senha = senha;
-//        this.livrosEmprestados = livrosEmprestados;
-//        this.ehProfessor = ehProfessor;
-//    }
->>>>>>> 67b91212489901466da2b3cb3122ccc36a1d0916
     
-    
-
     // Métodos Getters e Setters
     public String getCurso() {
         return curso;
@@ -80,4 +66,4 @@ public class Usuario extends Pessoa {
     public boolean isProfessor() {
         return ehProfessor;
     }
-}
+};
