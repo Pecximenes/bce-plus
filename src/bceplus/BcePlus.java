@@ -69,9 +69,9 @@ public class BcePlus {
         }  
     
    /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(() -> {
-//            new Login().setVisible(true);
-//        });
+        java.awt.EventQueue.invokeLater(() -> {
+            new Login().setVisible(true);
+        });
     
     }
 }
