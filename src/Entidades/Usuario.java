@@ -5,21 +5,22 @@ package Entidades;
  */
 public class Usuario extends Pessoa {
     private String curso;
-    private boolean cadastrado;
+    private boolean ehProfessor;
     private String usuario;
     private String senha;
     private Livro[] livrosEmprestados;
-    private boolean ehProfessor;
+    //private boolean ehProfessor;
 
     // Construtor
-    public Usuario(int id, String nome, String genero, String senha, String cpf, String curso, boolean cadastrado, String usuario, Livro[] livrosEmprestados) {
+    public Usuario(int id, String nome, String genero, String senha, String cpf, String curso, boolean ehProfessor, String usuario, Livro[] livrosEmprestados) {
         super(id, nome, genero, senha, cpf);
         this.curso = curso;
-        this.cadastrado = cadastrado;
+        this.ehProfessor = ehProfessor;
         this.usuario = usuario;
         this.livrosEmprestados = livrosEmprestados;
     }
 
+<<<<<<< HEAD
     public Usuario(int id, String nome, String genero, String senha, String cpf, String curso, boolean cadastrado, String usuario, Livro[] livrosEmprestados, boolean ehProfessor) {
         super(id, nome, genero, senha, cpf);
         this.curso = curso;
@@ -28,6 +29,17 @@ public class Usuario extends Pessoa {
         this.livrosEmprestados = livrosEmprestados;
         this.ehProfessor = ehProfessor;
     }
+=======
+//    public Usuario(int id, String nome, String genero, String senha, String cpf, String curso, boolean cadastrado, String usuario, Livro[] livrosEmprestados, boolean ehProfessor) {
+//        super(id, nome, genero, senha, cpf);
+//        this.curso = curso;
+//        this.cadastrado = cadastrado;
+//        this.usuario = usuario;
+//        this.senha = senha;
+//        this.livrosEmprestados = livrosEmprestados;
+//        this.ehProfessor = ehProfessor;
+//    }
+>>>>>>> 67b91212489901466da2b3cb3122ccc36a1d0916
     
     
 
@@ -41,11 +53,11 @@ public class Usuario extends Pessoa {
     }
 
     public boolean isCadastrado() {
-        return cadastrado;
+        return ehProfessor;
     }
 
-    public void setCadastrado(boolean cadastrado) {
-        this.cadastrado = cadastrado;
+    public void setCadastrado(boolean ehProfessor) {
+        this.ehProfessor = ehProfessor;
     }
 
     public String getUsuario() {

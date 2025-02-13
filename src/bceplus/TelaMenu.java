@@ -4,11 +4,13 @@
  */
 package bceplus;
 
+
 /**
  *
  * @author Davy
  */
 public class TelaMenu extends javax.swing.JFrame {
+    
 
     /**
      * Creates new form TelaMenu
@@ -49,7 +51,7 @@ public class TelaMenu extends javax.swing.JFrame {
                 BotaoCadastroLivros.setVisible(true);
                 BotaoCadastroBibliotecario.setVisible(false);
                 break;
-            case "adm":
+            case "admin":
                 // Administrador: Todos os botões
                 BotaoCadastroUsuario.setVisible(true);
                 BotaoCadastroLivros.setVisible(true);
@@ -226,13 +228,7 @@ public class TelaMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotaoCadastroUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoCadastroUsuarioActionPerformed
-        // TODO add your handling code here:
-        // Cria uma instância da janela de cadastro de usuário
-        //CadastroUsuario cadastroUsuario = new CadastroUsuario();
-        // Torna a janela visível
-        //cadastroUsuario.setVisible(true);
-        // Centraliza a janela na tela
-        //cadastroUsuario.setLocationRelativeTo(null);
+       
     }//GEN-LAST:event_BotaoCadastroUsuarioActionPerformed
 
     private void BotaoAcervoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoAcervoActionPerformed
@@ -263,13 +259,14 @@ public class TelaMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_BotaoCadastroBibliotecarioActionPerformed
 
     private void BotaoCadastroLivrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoCadastroLivrosActionPerformed
-        // TODO add your handling code here:
-        // Cria uma instância da janela de cadastro de livro
-        //cadastroLivro cadastroLivro = new cadastroLivro(bibliotecario); // Passa o bibliotecário como parâmetro
-        // Torna a janela visível
-        //cadastroLivro.setVisible(true);
-        // Centraliza a janela na tela
-        //cadastroLivro.setLocationRelativeTo(null);
+//        // Cria uma instância da janela de cadastro de livros
+//        cadastroLivro cadastroLivro = new cadastroLivro(bibliotecario); // Passa o bibliotecário como parâmetro
+//
+//        // Torna a janela visível
+//        cadastroLivro.setVisible(true);
+//
+//        // Centraliza a janela na tela
+//        cadastroLivro.setLocationRelativeTo(null);
     }//GEN-LAST:event_BotaoCadastroLivrosActionPerformed
 
     /**
@@ -277,45 +274,34 @@ public class TelaMenu extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+    //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+    try {
+        for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            if ("Nimbus".equals(info.getName())) {
+                javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                break;
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
+    } catch (Exception ex) {
+        ex.printStackTrace();
+    }
+    //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                // Exemplo de uso:
-                // Para usuário comum
-                new TelaMenu("comum").setVisible(true);
+    /* Create and display the form */
+    java.awt.EventQueue.invokeLater(() -> {
+        // Exemplo de uso:
+        // Para usuário comum
+        // new TelaMenu("comum").setVisible(true); // Comente ou remova
 
-                // Para professor
-                new TelaMenu("professor").setVisible(true);
+        // Para professor
+        // new TelaMenu("professor").setVisible(true); // Comente ou remova
 
-                // Para bibliotecário
-                new TelaMenu("bibliotecario").setVisible(true);
+        // Para bibliotecário
+        // new TelaMenu("bibliotecario").setVisible(true); // Comente ou remova
 
-                // Para administrador
-                new TelaMenu("adm").setVisible(true);
-            }
-        });
+        // Para administrador
+        // new TelaMenu("adm").setVisible(true); // Comente ou remova
+    });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
