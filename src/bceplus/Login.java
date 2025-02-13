@@ -4,6 +4,8 @@
  */
 package bceplus;
 
+import Entidades.Administrador;
+import Entidades.BancoDeDados;
 import java.util.List;
 import Entidades.CSV;
 import Entidades.Usuario;
@@ -22,6 +24,11 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        BancoDeDados bancoDeDados = BancoDeDados.getInstance();
+        
+        List<Administrador> listaAdmin = bancoDeDados.getAdmin();
+        
+        System.out.println(listaAdmin.get(listaAdmin.size() - 1).getNome());
     }
 
     /**

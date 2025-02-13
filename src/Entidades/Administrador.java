@@ -18,23 +18,23 @@ public class Administrador extends Pessoa {
         super(id, nome, genero, senha, cpf);
         this.usuario = usuario;
         this.bibliotecario = bibliotecario;
-    }
+    };
     
     // Métodos Getters e Setters
     public String getUsuario() {
         return usuario;
-    }
+    };
 
     public void setUsuario(String usuario) {
         this.usuario = usuario;
-    }
+    };
 
     public Bibliotecario[] getBibliotecario() {
         return bibliotecario;
-    }
+    };
 
     public void setBibliotecarios(Bibliotecario[] bibliotecario) {
         this.bibliotecario = bibliotecario;
-    }   
-}
+    };   
+};
 

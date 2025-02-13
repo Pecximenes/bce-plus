@@ -3,37 +3,28 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-            <file>file:/home/samuelcds/Documentos/TP1/trabalhoInfernoo/bce-plus/src/bceplus/CadastroUsuario.java</file>
-            <file>file:/home/samuelcds/Documentos/TP1/trabalhoInfernoo/bce-plus/src/Entidades/Livro.java</file>
-            <file>file:/home/samuelcds/Documentos/TP1/trabalhoInfernoo/bce-plus/src/Entidades/Usuario.java</file>
-            <file>file:/home/samuelcds/Documentos/TP1/trabalhoInfernoo/bce-plus/src/bceplus/Emprestimos.java</file>
-            <file>file:/home/samuelcds/Documentos/TP1/trabalhoInfernoo/bce-plus/src/bceplus/cadastroLivro.java</file>
-=======
-            <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/bceplus/listaLivros.java</file>
-            <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/bceplus/ListaUsuarios.java</file>
-            <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/bceplus/Login.java</file>
-            <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/bceplus/cadastroLivro.java</file>
             <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/bceplus/listaEmprestimos.java</file>
-            <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/bceplus/Relatorio.java</file>
->>>>>>> origin/pedro
-=======
-            <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/bceplus/Login.java</file>
-            <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/Entidades/CSV.java</file>
-            <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/bceplus/BcePlus.java</file>
-            <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/data/DadosUsuario.csv</file>
-            <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/Entidades/Usuario.java</file>
->>>>>>> 1e66e218488fd4f387aca7f7f88d2fecbb7b5b70
-=======
+            <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/bceplus/TelaBibliotecário.java</file>
             <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/Entidades/Pessoa.java</file>
-            <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/data/DadosUsuario.csv</file>
-            <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/Entidades/Usuario.java</file>
+            <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/Entidades/Administrador.java</file>
+            <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/Entidades/BancoDeDados.java</file>
+            <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/Entidades/Livro.java</file>
             <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/bceplus/Login.java</file>
+            <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/bceplus/CadastroBibliotecario.java</file>
+            <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/data/DadosAdmin.csv</file>
+            <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/bceplus/cadastroLivro.java</file>
+            <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/bceplus/CriarEmprestimo.java</file>
+            <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/bceplus/TelaMenu.java</file>
+            <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/bceplus/CadastroUsuario.java</file>
             <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/Entidades/CSV.java</file>
+            <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/Entidades/Bibliotecario.java</file>
+            <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/data/DadosUsuario.csv</file>
+            <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/bceplus/listaLivros.java</file>
+            <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/Entidades/Emprestimo.java</file>
+            <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/Entidades/Usuario.java</file>
+            <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/bceplus/Emprestimos.java</file>
             <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/bceplus/BcePlus.java</file>
->>>>>>> e7d25a5266311af87dbdbc116447ccc5fe392b31
+            <file>file:/home/pedro/Documentos/UnB/tp1/bce-plus/src/data/DadosLivro.csv</file>
         </group>
     </open-files>
 </project-private>
