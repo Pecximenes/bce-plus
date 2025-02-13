@@ -5,11 +5,15 @@ import Entidades.Bibliotecario;
 import Entidades.Usuario;
 import Entidades.Livro;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.PopupMenu;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -24,107 +28,158 @@ public class listaLivros extends javax.swing.JFrame {
     Usuario user;
     Bibliotecario bibliotecario;
     BancoDeDados banco = BancoDeDados.getInstance();
+    List<Livro> livrosSelec;
     
 
-    public listaLivros() {
-        initComponents();
-        
-        livrosPainel.setLayout(new GridLayout(0 ,4 ,10, 10));
-        
-        for (Livro livro : banco.getLivro()) {
-            try {
-                // Verifica se o caminho da imagem não é nulo ou vazio
-                String caminhoImagem = livro.getCaminhoImagem();
-                ImageIcon imagemLivro;
+public listaLivros() {
+    initComponents();
 
-                if (caminhoImagem != null && !caminhoImagem.isEmpty()) {
-                    ImageIcon imagemOriginal = new ImageIcon(caminhoImagem);
-                    Image imgRedimensionada = imagemOriginal.getImage().getScaledInstance(100, 150, Image.SCALE_SMOOTH);
-                    imagemLivro = new ImageIcon(imgRedimensionada);
+    int colunas = 3; // Máximo de 4 livros por linha
+    int maxLivros = 12; // Máximo de livros a exibir (opcional)
+
+    // Calcula quantas linhas são necessárias
+    int linhas = (int) Math.ceil(Math.min(banco.getLivro().size(), maxLivros) / (double) colunas);
+
+    // Se não houver livros, encerra
+    if (banco.getLivro() == null || banco.getLivro().isEmpty()) {
+        System.out.println("Erro: banco de dados não foi inicializado ou está vazio!");
+        return;
+    }
+
+    // Layout fixo com linhas variáveis e colunas fixas
+    livrosPainel.setLayout(new GridLayout(linhas, colunas, 10, 10)); 
+
+    // Adiciona livros até o limite
+    int count = 0;
+    for (Livro livro : banco.getLivro()) {
+        if (count >= maxLivros) break; // Limita a quantidade de livros
+
+        JLabel labelLivro = new JLabel(livro.getTitulo(), SwingConstants.CENTER);
+        labelLivro.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        
+        labelLivro.addMouseListener(new MouseAdapter() {
+            private boolean clicado = false;
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (clicado) {
+                    labelLivro.setBackground(Color.LIGHT_GRAY); // Volta à cor original
                 } else {
-                    // Imagem padrão caso não tenha uma imagem válida
-                    imagemLivro = new ImageIcon("/home/samuelcds/Imagens/juri.jpeg");
+                    labelLivro.setBackground(Color.GREEN); // Muda para verde
                 }
-
-                JLabel labelLivro = new JLabel(imagemLivro);
-                labelLivro.setToolTipText(livro.getTitulo()); // Mostra título ao passar o mouse
-                labelLivro.setHorizontalAlignment(SwingConstants.CENTER);
-
-                // Adiciona evento de clique para selecionar livro
-                labelLivro.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                        JOptionPane.showMessageDialog(null, "Livro selecionado: " + livro.getTitulo());
-                    }
-                });
-
-                livrosPainel.add(labelLivro);
-            } catch (Exception e) {
-                System.out.println("Erro ao carregar imagem: " + e.getMessage());
+                clicado = !clicado; // Alterna o estado
             }
-        }
-
-        // Ajusta o tamanho do painel para evitar problemas de exibição
-        livrosPainel.setPreferredSize(new Dimension(450, 300)); 
-
-        // Adiciona painel com rolagem
-        JScrollPane scrollPane = new JScrollPane(livrosPainel);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        add(scrollPane, BorderLayout.CENTER);
+        });
         
+        labelLivro.setOpaque(true); // Permite que a cor de fundo apareça
+        labelLivro.setBackground(Color.LIGHT_GRAY); // Define a cor de fundo
+        labelLivro.setForeground(Color.BLACK); // Define a cor do texto
+        livrosPainel.add(labelLivro);
+        count++;
     }
+
+    livrosPainel.revalidate();
+    livrosPainel.repaint();
+}
     
-    public listaLivros(Usuario user) {
-        initComponents();
+public listaLivros(Usuario user) {
+    initComponents();
 
-        livrosPainel.setLayout(new GridLayout(0, 4, 10, 10)); // Grade flexível
+    int colunas = 3; // Máximo de 4 livros por linha
+    int maxLivros = 12; // Máximo de livros a exibir (opcional)
 
-        for (Livro livro : banco.getLivro()) {
-            try {
-                // Verifica se o caminho da imagem não é nulo ou vazio
-                String caminhoImagem = livro.getCaminhoImagem();
-                ImageIcon imagemLivro;
+    // Calcula quantas linhas são necessárias
+    int linhas = (int) Math.ceil(Math.min(banco.getLivro().size(), maxLivros) / (double) colunas);
 
-                if (caminhoImagem != null && !caminhoImagem.isEmpty()) {
-                    ImageIcon imagemOriginal = new ImageIcon(caminhoImagem);
-                    Image imgRedimensionada = imagemOriginal.getImage().getScaledInstance(100, 150, Image.SCALE_SMOOTH);
-                    imagemLivro = new ImageIcon(imgRedimensionada);
+    // Se não houver livros, encerra
+    if (banco.getLivro() == null || banco.getLivro().isEmpty()) {
+        System.out.println("Erro: banco de dados não foi inicializado ou está vazio!");
+        return;
+    }
+
+    // Layout fixo com linhas variáveis e colunas fixas
+    livrosPainel.setLayout(new GridLayout(linhas, colunas, 10, 10)); 
+
+    // Adiciona livros até o limite
+    int count = 0;
+    for (Livro livro : banco.getLivro()) {
+        if (count >= maxLivros) break; // Limita a quantidade de livros
+
+        JLabel labelLivro = new JLabel(livro.getTitulo(), SwingConstants.CENTER);
+        labelLivro.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        
+        labelLivro.addMouseListener(new MouseAdapter() {
+            private boolean clicado = false;
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (clicado) {
+                    labelLivro.setBackground(Color.LIGHT_GRAY); // Volta à cor original
                 } else {
-                    // Imagem padrão caso não tenha uma imagem válida
-                    imagemLivro = new ImageIcon("/home/samuelcds/Imagens/juri.jpeg");
+                    labelLivro.setBackground(Color.GREEN); // Muda para verde
                 }
-
-                JLabel labelLivro = new JLabel(imagemLivro);
-                labelLivro.setToolTipText(livro.getTitulo()); // Mostra título ao passar o mouse
-                labelLivro.setHorizontalAlignment(SwingConstants.CENTER);
-
-                // Adiciona evento de clique para selecionar livro
-                labelLivro.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                        JOptionPane.showMessageDialog(null, "Livro selecionado: " + livro.getTitulo());
-                    }
-                });
-
-                livrosPainel.add(labelLivro);
-            } catch (Exception e) {
-                System.out.println("Erro ao carregar imagem: " + e.getMessage());
+                clicado = !clicado; // Alterna o estado
             }
-        }
-
-        // Ajusta o tamanho do painel para evitar problemas de exibição
-        livrosPainel.setPreferredSize(new Dimension(450, 300)); 
-
-        // Adiciona painel com rolagem
-        JScrollPane scrollPane = new JScrollPane(livrosPainel);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        add(scrollPane, BorderLayout.CENTER);
-    }
-    
-    public listaLivros(Usuario user, Bibliotecario bibliotecario) {
-        initComponents();
+        });
         
+        labelLivro.setOpaque(true); // Permite que a cor de fundo apareça
+        labelLivro.setBackground(Color.LIGHT_GRAY); // Define a cor de fundo
+        labelLivro.setForeground(Color.BLACK); // Define a cor do texto
+        livrosPainel.add(labelLivro);
+        count++;
     }
+
+    livrosPainel.revalidate();
+    livrosPainel.repaint();
+}
+    
+public listaLivros(Usuario user, Bibliotecario bibliotecario) {
+    initComponents();
+
+    int colunas = 3; // Máximo de 4 livros por linha
+    int maxLivros = 12; // Máximo de livros a exibir (opcional)
+
+    // Calcula quantas linhas são necessárias
+    int linhas = (int) Math.ceil(Math.min(banco.getLivro().size(), maxLivros) / (double) colunas);
+
+    // Se não houver livros, encerra
+    if (banco.getLivro() == null || banco.getLivro().isEmpty()) {
+        System.out.println("Erro: banco de dados não foi inicializado ou está vazio!");
+        return;
+    }
+
+    // Layout fixo com linhas variáveis e colunas fixas
+    livrosPainel.setLayout(new GridLayout(linhas, colunas, 10, 10)); 
+
+    // Adiciona livros até o limite
+    int count = 0;
+    for (Livro livro : banco.getLivro()) {
+        if (count >= maxLivros) break; // Limita a quantidade de livros
+
+        JLabel labelLivro = new JLabel(livro.getTitulo(), SwingConstants.CENTER);
+        labelLivro.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        
+        labelLivro.addMouseListener(new MouseAdapter() {
+            private boolean clicado = false;
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (clicado) {
+                    labelLivro.setBackground(Color.LIGHT_GRAY); // Volta à cor original
+                } else {
+                    labelLivro.setBackground(Color.GREEN); // Muda para verde
+                }
+                clicado = !clicado; // Alterna o estado
+            }
+        });
+        
+        labelLivro.setOpaque(true); // Permite que a cor de fundo apareça
+        labelLivro.setBackground(Color.LIGHT_GRAY); // Define a cor de fundo
+        labelLivro.setForeground(Color.BLACK); // Define a cor do texto
+        livrosPainel.add(labelLivro);
+        count++;
+    }
+
+    livrosPainel.revalidate();
+    livrosPainel.repaint();
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -171,7 +226,7 @@ public class listaLivros extends javax.swing.JFrame {
         );
         livrosPainelLayout.setVerticalGroup(
             livrosPainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 416, Short.MAX_VALUE)
+            .addGap(0, 410, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -192,7 +247,7 @@ public class listaLivros extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(botaoEditarLivro)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botaoSelecionarLivro))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
@@ -207,8 +262,8 @@ public class listaLivros extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(livrosPainel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(livrosPainel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoSelecionarLivro)
                     .addComponent(botaoEditarLivro))

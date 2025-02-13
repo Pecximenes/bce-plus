@@ -13,8 +13,55 @@ public class TelaMenu extends javax.swing.JFrame {
     /**
      * Creates new form TelaMenu
      */
-    public TelaMenu() {
+    private String tipoUsuario; // Variável para armazenar o tipo de usuário
+
+    /**
+     * Creates new form TelaMenu
+     */
+    public TelaMenu(String tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
         initComponents();
+        ajustarBotoesPorTipoUsuario();
+    }
+
+    private void ajustarBotoesPorTipoUsuario() {
+        // Resetar visibilidade de todos os botões
+        BotaoCadastroUsuario.setVisible(false);
+        BotaoCadastroLivros.setVisible(false);
+        BotaoCadastroBibliotecario.setVisible(false);
+
+        switch (tipoUsuario) {
+            case "comum":
+                // Comum: Empréstimo e Acervo
+                BotaoCadastroUsuario.setVisible(false);
+                BotaoCadastroLivros.setVisible(false);
+                BotaoCadastroBibliotecario.setVisible(false);
+                break;
+            case "professor":
+                // Professor: Empréstimo e Acervo
+                BotaoCadastroUsuario.setVisible(false);
+                BotaoCadastroLivros.setVisible(false);
+                BotaoCadastroBibliotecario.setVisible(false);
+                break;
+            case "bibliotecario":
+                // Bibliotecário: Empréstimo, Acervo, Cadastro de Usuário e Livro
+                BotaoCadastroUsuario.setVisible(true);
+                BotaoCadastroLivros.setVisible(true);
+                BotaoCadastroBibliotecario.setVisible(false);
+                break;
+            case "adm":
+                // Administrador: Todos os botões
+                BotaoCadastroUsuario.setVisible(true);
+                BotaoCadastroLivros.setVisible(true);
+                BotaoCadastroBibliotecario.setVisible(true);
+                break;
+            default:
+                // Caso padrão (não deve acontecer)
+                BotaoCadastroUsuario.setVisible(false);
+                BotaoCadastroLivros.setVisible(false);
+                BotaoCadastroBibliotecario.setVisible(false);
+                break;
+        }
     }
 
     /**
@@ -33,8 +80,10 @@ public class TelaMenu extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         BotaoEmprestimo = new javax.swing.JButton();
         BotaoAcervo = new javax.swing.JButton();
-        BotaoCadastro = new javax.swing.JButton();
+        BotaoCadastroUsuario = new javax.swing.JButton();
         BotaoSair = new javax.swing.JButton();
+        BotaoCadastroBibliotecario = new javax.swing.JButton();
+        BotaoCadastroLivros = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,10 +131,10 @@ public class TelaMenu extends javax.swing.JFrame {
             }
         });
 
-        BotaoCadastro.setText("Cadastro");
-        BotaoCadastro.addActionListener(new java.awt.event.ActionListener() {
+        BotaoCadastroUsuario.setText("Cadastro de Usuário");
+        BotaoCadastroUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotaoCadastroActionPerformed(evt);
+                BotaoCadastroUsuarioActionPerformed(evt);
             }
         });
 
@@ -93,6 +142,20 @@ public class TelaMenu extends javax.swing.JFrame {
         BotaoSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotaoSairActionPerformed(evt);
+            }
+        });
+
+        BotaoCadastroBibliotecario.setText("Cadastro de Bibliotecários");
+        BotaoCadastroBibliotecario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotaoCadastroBibliotecarioActionPerformed(evt);
+            }
+        });
+
+        BotaoCadastroLivros.setText("Cadastro de Livros");
+        BotaoCadastroLivros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotaoCadastroLivrosActionPerformed(evt);
             }
         });
 
@@ -111,8 +174,10 @@ public class TelaMenu extends javax.swing.JFrame {
                             .addComponent(BotaoSair)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(BotaoEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(BotaoCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(BotaoAcervo, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(BotaoCadastroUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(BotaoAcervo, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(BotaoCadastroBibliotecario, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(BotaoCadastroLivros, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(41, 41, 41))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -124,8 +189,12 @@ public class TelaMenu extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(BotaoEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(BotaoCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 221, Short.MAX_VALUE)
+                .addComponent(BotaoCadastroUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(BotaoCadastroLivros, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(BotaoCadastroBibliotecario, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
                 .addComponent(BotaoSair)
                 .addGap(57, 57, 57))
         );
@@ -156,12 +225,23 @@ public class TelaMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BotaoCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoCadastroActionPerformed
+    private void BotaoCadastroUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoCadastroUsuarioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_BotaoCadastroActionPerformed
+        // Cria uma instância da janela de cadastro de usuário
+        //CadastroUsuario cadastroUsuario = new CadastroUsuario();
+        // Torna a janela visível
+        //cadastroUsuario.setVisible(true);
+        // Centraliza a janela na tela
+        //cadastroUsuario.setLocationRelativeTo(null);
+    }//GEN-LAST:event_BotaoCadastroUsuarioActionPerformed
 
     private void BotaoAcervoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoAcervoActionPerformed
         // TODO add your handling code here:
+        listaLivros lista = new listaLivros();
+        // Torna a janela visível
+        lista.setVisible(true);
+        // Centraliza a janela na tela
+        lista.setLocationRelativeTo(null);
     }//GEN-LAST:event_BotaoAcervoActionPerformed
 
     private void BotaoEmprestimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoEmprestimoActionPerformed
@@ -171,6 +251,26 @@ public class TelaMenu extends javax.swing.JFrame {
     private void BotaoSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoSairActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_BotaoSairActionPerformed
+
+    private void BotaoCadastroBibliotecarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoCadastroBibliotecarioActionPerformed
+        // TODO add your handling code here:
+        // Cria uma instância da janela de cadastro de bibliotecário
+    CadastroBibliotecario cadastroBibliotecario = new CadastroBibliotecario();
+    // Torna a janela visível
+    cadastroBibliotecario.setVisible(true);
+    // Centraliza a janela na tela
+    cadastroBibliotecario.setLocationRelativeTo(null);
+    }//GEN-LAST:event_BotaoCadastroBibliotecarioActionPerformed
+
+    private void BotaoCadastroLivrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoCadastroLivrosActionPerformed
+        // TODO add your handling code here:
+        // Cria uma instância da janela de cadastro de livro
+        //cadastroLivro cadastroLivro = new cadastroLivro(bibliotecario); // Passa o bibliotecário como parâmetro
+        // Torna a janela visível
+        //cadastroLivro.setVisible(true);
+        // Centraliza a janela na tela
+        //cadastroLivro.setLocationRelativeTo(null);
+    }//GEN-LAST:event_BotaoCadastroLivrosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -202,14 +302,27 @@ public class TelaMenu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaMenu().setVisible(true);
+                // Exemplo de uso:
+                // Para usuário comum
+                new TelaMenu("comum").setVisible(true);
+
+                // Para professor
+                new TelaMenu("professor").setVisible(true);
+
+                // Para bibliotecário
+                new TelaMenu("bibliotecario").setVisible(true);
+
+                // Para administrador
+                new TelaMenu("adm").setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotaoAcervo;
-    private javax.swing.JButton BotaoCadastro;
+    private javax.swing.JButton BotaoCadastroBibliotecario;
+    private javax.swing.JButton BotaoCadastroLivros;
+    private javax.swing.JButton BotaoCadastroUsuario;
     private javax.swing.JButton BotaoEmprestimo;
     private javax.swing.JButton BotaoSair;
     private javax.swing.JPanel RightComponent;

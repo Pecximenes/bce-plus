@@ -168,8 +168,10 @@
                               <Component id="BotaoSair" min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="BotaoEmprestimo" min="-2" pref="318" max="-2" attributes="0"/>
-                                  <Component id="BotaoCadastro" alignment="0" min="-2" pref="318" max="-2" attributes="0"/>
+                                  <Component id="BotaoCadastroUsuario" alignment="0" min="-2" pref="318" max="-2" attributes="0"/>
                                   <Component id="BotaoAcervo" alignment="0" min="-2" pref="318" max="-2" attributes="0"/>
+                                  <Component id="BotaoCadastroBibliotecario" alignment="0" min="-2" pref="318" max="-2" attributes="0"/>
+                                  <Component id="BotaoCadastroLivros" alignment="0" min="-2" pref="318" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
@@ -187,8 +189,12 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="BotaoEmprestimo" min="-2" pref="34" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="BotaoCadastro" min="-2" pref="34" max="-2" attributes="0"/>
-                  <EmptySpace pref="221" max="32767" attributes="0"/>
+                  <Component id="BotaoCadastroUsuario" min="-2" pref="34" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="BotaoCadastroLivros" min="-2" pref="34" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="BotaoCadastroBibliotecario" min="-2" pref="34" max="-2" attributes="0"/>
+                  <EmptySpace pref="117" max="32767" attributes="0"/>
                   <Component id="BotaoSair" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
               </Group>
@@ -249,12 +255,12 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotaoAcervoActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="BotaoCadastro">
+        <Component class="javax.swing.JButton" name="BotaoCadastroUsuario">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Cadastro"/>
+            <Property name="text" type="java.lang.String" value="Cadastro de Usu&#xe1;rio"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotaoCadastroActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotaoCadastroUsuarioActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="BotaoSair">
@@ -263,6 +269,22 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotaoSairActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="BotaoCadastroBibliotecario">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Cadastro de Bibliotec&#xe1;rios"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotaoCadastroBibliotecarioActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="BotaoCadastroLivros">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Cadastro de Livros"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotaoCadastroLivrosActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

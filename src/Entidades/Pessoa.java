@@ -24,6 +24,7 @@ public class Pessoa {
     }
 
     public Pessoa(int id, String nome, String genero, String cpf) {
+
         this.id = id;
         this.nome = nome;
         this.genero = genero;
@@ -70,4 +71,8 @@ public class Pessoa {
     public void setSenha(String senha) {
         this.senha = senha;
     }
-};
+
+}
+
+
+
