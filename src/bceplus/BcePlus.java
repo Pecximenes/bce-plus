@@ -9,6 +9,7 @@ import Entidades.CSV;
 import Entidades.Usuario;
 import Entidades.Livro;
 import Entidades.Administrador;
+import Entidades.BancoDeDados;
 import Entidades.Bibliotecario;
 import Entidades.Emprestimo;
 
@@ -22,56 +23,22 @@ public class BcePlus {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-//         Coletando informações do banco de dados CSV
-//         Caminho dos arquivos
-        String caminhoBibliiotecario = "src/data/DadosBibliotecario.csv";
-        String caminhoUsuario        = "src/data/DadosUsuario.csv";
-        String caminhoLivro          = "src/data/DadosLivro.csv";
-        String caminhoAdmin          = "src/data/DadosAdmin.csv";
-        String caminhoEmprestimo     = "src/data/DadosEmprestimo.csv";
+        BancoDeDados bancoDeDados = BancoDeDados.getInstance();
         
-//        Criando listas das Classes
-        List<Bibliotecario> listaBibliotecarios  = CSV.CSVToListaBibliotecario(caminhoBibliiotecario);
-        List<Usuario>       listaUsuarios        = CSV.CSVToListaUsuario(caminhoUsuario);
-        List<Livro>         listaLivro           = CSV.CSVToListaLivro(caminhoLivro, listaBibliotecarios);
-        List<Administrador> listaAdministradores = CSV.CSVToListaAdministrador(caminhoAdmin);
-        Livro[] listaLivrosEmprestados = { listaLivro.get(0) };
-        List<Emprestimo>    listaEmprestimos     = CSV.CSVToListaEmprestimo(caminhoEmprestimo, listaUsuarios, listaBibliotecarios, listaLivrosEmprestados);
-
+        List<Administrador> listaAdmin = bancoDeDados.getAdmin();
         
-        
-        for (Usuario usuario : listaUsuarios) {
-            System.out.println(usuario.getNome());
-        }
-        
+        System.out.println(listaAdmin.get(listaAdmin.size() - 1).getNome());
         System.out.println("");
+        Bibliotecario[] bibli = new Bibliotecario[0];
         
-        for (Livro livro : listaLivro) {
-            System.out.println(livro.getBibliotecario());
-        }
+        Administrador admin = new Administrador(1, "Pedro Ximenes", "M", "000.000.000-00", "pecx", "teste", bibli);
         
-        System.out.println("");
-
-        for (Bibliotecario bibliotecario : listaBibliotecarios) {
-            System.out.println(bibliotecario.getUsuario());
-        }
-        
-        System.out.println("");
-        
-        for (Administrador admin : listaAdministradores) {
-            System.out.println(admin.getNome());
-        }
-        
-        System.out.println("");
-        
-        for (Emprestimo emprestimo : listaEmprestimos) {
-            System.out.println(emprestimo.getLivro()[0].getTitulo());
-        }  
+        bancoDeDados.addAdmin(admin);
     
    /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(() -> {
-//            new Login().setVisible(true);
-//        });
+        java.awt.EventQueue.invokeLater(() -> {
+            new listaEmprestimos().setVisible(true);
+        });
     
     }
 }

@@ -2,11 +2,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
+package bceplus;
 /**
  *
  * @author samuelcds
  */
+
+import Entidades.BancoDeDados;
+import Entidades.Emprestimo;
+import Entidades.Administrador;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
+
 public class listaEmprestimos extends javax.swing.JFrame {
 
     /**
@@ -14,6 +22,18 @@ public class listaEmprestimos extends javax.swing.JFrame {
      */
     public listaEmprestimos() {
         initComponents();
+        
+        BancoDeDados bancoDeDados = BancoDeDados.getInstance();
+        
+        List<Emprestimo> listaEmprestimos = bancoDeDados.getEmprestimo();
+        List<Administrador> listaAdministradores = bancoDeDados.getAdmin();
+        
+
+        DefaultTableModel modelo = (DefaultTableModel) tabelaEmprestimos.getModel();
+        for (Emprestimo emprestimo : listaEmprestimos) {
+            System.out.println(emprestimo.getLivro()[0].getTitulo());
+            modelo.addRow(new Object[]{emprestimo.getUsuario().getNome(), emprestimo.getLivro()[0].getTitulo(), emprestimo.getBibliotecario().getNome(), emprestimo.getData(), "2025-02-25", emprestimo.getMulta()});
+        }  
     }
 
     /**
@@ -40,10 +60,7 @@ public class listaEmprestimos extends javax.swing.JFrame {
 
         tabelaEmprestimos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Nome", "Titulo", "Bibliotecario", "Data da locação", "Data de devolução prevista", "Multa"
@@ -60,10 +77,20 @@ public class listaEmprestimos extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tabelaEmprestimos);
 
         realizarNovoEmprestimo.setText("Realizar Novo Emprestimo");
+        realizarNovoEmprestimo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                realizarNovoEmprestimoActionPerformed(evt);
+            }
+        });
 
         botaoRemover.setText("Remover");
 
         botaoEditar.setText("Editar");
+        botaoEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoEditarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -100,6 +127,20 @@ public class listaEmprestimos extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void botaoEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEditarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botaoEditarActionPerformed
+
+    private void realizarNovoEmprestimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_realizarNovoEmprestimoActionPerformed
+        // TODO add your handling code here:
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new CriarEmprestimo().setVisible(true);
+            }
+        });
+    }//GEN-LAST:event_realizarNovoEmprestimoActionPerformed
 
     /**
      * @param args the command line arguments
