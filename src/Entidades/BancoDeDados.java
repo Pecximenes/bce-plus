@@ -35,54 +35,54 @@ public class BancoDeDados {
         Livro[] listaLivrosEmprestados = { listaLivro.get(0) };
         listaEmprestimos     = CSV.CSVToListaEmprestimo(caminhoEmprestimo, listaUsuarios, listaBibliotecarios, listaLivrosEmprestados);
 
-    }
+    };
     
     
     public static BancoDeDados getInstance() {
         if (instance == null) {
             instance = new BancoDeDados();
-        }
+        };
         return instance;
-    }
+    };
 
     public void addBibliotecario(Bibliotecario bibliotecario) {
         listaBibliotecarios.add(bibliotecario);
-    }
+    };
 
     public List<Bibliotecario> getBibliotecario() {
         return listaBibliotecarios;
-    }
+    };
     
     public void addUsuario(Usuario usuario) {
         listaUsuarios.add(usuario);
-    }
+    };
 
     public List<Usuario> getUsuario() {
         return listaUsuarios;
-    }
+    };
     
     public void addLivro(Livro livro) {
         listaLivro.add(livro);
-    }
+    };
 
     public List<Livro> getLivro() {
         return listaLivro;
-    }
+    };
     
     public void addAdmin(Administrador admin) {
         listaAdministradores.add(admin);
-    }
+    };
 
     public List<Administrador> getAdmin() {
         return listaAdministradores;
-    }
+    };
     
     public void addEmprestimo(Emprestimo emprestimo) {
         listaEmprestimos.add(emprestimo);
-    }
+    };
 
     public List<Emprestimo> getEmprestimo() {
         return listaEmprestimos;
-    }
+    };
     
-}
+};

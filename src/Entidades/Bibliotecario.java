@@ -18,22 +18,22 @@ public class Bibliotecario extends Pessoa {
         super(id, nome, genero, senha, cpf);
         this.usuario = usuario;
         this.primeiroLogin = primeiroLogin;
-    }
+    };
     
     // Métodos Getters e Setters
     public String getUsuario() {
         return usuario;
-    }
+    };
 
     public void setUsuario(String usuario) {
         this.usuario = usuario;
-    }
+    };
 
     public boolean getPrimeiroLogin() {
         return primeiroLogin;
-    }
+    };
 
     public void setPrimeiroLogin(boolean primeiroLogin) {
         this.primeiroLogin = primeiroLogin;
-    }   
+    };   
 };

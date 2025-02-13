@@ -27,87 +27,87 @@ public class Livro {
         this.bibliotecario = bibliotecario;
         this.categoria = categoria;
         
-    }
+    };
 
     public String getTitulo() {
         return titulo;
-    }
+    };
 
     public void setTitulo(String titulo) {
         this.titulo = titulo;
-    }
+    };
 
     public String getAutor() {
         return autor;
-    }
+    };
 
     public void setAutor(String autor) {
         this.autor = autor;
-    }
+    };
 
     public String getEditora() {
         return editora;
-    }
+    };
 
     public void setEditora(String editora) {
         this.editora = editora;
-    }
+    };
 
     public int getAnoPublicacao() {
         return anoPublicacao;
-    }
+    };
 
     public void setAnoPublicacao(int anoPublicacao) {
         this.anoPublicacao = anoPublicacao;
-    }
+    };
 
     public boolean isDisponivelFisico() {
         return disponivelFisico;
-    }
+    };
 
     public void setDisponivelFisico(boolean disponivelFisico) {
         this.disponivelFisico = disponivelFisico;
-    }
+    };
 
     public boolean isLivroRaro() {
         return livroRaro;
-    }
+    };
 
     public void setLivroRaro(boolean livroRaro) {
         this.livroRaro = livroRaro;
-    }
+    };
 
     public boolean isDisponivelDigital() {
         return disponivelDigital;
-    }
+    };
 
     public void setDisponivelDigital(boolean disponivelDigital) {
         this.disponivelDigital = disponivelDigital;
-    }
+    };
 
     public String getCaminhoImagem() {
         return caminhoImagem;
-    }
+    };
 
     public void setCaminhoImagem(String caminhoImagem) {
         this.caminhoImagem = caminhoImagem;
-    }
+    };
 
     public Bibliotecario getBibliotecario() {
         return bibliotecario;
-    }
+    };
 
     public void setBibliotecario(Bibliotecario bibliotecario) {
         this.bibliotecario = bibliotecario;
-    }
+    };
 
     public String getCategoria() {
         return categoria;
-    }
+    };
 
     public void setCategoria(String categoria) {
         this.categoria = categoria;
-    }
+    };
     
     public String toString() {
         return "Título: " + titulo +
@@ -120,5 +120,5 @@ public class Livro {
                ", Caminho Imagem: " + caminhoImagem +
                ", Bibliotecário: " + (bibliotecario != null ? bibliotecario.getNome() : "N/A") +
                ", Categoria: " + categoria;
-    }
+    };
 };
