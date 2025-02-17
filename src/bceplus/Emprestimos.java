@@ -10,6 +10,8 @@ import java.util.Arrays;
 import java.util.List;
 import javax.swing.JOptionPane;
 
+
+
 /**
  *
  * @author samuelcds
@@ -17,7 +19,7 @@ import javax.swing.JOptionPane;
 
 public class Emprestimos extends javax.swing.JFrame {
     Bibliotecario bibliotecario;
-    Livro livro[];
+    List<Livro> livro;
     Usuario user;
     LocalDate devolucao;
     LocalDate dataAtual = LocalDate.now();
@@ -31,7 +33,7 @@ public class Emprestimos extends javax.swing.JFrame {
         initComponents();
     }
     
-    public Emprestimos(Usuario user, Livro[] livro) {
+    public Emprestimos(Usuario user, List<Livro> livro) {
         initComponents();
         
         this.user = user;
@@ -69,14 +71,14 @@ public class Emprestimos extends javax.swing.JFrame {
         }
     }
     
-    public Emprestimos(Bibliotecario bibliotecario, Usuario user, Livro[] livro) {
+    public Emprestimos(Bibliotecario bibliotecario, Usuario user, List<Livro> livro) {
         initComponents();
         
         this.bibliotecario = bibliotecario;
         this.user = user;
         this.livro = livro;
         textoUsuario.setText(user.getUsuario());
-        livroSelecionado.setText(Arrays.toString(livro));
+        livroSelecionado.setText(List.toString(livro));
         
         if (user.isProfessor()) {
             devolucao = dataAtual.plusDays(40);
