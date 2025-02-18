@@ -1,13 +1,12 @@
 package Entidades;
 
 import java.io.*;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class CSV {
+    @SuppressWarnings("empty-statement")
     public static List<Usuario> CSVToListaUsuario(String caminhoArquivo) {
         List<Usuario> usuarios = new ArrayList<>();
 
@@ -38,6 +37,7 @@ public class CSV {
         return usuarios;
     };
     
+    @SuppressWarnings("empty-statement")
     public static List<Livro> CSVToListaLivro(String caminhoArquivo, List<Bibliotecario> ListaBibliotecarios) {
         List<Livro> livros = new ArrayList<>();
 
@@ -70,6 +70,7 @@ public class CSV {
         return livros;
     };
     
+    @SuppressWarnings("empty-statement")
     public static List<Administrador> CSVToListaAdministrador(String caminhoArquivo) {
         List<Administrador> administradores = new ArrayList<>();
 
@@ -98,6 +99,7 @@ public class CSV {
         return administradores;
     };
     
+    @SuppressWarnings("empty-statement")
     public static List<Bibliotecario> CSVToListaBibliotecario(String caminhoArquivo) {
         List<Bibliotecario> bibliotecarios = new ArrayList<>();
 
@@ -133,6 +135,7 @@ public class CSV {
      * @param livrosEmprestados
      * @return
      */
+    @SuppressWarnings("empty-statement")
     public static List<Emprestimo> CSVToListaEmprestimo(String caminhoArquivo, List<Usuario> listaUsuarios, List<Bibliotecario> listaBibliotecarios, Livro[] livrosEmprestados) {
         List<Emprestimo> emprestimos = new ArrayList<>();
 

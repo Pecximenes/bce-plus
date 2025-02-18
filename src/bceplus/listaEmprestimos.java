@@ -15,9 +15,11 @@ import Entidades.Empreck nbfs://nbhost/SystemFileSystem/Templates/Licenses/licen
 
 import Entidades.BancoDeDados;
 import Entidades.Emprestimo;
+import Entidades.Livro;
 import Entidades.Administrador;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import java.util.stream.Collectors;
 
 
 public class listaEmprestimos extends javax.swing.JFrame {
@@ -34,8 +36,11 @@ public class listaEmprestimos extends javax.swing.JFrame {
 
         DefaultTableModel modelo = (DefaultTableModel) tabelaEmprestimos.getModel();
         for (Emprestimo emprestimo : listaEmprestimos) {
-            System.out.println(emprestimo.getLivro()[0].getTitulo());
-            modelo.addRow(new Object[]{emprestimo.getUsuario().getNome(), emprestimo.getLivro()[0].getTitulo(), emprestimo.getBibliotecario().getNome(), emprestimo.getData(), "2025-02-25", emprestimo.getMulta()});
+            List<String> titulos = emprestimo.getLivro().stream()
+                                          .map(Livro::getTitulo)
+                                          .collect(Collectors.toList());
+            System.out.println(titulos);
+            modelo.addRow(new Object[]{emprestimo.getUsuario().getNome(), titulos, emprestimo.getBibliotecario().getNome(), emprestimo.getData(), "2025-02-25", emprestimo.getMulta()});
         }  
     }
 

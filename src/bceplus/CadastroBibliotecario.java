@@ -1,9 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package bceplus;
+
+import Entidades.BancoDeDados;
 import Entidades.Bibliotecario;
+import java.util.List;
 import javax.swing.JOptionPane;
 /**
  *
@@ -14,8 +13,22 @@ public class CadastroBibliotecario extends javax.swing.JFrame {
     /**
      * Creates new form CadastroUsuario
      */
+    String tipoCadastro;
+    Integer idDeEdicao;
     public CadastroBibliotecario() {
         initComponents();
+        tipoCadastro = "criar";
+    }
+    
+    public CadastroBibliotecario(Integer id, String nome, String cpf, String genero, String nomeUsuario, String senha) {
+        initComponents();
+        idDeEdicao = id;
+        tipoCadastro = "atualizar";
+        CampoNomeCompleto.setText(nome);
+        CampoCPF.setText(cpf);
+        CampoGenero.setSelectedItem(genero);
+        CampoUsuario.setText(nomeUsuario);
+        CampoSenhaTemp.setText(senha);
     }
 
     /**
@@ -100,6 +113,8 @@ public class CadastroBibliotecario extends javax.swing.JFrame {
                     .addComponent(botaoSalvar))
                 .addGap(24, 24, 24))
         );
+
+        CampoCPF.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
         Usuario.setText("Nome de usuário:");
 
@@ -210,7 +225,11 @@ public class CadastroBibliotecario extends javax.swing.JFrame {
     }//GEN-LAST:event_CampoSenhaTempActionPerformed
 
     private void botaoSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSalvarActionPerformed
-        // TODO add your handling code here:
+        BancoDeDados bancoDeDados = BancoDeDados.getInstance();
+        List<Bibliotecario> listaBibliotecarios = bancoDeDados.getBibliotecario();
+        
+        String stringId = Long.toString(Math.toIntExact(System.currentTimeMillis() % Integer.MAX_VALUE)).substring(1);
+        Integer id = Integer.parseInt(stringId);
         String nomeCompleto = CampoNomeCompleto.getText();
         String cpf = CampoCPF.getText();
         String genero = (String) CampoGenero.getSelectedItem();
@@ -223,6 +242,14 @@ public class CadastroBibliotecario extends javax.swing.JFrame {
             return;
         }
         
+//        try {
+//            Integer.valueOf(cpf);
+//        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(this, "Digite somente números no cpf!", "Erro", JOptionPane.ERROR_MESSAGE);
+////            System.out.println("Digite somente números");
+//            return;
+//        }
+        
         // Validação do campo "Gênero"
         if (genero.equals("Selecione")) {
             JOptionPane.showMessageDialog(this, "Por favor, selecione um gênero válido!", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -230,16 +257,30 @@ public class CadastroBibliotecario extends javax.swing.JFrame {
         }
 
         // Criando um novo bibliotecário
-        Bibliotecario novoBibliotecario = new Bibliotecario(0, nomeCompleto, genero, cpf, usuario, senha, true);
+//        tipoCadastro = "atualizar";
+        switch (tipoCadastro) {
+            case "criar":
+                Bibliotecario novoBibliotecario = new Bibliotecario(id, nomeCompleto, genero, cpf, usuario, senha, false);
+                bancoDeDados.addBibliotecario(novoBibliotecario);
+                JOptionPane.showMessageDialog(this, "Bibliotecário cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                break;
+            case "atualizar":
+                Bibliotecario bibliotecario = new Bibliotecario(idDeEdicao, nomeCompleto, genero, cpf, usuario, senha, false);
+                bancoDeDados.removeBibliotecarioPorId(idDeEdicao);
+                bancoDeDados.addBibliotecario(bibliotecario);
+                
+                JOptionPane.showMessageDialog(this, "Bibliotecário atualizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                break;
+        }
 
-        JOptionPane.showMessageDialog(this, "Bibliotecário cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
         // Limpar os campos após o cadastro
         limparCampos();
+        dispose();
     }//GEN-LAST:event_botaoSalvarActionPerformed
 
     private void botaoCalcelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCalcelarActionPerformed
-        // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_botaoCalcelarActionPerformed
     private void limparCampos() {
         CampoNomeCompleto.setText("");
@@ -281,7 +322,9 @@ public class CadastroBibliotecario extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CadastroBibliotecario().setVisible(true);
+                CadastroBibliotecario telaCadastroBibliotecarios = new CadastroBibliotecario();
+                telaCadastroBibliotecarios.setVisible(true);
+                telaCadastroBibliotecarios.setLocationRelativeTo(null);
             }
         });
     }

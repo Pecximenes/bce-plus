@@ -1,10 +1,6 @@
-
+package bceplus;
 
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/J
-/**
- *
  * @author Davy
  */
 import javax.swing.JOptionPane;
@@ -318,6 +314,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
 
     private void botaoCalcelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCalcelarActionPerformed
         // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_botaoCalcelarActionPerformed
 
     private void CampoSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CampoSenhaActionPerformed

@@ -19,21 +19,19 @@ public class BancoDeDados {
 //    private List<String> nomes;
 //    private List<Integer> idades;
     
-    private List<Bibliotecario> listaBibliotecarios;
-    private List<Usuario>       listaUsuarios;
-    private List<Livro>         listaLivro;
-    private List<Administrador> listaAdministradores;
-    private List<Emprestimo>    listaEmprestimos;
+    private final List<Bibliotecario> listaBibliotecarios;
+    private final List<Usuario>       listaUsuarios;
+    private final List<Livro>         listaLivro;
+    private final List<Administrador> listaAdministradores;
+    private final List<Emprestimo>    listaEmprestimos;
 
     
     private BancoDeDados() {
-        listaBibliotecarios  = CSV.CSVToListaBibliotecario(caminhoBibliiotecario);
-        listaUsuarios        = CSV.CSVToListaUsuario(caminhoUsuario);
-        listaLivro           = CSV.CSVToListaLivro(caminhoLivro, listaBibliotecarios);
-        listaAdministradores = CSV.CSVToListaAdministrador(caminhoAdmin);
-        
-        Livro[] listaLivrosEmprestados = { listaLivro.get(0) };
-        listaEmprestimos     = CSV.CSVToListaEmprestimo(caminhoEmprestimo, listaUsuarios, listaBibliotecarios, listaLivrosEmprestados);
+        listaBibliotecarios  = new ListaBibliotecarios().csvParaList(caminhoBibliiotecario);
+        listaUsuarios        = new ListaUsuarios().csvParaList(caminhoUsuario);
+        listaLivro           = new ListaLivros().csvParaList(caminhoLivro);
+        listaAdministradores = new ListaAdministradores().csvParaList(caminhoAdmin);
+        listaEmprestimos     = new ListaEmprestimos().csvParaList(caminhoEmprestimo);
 
     };
     
@@ -53,9 +51,50 @@ public class BancoDeDados {
         return listaBibliotecarios;
     };
     
+    public Boolean removeBibliotecarioPorId(Integer id) {
+        Boolean sucesso = true;
+        try {
+            listaBibliotecarios.removeIf(bibliotecario -> bibliotecario.getId() == id);
+        } catch (Exception e) {
+            sucesso = false;
+        }
+        return sucesso;
+    }
+    
+//    public Boolean updateBibliotecarioPorId(Integer id, Bibliotecario bibli) {
+//        Boolean sucesso = true;
+//        try {
+//            this.removeBibliotecarioPorId(id);
+//            this.addBibliotecario(bibli);
+//        } catch (Exception e) {
+//            sucesso = false;
+//        }
+//        return sucesso;
+//    }
+    
     public void addUsuario(Usuario usuario) {
         listaUsuarios.add(usuario);
     };
+    
+    public Boolean removeUsuario(Usuario usuario) {
+        Boolean sucesso = true;
+        try {
+            listaUsuarios.remove(usuario);
+        } catch (Exception e) {
+            sucesso = false;
+        }
+        return sucesso;
+    };
+    
+    public Boolean removeUsuarioPorId(Integer id) {
+        Boolean sucesso = true;
+        try {
+            listaUsuarios.removeIf(usuario -> usuario.getId() == id);
+        } catch (Exception e) {
+            sucesso = false;
+        }
+        return sucesso;
+    }
 
     public List<Usuario> getUsuario() {
         return listaUsuarios;

@@ -20,6 +20,12 @@ public class TelaMenu extends javax.swing.JFrame {
     /**
      * Creates new form TelaMenu
      */
+    public TelaMenu() {
+        this.tipoUsuario = "admin";
+        initComponents();
+        ajustarBotoesPorTipoUsuario();
+    }
+    
     public TelaMenu(String tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
         initComponents();
@@ -56,6 +62,7 @@ public class TelaMenu extends javax.swing.JFrame {
                 BotaoCadastroUsuario.setVisible(true);
                 BotaoCadastroLivros.setVisible(true);
                 BotaoCadastroBibliotecario.setVisible(true);
+                BotaoGerarRelatorio.setVisible(true);
                 break;
             default:
                 // Caso padrão (não deve acontecer)
@@ -84,8 +91,9 @@ public class TelaMenu extends javax.swing.JFrame {
         BotaoAcervo = new javax.swing.JButton();
         BotaoCadastroUsuario = new javax.swing.JButton();
         BotaoSair = new javax.swing.JButton();
-        BotaoCadastroBibliotecario = new javax.swing.JButton();
         BotaoCadastroLivros = new javax.swing.JButton();
+        BotaoCadastroBibliotecario = new javax.swing.JButton();
+        BotaoGerarRelatorio = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -108,14 +116,14 @@ public class TelaMenu extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(181, Short.MAX_VALUE)
+                .addContainerGap(190, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(169, 169, 169))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addGap(0, 12, Short.MAX_VALUE)
+                .addGap(0, 14, Short.MAX_VALUE)
                 .addComponent(jLabel1))
         );
 
@@ -147,17 +155,24 @@ public class TelaMenu extends javax.swing.JFrame {
             }
         });
 
-        BotaoCadastroBibliotecario.setText("Cadastro de Bibliotecários");
+        BotaoCadastroLivros.setText("Cadastro de Livros");
+        BotaoCadastroLivros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotaoCadastroLivrosActionPerformed(evt);
+            }
+        });
+
+        BotaoCadastroBibliotecario.setText("Listar Bibliotecários");
         BotaoCadastroBibliotecario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotaoCadastroBibliotecarioActionPerformed(evt);
             }
         });
 
-        BotaoCadastroLivros.setText("Cadastro de Livros");
-        BotaoCadastroLivros.addActionListener(new java.awt.event.ActionListener() {
+        BotaoGerarRelatorio.setText("Gerar Relatório");
+        BotaoGerarRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotaoCadastroLivrosActionPerformed(evt);
+                BotaoGerarRelatorioActionPerformed(evt);
             }
         });
 
@@ -179,7 +194,8 @@ public class TelaMenu extends javax.swing.JFrame {
                                 .addComponent(BotaoCadastroUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(BotaoAcervo, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(BotaoCadastroBibliotecario, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(BotaoCadastroLivros, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(BotaoCadastroLivros, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(BotaoGerarRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(41, 41, 41))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -196,7 +212,9 @@ public class TelaMenu extends javax.swing.JFrame {
                 .addComponent(BotaoCadastroLivros, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(BotaoCadastroBibliotecario, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(BotaoGerarRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                 .addComponent(BotaoSair)
                 .addGap(57, 57, 57))
         );
@@ -251,11 +269,11 @@ public class TelaMenu extends javax.swing.JFrame {
     private void BotaoCadastroBibliotecarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoCadastroBibliotecarioActionPerformed
         // TODO add your handling code here:
         // Cria uma instância da janela de cadastro de bibliotecário
-    CadastroBibliotecario cadastroBibliotecario = new CadastroBibliotecario();
-    // Torna a janela visível
-    cadastroBibliotecario.setVisible(true);
-    // Centraliza a janela na tela
-    cadastroBibliotecario.setLocationRelativeTo(null);
+        ListaBibliotecarios listarBibliotecario = new ListaBibliotecarios();
+        // Torna a janela visível
+        listarBibliotecario.setVisible(true);
+        // Centraliza a janela na tela
+        listarBibliotecario.setLocationRelativeTo(null);
     }//GEN-LAST:event_BotaoCadastroBibliotecarioActionPerformed
 
     private void BotaoCadastroLivrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoCadastroLivrosActionPerformed
@@ -268,6 +286,10 @@ public class TelaMenu extends javax.swing.JFrame {
 //        // Centraliza a janela na tela
 //        cadastroLivro.setLocationRelativeTo(null);
     }//GEN-LAST:event_BotaoCadastroLivrosActionPerformed
+
+    private void BotaoGerarRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoGerarRelatorioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BotaoGerarRelatorioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -300,7 +322,7 @@ public class TelaMenu extends javax.swing.JFrame {
         // new TelaMenu("bibliotecario").setVisible(true); // Comente ou remova
 
         // Para administrador
-        // new TelaMenu("adm").setVisible(true); // Comente ou remova
+         new TelaMenu("admin").setVisible(true); // Comente ou remova
     });
     }
 
@@ -310,6 +332,7 @@ public class TelaMenu extends javax.swing.JFrame {
     private javax.swing.JButton BotaoCadastroLivros;
     private javax.swing.JButton BotaoCadastroUsuario;
     private javax.swing.JButton BotaoEmprestimo;
+    private javax.swing.JButton BotaoGerarRelatorio;
     private javax.swing.JButton BotaoSair;
     private javax.swing.JPanel RightComponent;
     private javax.swing.JLabel jLabel1;
