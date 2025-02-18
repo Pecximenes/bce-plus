@@ -7,7 +7,6 @@ package bceplus;
 import Entidades.Administrador;
 import Entidades.BancoDeDados;
 import java.util.List;
-import Entidades.CSV;
 import Entidades.Usuario;
 import javax.swing.*;
 import Entidades.Administrador; // Importação da classe Administrador
@@ -235,11 +234,10 @@ public class Login extends javax.swing.JFrame {
             String caminhoUsuario = "src/data/DadosUsuario.csv";
             String caminhoAdmin = "src/data/DadosAdmin.csv";
             String caminhoBibliotecario = "src/data/DadosBibliotecario.csv";
-            CSV csv = new CSV();
-
-            List<Usuario> listaUsuarios = csv.CSVToListaUsuario(caminhoUsuario);
-            List<Administrador> listaAdmins = csv.CSVToListaAdministrador(caminhoAdmin);
-            List<Bibliotecario> listaBibliotecarios = csv.CSVToListaBibliotecario(caminhoBibliotecario);
+           
+            List<Usuario> listaUsuarios = BancoDeDados.getInstance().getUsuario();
+            List<Administrador> listaAdmins = BancoDeDados.getInstance().getAdmin();
+            List<Bibliotecario> listaBibliotecarios = BancoDeDados.getInstance().getBibliotecario();
 
             boolean loginSucesso = false;
             String tipoUsuario = "";

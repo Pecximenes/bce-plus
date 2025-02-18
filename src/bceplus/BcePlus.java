@@ -1,7 +1,6 @@
 package bceplus;
 
 import java.util.List;
-import Entidades.CSV;
 import Entidades.Usuario;
 import Entidades.Livro;
 import Entidades.Administrador;
