@@ -41,7 +41,7 @@ public class BancoDeDados {
     public static BancoDeDados getInstance() {
         if (instance == null) {
             instance = new BancoDeDados();
-        };
+        }
         return instance;
     };
 

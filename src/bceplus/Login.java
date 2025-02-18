@@ -2,9 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package bceplus;
 
-import Entidades.Administrador;
 import Entidades.BancoDeDados;
 import java.util.List;
 import Entidades.CSV;
@@ -226,7 +224,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-            String username = usernameInput.getText();
+        String username = usernameInput.getText();
         String password = passwordInput.getText();
 
         if (username.isEmpty() || password.isEmpty()) {
@@ -282,9 +280,10 @@ public class Login extends javax.swing.JFrame {
                 final String tipoUsuarioFinal = tipoUsuario;
 
                 // Abre a tela de menu com o tipo de usuário
-                java.awt.EventQueue.invokeLater(() -> {
-                    new TelaMenu(tipoUsuarioFinal).setVisible(true);
-                });
+                
+               TelaMenu telaMenu = new TelaMenu(tipoUsuarioFinal);
+               telaMenu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+               telaMenu.setVisible(true);
 
                 // Fecha a tela de login
                 this.dispose();

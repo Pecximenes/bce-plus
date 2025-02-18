@@ -16,8 +16,14 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 
 public class cadastroLivro extends javax.swing.JFrame {
-     private Bibliotecario bibliotecario;
-     private Livro livro;
+
+    private Bibliotecario bibliotecario;
+    private Livro livro;
+     
+    public cadastroLivro() {
+        
+       initComponents();
+    }
 
     public cadastroLivro(Bibliotecario bibliotecario) {
         this.bibliotecario = bibliotecario;
@@ -333,23 +339,46 @@ public class cadastroLivro extends javax.swing.JFrame {
             return;
         }
         
-        Livro novoLivro = new Livro(tituloInserido.getText(), 
-                autorInserido.getText(),
-                editoraInserida.getText(), 
-                Integer.parseInt(anoInserido.getText()), 
-                copiaFisica.isSelected(), 
-                livroRaro.isSelected(), 
-                copiaDigital.isSelected(), 
-                caminhoImagem.getText(), 
-                bibliotecario, 
-                Categoria.getText());
-        
-        BancoDeDados banquinho = BancoDeDados.getInstance();
-        banquinho.addLivro(novoLivro);
-        
-        this.dispose();
-    }//GEN-LAST:event_botaoSalvarActionPerformed
+        if (livro != null){
+            livro.setTitulo(tituloInserido.getText()); 
+            livro.setAutor(autorInserido.getText());
+            livro.setEditora(editoraInserida.getText()); 
+            livro.setAnoPublicacao(Integer.parseInt(anoInserido.getText()));
+            livro.setDisponivelFisico(copiaFisica.isSelected());
+            livro.setLivroRaro(livroRaro.isSelected());
+            livro.setDisponivelDigital(copiaDigital.isSelected());
+            livro.setCaminhoImagem(caminhoImagem.getText());
+            livro.setBibliotecario(bibliotecario);
+            livro.setCategoria(Categoria.getText());
+            
+            System.out.println(livro);
+            this.dispose();
+        } else {
+            Livro novoLivro = new Livro(tituloInserido.getText(), 
+                    autorInserido.getText(),
+                    editoraInserida.getText(), 
+                    Integer.parseInt(anoInserido.getText()), 
+                    copiaFisica.isSelected(), 
+                    livroRaro.isSelected(), 
+                    copiaDigital.isSelected(), 
+                    caminhoImagem.getText(), 
+                    bibliotecario, 
+                    Categoria.getText());
 
+            BancoDeDados banquinho = BancoDeDados.getInstance();
+            banquinho.addLivro(novoLivro);
+            System.out.println(novoLivro);
+
+            this.dispose();
+        }
+    }//GEN-LAST:event_botaoSalvarActionPerformed
+    public static void main(String args[]) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new cadastroLivro().setVisible(true);
+            }
+        });
+    };
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel CadastroDeLivros;

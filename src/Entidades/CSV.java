@@ -32,8 +32,8 @@ public class CSV {
                         livro
                 );
                 usuarios.add(usuario);
-            };
-        } catch (IOException e) {};
+            }
+        } catch (IOException e) {}
 
         return usuarios;
     };
@@ -64,8 +64,8 @@ public class CSV {
                         dados[9]                           // Categoria
                 );
                 livros.add(livro);
-            };
-        } catch (IOException e) {};
+            }
+        } catch (IOException e) {}
 
         return livros;
     };
@@ -92,8 +92,8 @@ public class CSV {
                         bibliotecario
                 );
                 administradores.add(administrador);
-            };
-        } catch (IOException e) {};
+            }
+        } catch (IOException e) {}
 
         return administradores;
     };
@@ -119,8 +119,8 @@ public class CSV {
                         Boolean.parseBoolean(dados[6])  // Primeiro Login
                 );
                 bibliotecarios.add(bibliotecario);
-            };
-        } catch (IOException e) {};
+            }
+        } catch (IOException e) {}
 
         return bibliotecarios;
     };
@@ -161,8 +161,8 @@ public class CSV {
                         Double.valueOf(dados[1]) // Multa
                 );
                 emprestimos.add(emprestimo);
-            };
-        } catch (IOException e) {};
+            }
+        } catch (IOException e) {}
 
         return emprestimos;
     };

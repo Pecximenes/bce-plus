@@ -2,7 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package bceplus;
+
+import Entidades.Administrador;
+import Entidades.Bibliotecario;
+import Entidades.Usuario;
+import javax.swing.JFrame;
 
 
 /**
@@ -15,13 +19,31 @@ public class TelaMenu extends javax.swing.JFrame {
     /**
      * Creates new form TelaMenu
      */
-    private String tipoUsuario; // Variável para armazenar o tipo de usuário
+    String tipoUsuario; // Variável para armazenar o tipo de usuário
+    Bibliotecario bibliotecario;
+    Usuario usuario;
+    Administrador admin;
 
     /**
      * Creates new form TelaMenu
      */
     public TelaMenu(String tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
+        initComponents();
+        ajustarBotoesPorTipoUsuario();
+    }
+    public TelaMenu(Bibliotecario bibliotecario) {
+        this.bibliotecario = bibliotecario;
+        initComponents();
+        ajustarBotoesPorTipoUsuario();
+    }
+    public TelaMenu(Usuario usuario) {
+        this.usuario = usuario;
+        initComponents();
+        ajustarBotoesPorTipoUsuario();
+    }
+    public TelaMenu(Administrador admin) {
+        this.admin = admin;
         initComponents();
         ajustarBotoesPorTipoUsuario();
     }
@@ -32,7 +54,7 @@ public class TelaMenu extends javax.swing.JFrame {
         BotaoCadastroLivros.setVisible(false);
         BotaoCadastroBibliotecario.setVisible(false);
 
-        switch (tipoUsuario) {
+        if ((usuario != null) && !(usuario.isProfessor())) {
             case "comum":
                 // Comum: Empréstimo e Acervo
                 BotaoCadastroUsuario.setVisible(false);
@@ -234,6 +256,8 @@ public class TelaMenu extends javax.swing.JFrame {
     private void BotaoAcervoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoAcervoActionPerformed
         // TODO add your handling code here:
         listaLivros lista = new listaLivros();
+        lista.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
         // Torna a janela visível
         lista.setVisible(true);
         // Centraliza a janela na tela
@@ -241,17 +265,24 @@ public class TelaMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_BotaoAcervoActionPerformed
 
     private void BotaoEmprestimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoEmprestimoActionPerformed
-        // TODO add your handling code here:
+        Emprestimos emprestimo = new Emprestimos();
+        emprestimo.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
+        emprestimo.setVisible(true);
+        
+        emprestimo.setLocationRelativeTo(null);
     }//GEN-LAST:event_BotaoEmprestimoActionPerformed
 
     private void BotaoSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoSairActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_BotaoSairActionPerformed
 
     private void BotaoCadastroBibliotecarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoCadastroBibliotecarioActionPerformed
         // TODO add your handling code here:
         // Cria uma instância da janela de cadastro de bibliotecário
     CadastroBibliotecario cadastroBibliotecario = new CadastroBibliotecario();
+    cadastroBibliotecario.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
     // Torna a janela visível
     cadastroBibliotecario.setVisible(true);
     // Centraliza a janela na tela

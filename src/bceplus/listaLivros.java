@@ -1,4 +1,3 @@
-package bceplus;
 
 import Entidades.BancoDeDados;
 import Entidades.Bibliotecario;
@@ -83,6 +82,8 @@ public listaLivros() {
     
 public listaLivros(Usuario user) {
     initComponents();
+    
+    botaoEditarLivro.setVisible(false);
 
     int colunas = 3; // Máximo de 4 livros por linha
     int maxLivros = 12; // Máximo de livros a exibir (opcional)

@@ -4,8 +4,10 @@ import Entidades.Bibliotecario;
 import Entidades.Livro;
 import Entidades.Usuario;
 import Entidades.Emprestimo;
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -40,7 +42,14 @@ public class Emprestimos extends javax.swing.JFrame {
         this.livro = livro;
         
         textoUsuario.setText(user.getUsuario());
-        livroSelecionado.setText(livro.toString());
+        
+        BancoDeDados bancoDeDados = BancoDeDados.getInstance();
+        String[] lv = bancoDeDados.getLivro()
+                             .stream()
+                             .map(Livro::getTitulo)
+                             .toArray(String[]::new);
+        
+        livroSelecionado.setText(Arrays.toString(lv));
         
         if (user.isProfessor()) {
             devolucao = dataAtual.plusDays(60);
@@ -78,7 +87,14 @@ public class Emprestimos extends javax.swing.JFrame {
         this.user = user;
         this.livro = livro;
         textoUsuario.setText(user.getUsuario());
-        livroSelecionado.setText(List.toString(livro));
+        
+        BancoDeDados bancoDeDados = BancoDeDados.getInstance();
+        String[] lv = bancoDeDados.getLivro()
+                             .stream()
+                             .map(Livro::getTitulo)
+                             .toArray(String[]::new);
+        
+        livroSelecionado.setText(Arrays.toString(lv));
         
         if (user.isProfessor()) {
             devolucao = dataAtual.plusDays(40);
@@ -147,7 +163,7 @@ public class Emprestimos extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("Livro Selecionado:");
+        jLabel3.setText("Livros Selecionados:");
 
         livroSelecionado.setEditable(false);
         livroSelecionado.setColumns(20);
@@ -248,17 +264,16 @@ public class Emprestimos extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoCancelarActionPerformed
 
     private void botaoFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoFinalizarActionPerformed
-        
-        for (Livro i : livro) {
-            if (i.isLivroRaro() && (bibliotecario == null)) {
-                JOptionPane.showMessageDialog(null, "Você não possui autorização para realizar o Empréstimo de um Livro Raro, solicite a um bibliocário para realizar o empréstimo.é", "Erro", JOptionPane.ERROR_MESSAGE);
-                break;
-            }
-        }
-            
         if (bibliotecario == null){
-            Emprestimo emprestimo = new Emprestimo(user, livro, devolucao, multa);
-            
+            for (Livro i : livro) {
+                if (i.isLivroRaro() && (bibliotecario == null)) {
+                    JOptionPane.showMessageDialog(null, "Você não possui autorização para realizar o Empréstimo de um Livro Raro, solicite a um bibliocário para realizar o empréstimo.é", "Erro", JOptionPane.ERROR_MESSAGE);
+                    break;
+                }
+                else {
+                Emprestimo emprestimo = new Emprestimo(user, livro, devolucao, multa);
+                        }
+            }
         }
         Emprestimo emprestimo = new Emprestimo(user, bibliotecario,livro, devolucao, multa);
         
