@@ -27,7 +27,6 @@ public class cadastroLivro extends javax.swing.JFrame {
 
     public cadastroLivro(Bibliotecario bibliotecario) {
         this.bibliotecario = bibliotecario;
-        
         initComponents();
     }
     

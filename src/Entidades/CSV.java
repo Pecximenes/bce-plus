@@ -133,7 +133,7 @@ public class CSV {
      * @param livrosEmprestados
      * @return
      */
-    public static List<Emprestimo> CSVToListaEmprestimo(String caminhoArquivo, List<Usuario> listaUsuarios, List<Bibliotecario> listaBibliotecarios, Livro[] livrosEmprestados) {
+    public static List<Emprestimo> CSVToListaEmprestimo(String caminhoArquivo, List<Usuario> listaUsuarios, List<Bibliotecario> listaBibliotecarios, List<Livro> livrosEmprestados) {
         List<Emprestimo> emprestimos = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(caminhoArquivo))) {

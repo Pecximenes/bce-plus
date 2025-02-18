@@ -16,6 +16,9 @@ import Entidades.Bibliotecario; // Importação da classe Bibliotecario
  * @author pedro
  */
 public class Login extends javax.swing.JFrame {
+    Administrador admin;
+    Usuario usuario;
+    Bibliotecario bibliotecario;
 
     /**
      * Creates new form Login
@@ -246,6 +249,7 @@ public class Login extends javax.swing.JFrame {
             for (Administrador admin : listaAdmins) {
                 if (username.equals(admin.getUsuario()) && password.equals(admin.getSenha())) {
                     loginSucesso = true;
+                    this.admin = admin;
                     tipoUsuario = "admin";
                     break;
                 }
@@ -256,6 +260,7 @@ public class Login extends javax.swing.JFrame {
                 for (Bibliotecario bibliotecario : listaBibliotecarios) {
                     if (username.equals(bibliotecario.getUsuario()) && password.equals(bibliotecario.getSenha())) {
                         loginSucesso = true;
+                        this.bibliotecario = bibliotecario;
                         tipoUsuario = "bibliotecario";
                         break;
                     }
@@ -267,6 +272,7 @@ public class Login extends javax.swing.JFrame {
                 for (Usuario usuario : listaUsuarios) {
                     if (username.equals(usuario.getUsuario()) && password.equals(usuario.getSenha())) {
                         loginSucesso = true;
+                        this.usuario = usuario;
                         tipoUsuario = usuario.isCadastrado() ? "professor" : "comum";
                         break;
                     }
@@ -280,10 +286,27 @@ public class Login extends javax.swing.JFrame {
                 final String tipoUsuarioFinal = tipoUsuario;
 
                 // Abre a tela de menu com o tipo de usuário
+                if (tipoUsuarioFinal == "admin") {
+                    TelaMenu telaMenu = new TelaMenu(admin);
+                    telaMenu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    telaMenu.setVisible(true);
+                    System.out.println("Entrando como admin!");
+                }
                 
-               TelaMenu telaMenu = new TelaMenu(tipoUsuarioFinal);
-               telaMenu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-               telaMenu.setVisible(true);
+                if (tipoUsuarioFinal == "bibliotecario") {
+                    TelaMenu telaMenu = new TelaMenu(bibliotecario);
+                    telaMenu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    telaMenu.setVisible(true);
+                    System.out.println("Entrando como Bibliotecario!");
+                }
+                
+                if ((tipoUsuarioFinal == "comum") || (tipoUsuarioFinal == "professor")) {
+                    TelaMenu telaMenu = new TelaMenu(usuario);
+                    telaMenu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    telaMenu.setVisible(true);
+                    System.out.println("Entrando como Usuario!");
+                }
+                
 
                 // Fecha a tela de login
                 this.dispose();

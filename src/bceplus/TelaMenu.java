@@ -27,11 +27,6 @@ public class TelaMenu extends javax.swing.JFrame {
     /**
      * Creates new form TelaMenu
      */
-    public TelaMenu(String tipoUsuario) {
-        this.tipoUsuario = tipoUsuario;
-        initComponents();
-        ajustarBotoesPorTipoUsuario();
-    }
     public TelaMenu(Bibliotecario bibliotecario) {
         this.bibliotecario = bibliotecario;
         initComponents();
@@ -49,19 +44,9 @@ public class TelaMenu extends javax.swing.JFrame {
     }
 
     private void ajustarBotoesPorTipoUsuario() {
-        // Resetar visibilidade de todos os botões
-        BotaoCadastroUsuario.setVisible(false);
-        BotaoCadastroLivros.setVisible(false);
-        BotaoCadastroBibliotecario.setVisible(false);
 
-        if ((usuario != null) && !(usuario.isProfessor())) {
+        if (usuario != null) {
                 // Comum: Empréstimo e Acervo
-                BotaoCadastroUsuario.setVisible(false);
-                BotaoCadastroLivros.setVisible(false);
-                BotaoCadastroBibliotecario.setVisible(false);
-            }
-        if ((usuario != null) && (usuario.isProfessor())) {
-                // Professor: Empréstimo e Acervo
                 BotaoCadastroUsuario.setVisible(false);
                 BotaoCadastroLivros.setVisible(false);
                 BotaoCadastroBibliotecario.setVisible(false);
@@ -75,15 +60,9 @@ public class TelaMenu extends javax.swing.JFrame {
         if (admin != null) {
                 // Administrador: Todos os botões
                 BotaoCadastroUsuario.setVisible(true);
-                BotaoCadastroLivros.setVisible(true);
+                BotaoCadastroLivros.setVisible(false);
                 BotaoCadastroBibliotecario.setVisible(true);
             }
-        else {
-                // Caso padrão (não deve acontecer)
-                BotaoCadastroUsuario.setVisible(false);
-                BotaoCadastroLivros.setVisible(false);
-                BotaoCadastroBibliotecario.setVisible(false);
-        }
     }
 
     /**
@@ -248,13 +227,18 @@ public class TelaMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotaoCadastroUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoCadastroUsuarioActionPerformed
-       
+        CadastroUsuario cadastroUsuario = new CadastroUsuario();
+        cadastroUsuario.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
+        // Torna a janela visível
+        cadastroUsuario.setVisible(true);
+        // Centraliza a janela na tela
+        cadastroUsuario.setLocationRelativeTo(null);
     }//GEN-LAST:event_BotaoCadastroUsuarioActionPerformed
 
     private void BotaoAcervoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoAcervoActionPerformed
         
         if (usuario != null) {
-            // TODO add your handling code here:
             listaLivros lista = new listaLivros(usuario);
             lista.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -262,6 +246,7 @@ public class TelaMenu extends javax.swing.JFrame {
             lista.setVisible(true);
             // Centraliza a janela na tela
             lista.setLocationRelativeTo(null);
+            System.out.println("Abrindo como Usuario!");
         }
         if (bibliotecario != null){
             // TODO add your handling code here:
@@ -272,6 +257,7 @@ public class TelaMenu extends javax.swing.JFrame {
             lista.setVisible(true);
             // Centraliza a janela na tela
             lista.setLocationRelativeTo(null);
+            System.out.println("Abrindo como Bibliotecario!");
         }
     }//GEN-LAST:event_BotaoAcervoActionPerformed
 
@@ -290,26 +276,26 @@ public class TelaMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_BotaoSairActionPerformed
 
     private void BotaoCadastroBibliotecarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoCadastroBibliotecarioActionPerformed
-        // TODO add your handling code here:
         // Cria uma instância da janela de cadastro de bibliotecário
-    CadastroBibliotecario cadastroBibliotecario = new CadastroBibliotecario();
-    cadastroBibliotecario.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        CadastroBibliotecario cadastroBibliotecario = new CadastroBibliotecario();
+        cadastroBibliotecario.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-    // Torna a janela visível
-    cadastroBibliotecario.setVisible(true);
-    // Centraliza a janela na tela
-    cadastroBibliotecario.setLocationRelativeTo(null);
+        // Torna a janela visível
+        cadastroBibliotecario.setVisible(true);
+        // Centraliza a janela na tela
+        cadastroBibliotecario.setLocationRelativeTo(null);
     }//GEN-LAST:event_BotaoCadastroBibliotecarioActionPerformed
 
     private void BotaoCadastroLivrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoCadastroLivrosActionPerformed
-//        // Cria uma instância da janela de cadastro de livros
-//        cadastroLivro cadastroLivro = new cadastroLivro(bibliotecario); // Passa o bibliotecário como parâmetro
-//
-//        // Torna a janela visível
-//        cadastroLivro.setVisible(true);
-//
-//        // Centraliza a janela na tela
-//        cadastroLivro.setLocationRelativeTo(null);
+        // Cria uma instância da janela de cadastro de livros
+        cadastroLivro cadastroLivro = new cadastroLivro(bibliotecario); // Passa o bibliotecário como parâmetro
+        cadastroLivro.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
+        // Torna a janela visível
+        cadastroLivro.setVisible(true);
+
+        // Centraliza a janela na tela
+        cadastroLivro.setLocationRelativeTo(null);
     }//GEN-LAST:event_BotaoCadastroLivrosActionPerformed
 
     /**

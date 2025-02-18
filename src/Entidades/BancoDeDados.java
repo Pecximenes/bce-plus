@@ -1,5 +1,7 @@
 package Entidades;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -32,7 +34,7 @@ public class BancoDeDados {
         listaLivro           = CSV.CSVToListaLivro(caminhoLivro, listaBibliotecarios);
         listaAdministradores = CSV.CSVToListaAdministrador(caminhoAdmin);
         
-        Livro[] listaLivrosEmprestados = { listaLivro.get(0) };
+        List<Livro> listaLivrosEmprestados = new ArrayList<>(Arrays.asList(listaLivro.get(0)));
         listaEmprestimos     = CSV.CSVToListaEmprestimo(caminhoEmprestimo, listaUsuarios, listaBibliotecarios, listaLivrosEmprestados);
 
     };

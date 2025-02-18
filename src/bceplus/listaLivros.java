@@ -3,20 +3,16 @@ import Entidades.BancoDeDados;
 import Entidades.Bibliotecario;
 import Entidades.Usuario;
 import Entidades.Livro;
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.PopupMenu;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
 /**
@@ -27,62 +23,11 @@ public class listaLivros extends javax.swing.JFrame {
     Usuario usuario;
     Bibliotecario bibliotecario;
     BancoDeDados banco = BancoDeDados.getInstance();
-    List<Livro> livrosSelec;
+    List<Livro> livrosSelec = new ArrayList<>();
     
 
 public listaLivros() {
     initComponents();
-
-    int colunas = 3; // Máximo de 4 livros por linha
-    int maxLivros = 12; // Máximo de livros a exibir (opcional)
-
-    // Calcula quantas linhas são necessárias
-    int linhas = (int) Math.ceil(Math.min(banco.getLivro().size(), maxLivros) / (double) colunas);
-
-    // Se não houver livros, encerra
-    if (banco.getLivro() == null || banco.getLivro().isEmpty()) {
-        System.out.println("Erro: banco de dados não foi inicializado ou está vazio!");
-        return;
-    }
-
-    // Layout fixo com linhas variáveis e colunas fixas
-    livrosPainel.setLayout(new GridLayout(linhas, colunas, 10, 10)); 
-
-    // Adiciona livros até o limite
-    int count = 0;
-    for (Livro livro : banco.getLivro()) {
-        if (count >= maxLivros) break; // Limita a quantidade de livros
-
-        JLabel labelLivro = new JLabel(livro.getTitulo(), SwingConstants.CENTER);
-        labelLivro.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        
-        labelLivro.addMouseListener(new MouseAdapter() {
-            private boolean clicado = false;
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (clicado) {
-                    labelLivro.setBackground(Color.LIGHT_GRAY); // Volta à cor original
-                } else {
-                    labelLivro.setBackground(Color.GREEN); // Muda para verde
-                }
-                clicado = !clicado; // Alterna o estado
-            }
-        });
-        
-        labelLivro.setOpaque(true); // Permite que a cor de fundo apareça
-        labelLivro.setBackground(Color.LIGHT_GRAY); // Define a cor de fundo
-        labelLivro.setForeground(Color.BLACK); // Define a cor do texto
-        livrosPainel.add(labelLivro);
-        count++;
-    }
-
-    livrosPainel.revalidate();
-    livrosPainel.repaint();
-}
-    
-public listaLivros(Usuario usuario) {
-    initComponents();
-    
     botaoEditarLivro.setVisible(false);
 
     int colunas = 3; // Máximo de 4 livros por linha
@@ -114,8 +59,10 @@ public listaLivros(Usuario usuario) {
             public void mouseClicked(MouseEvent e) {
                 if (clicado) {
                     labelLivro.setBackground(Color.LIGHT_GRAY); // Volta à cor original
+                    livrosSelec.remove(livro);
                 } else {
                     labelLivro.setBackground(Color.GREEN); // Muda para verde
+                    livrosSelec.add(livro);
                 }
                 clicado = !clicado; // Alterna o estado
             }
@@ -127,60 +74,119 @@ public listaLivros(Usuario usuario) {
         livrosPainel.add(labelLivro);
         count++;
     }
+    
+    
 
     livrosPainel.revalidate();
     livrosPainel.repaint();
 }
     
-public listaLivros(Bibliotecario bibliotecario) {
-    initComponents();
+    public listaLivros(Usuario usuario) {
+        initComponents();
 
-    int colunas = 3; // Máximo de 4 livros por linha
-    int maxLivros = 12; // Máximo de livros a exibir (opcional)
+        botaoEditarLivro.setVisible(false);
 
-    // Calcula quantas linhas são necessárias
-    int linhas = (int) Math.ceil(Math.min(banco.getLivro().size(), maxLivros) / (double) colunas);
+        int colunas = 3; // Máximo de 4 livros por linha
+        int maxLivros = 12; // Máximo de livros a exibir (opcional)
 
-    // Se não houver livros, encerra
-    if (banco.getLivro() == null || banco.getLivro().isEmpty()) {
-        System.out.println("Erro: banco de dados não foi inicializado ou está vazio!");
-        return;
-    }
+        // Calcula quantas linhas são necessárias
+        int linhas = (int) Math.ceil(Math.min(banco.getLivro().size(), maxLivros) / (double) colunas);
 
-    // Layout fixo com linhas variáveis e colunas fixas
-    livrosPainel.setLayout(new GridLayout(linhas, colunas, 10, 10)); 
+        // Se não houver livros, encerra
+        if (banco.getLivro() == null || banco.getLivro().isEmpty()) {
+            System.out.println("Erro: banco de dados não foi inicializado ou está vazio!");
+            return;
+        }
 
-    // Adiciona livros até o limite
-    int count = 0;
-    for (Livro livro : banco.getLivro()) {
-        if (count >= maxLivros) break; // Limita a quantidade de livros
+        // Layout fixo com linhas variáveis e colunas fixas
+        livrosPainel.setLayout(new GridLayout(linhas, colunas, 10, 10)); 
 
-        JLabel labelLivro = new JLabel(livro.getTitulo(), SwingConstants.CENTER);
-        labelLivro.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        
-        labelLivro.addMouseListener(new MouseAdapter() {
-            private boolean clicado = false;
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (clicado) {
-                    labelLivro.setBackground(Color.LIGHT_GRAY); // Volta à cor original
-                } else {
-                    labelLivro.setBackground(Color.GREEN); // Muda para verde
+        // Adiciona livros até o limite
+        int count = 0;
+        for (Livro livro : banco.getLivro()) {
+            if (count >= maxLivros) break; // Limita a quantidade de livros
+
+            JLabel labelLivro = new JLabel(livro.getTitulo(), SwingConstants.CENTER);
+            labelLivro.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+            labelLivro.addMouseListener(new MouseAdapter() {
+                private boolean clicado = false;
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    if (clicado) {
+                        labelLivro.setBackground(Color.LIGHT_GRAY); // Volta à cor original
+                        livrosSelec.remove(livro);
+                    } else {
+                        labelLivro.setBackground(Color.GREEN); // Muda para verde
+                        livrosSelec.add(livro);
+                    }
+                    clicado = !clicado; // Alterna o estado
                 }
-                clicado = !clicado; // Alterna o estado
-            }
-        });
-        
-        labelLivro.setOpaque(true); // Permite que a cor de fundo apareça
-        labelLivro.setBackground(Color.LIGHT_GRAY); // Define a cor de fundo
-        labelLivro.setForeground(Color.BLACK); // Define a cor do texto
-        livrosPainel.add(labelLivro);
-        count++;
-    }
+            });
 
-    livrosPainel.revalidate();
-    livrosPainel.repaint();
-}
+            labelLivro.setOpaque(true); // Permite que a cor de fundo apareça
+            labelLivro.setBackground(Color.LIGHT_GRAY); // Define a cor de fundo
+            labelLivro.setForeground(Color.BLACK); // Define a cor do texto
+            livrosPainel.add(labelLivro);
+            count++;
+        }
+
+        livrosPainel.revalidate();
+        livrosPainel.repaint();
+    }
+    
+    public listaLivros(Bibliotecario bibliotecario) {
+        initComponents();
+        botaoEditarLivro.setVisible(true);
+        
+        int colunas = 3; // Máximo de 4 livros por linha
+        int maxLivros = 12; // Máximo de livros a exibir (opcional)
+
+        // Calcula quantas linhas são necessárias
+        int linhas = (int) Math.ceil(Math.min(banco.getLivro().size(), maxLivros) / (double) colunas);
+
+        // Se não houver livros, encerra
+        if (banco.getLivro() == null || banco.getLivro().isEmpty()) {
+            System.out.println("Erro: banco de dados não foi inicializado ou está vazio!");
+            return;
+        }
+
+        // Layout fixo com linhas variáveis e colunas fixas
+        livrosPainel.setLayout(new GridLayout(linhas, colunas, 10, 10)); 
+
+        // Adiciona livros até o limite
+        int count = 0;
+        for (Livro livro : banco.getLivro()) {
+            if (count >= maxLivros) break; // Limita a quantidade de livros
+
+            JLabel labelLivro = new JLabel(livro.getTitulo(), SwingConstants.CENTER);
+            labelLivro.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+            labelLivro.addMouseListener(new MouseAdapter() {
+                private boolean clicado = false;
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    if (clicado) {
+                        labelLivro.setBackground(Color.LIGHT_GRAY); // Volta à cor original
+                        livrosSelec.remove(livro);
+                    } else {
+                        labelLivro.setBackground(Color.GREEN); // Muda para verde
+                        livrosSelec.add(livro);
+                    }
+                    clicado = !clicado; // Alterna o estado
+                }
+            });
+
+            labelLivro.setOpaque(true); // Permite que a cor de fundo apareça
+            labelLivro.setBackground(Color.LIGHT_GRAY); // Define a cor de fundo
+            labelLivro.setForeground(Color.BLACK); // Define a cor do texto
+            livrosPainel.add(labelLivro);
+            count++;
+        }
+
+        livrosPainel.revalidate();
+        livrosPainel.repaint();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -196,6 +202,7 @@ public listaLivros(Bibliotecario bibliotecario) {
         botaoSelecionarLivro = new javax.swing.JButton();
         botaoEditarLivro = new javax.swing.JButton();
         livrosPainel = new javax.swing.JPanel();
+        botaoCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -230,6 +237,13 @@ public listaLivros(Bibliotecario bibliotecario) {
             .addGap(0, 410, Short.MAX_VALUE)
         );
 
+        botaoCancelar.setText("Cancelar");
+        botaoCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCancelarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -249,6 +263,8 @@ public listaLivros(Bibliotecario bibliotecario) {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(botaoEditarLivro)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botaoCancelar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botaoSelecionarLivro))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
@@ -267,7 +283,8 @@ public listaLivros(Bibliotecario bibliotecario) {
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoSelecionarLivro)
-                    .addComponent(botaoEditarLivro))
+                    .addComponent(botaoEditarLivro)
+                    .addComponent(botaoCancelar))
                 .addContainerGap())
         );
 
@@ -275,14 +292,40 @@ public listaLivros(Bibliotecario bibliotecario) {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoSelecionarLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSelecionarLivroActionPerformed
+        System.out.println(livrosSelec);
+        
+        if (usuario != null) {
+            Emprestimos emprestimos = new Emprestimos(usuario, livrosSelec);
+            emprestimos.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            emprestimos.setVisible(true);
+            emprestimos.setLocationRelativeTo(null);
+        }
+        if (bibliotecario != null) {
+            Emprestimos emprestimos = new Emprestimos(bibliotecario, livrosSelec);
+            emprestimos.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            emprestimos.setVisible(true);
+            emprestimos.setLocationRelativeTo(null);
+        }
         
     }//GEN-LAST:event_botaoSelecionarLivroActionPerformed
 
     private void botaoEditarLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEditarLivroActionPerformed
-        if (usuario != null){
-            botaoEditarLivro.setVisible(false);
+        System.out.println(livrosSelec.isEmpty());
+        if (livrosSelec.isEmpty()){
+            JOptionPane.showMessageDialog(null, "Selecione ao menos um livro para edita-lo!", "Erro", JOptionPane.ERROR_MESSAGE);  
+        } else {
+            for (Livro livroEdit : livrosSelec) {
+                cadastroLivro cadastroLivro = new cadastroLivro(livroEdit, bibliotecario);
+                cadastroLivro.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                cadastroLivro.setVisible(true);
+                cadastroLivro.setLocationRelativeTo(null);
+            }
         }
     }//GEN-LAST:event_botaoEditarLivroActionPerformed
+
+    private void botaoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_botaoCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -320,6 +363,7 @@ public listaLivros(Bibliotecario bibliotecario) {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botaoCancelar;
     private javax.swing.JButton botaoEditarLivro;
     private javax.swing.JButton botaoSelecionarLivro;
     private javax.swing.JLabel jLabel1;

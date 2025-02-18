@@ -4,13 +4,20 @@ import Entidades.Bibliotecario;
 import Entidades.Livro;
 import Entidades.Usuario;
 import Entidades.Emprestimo;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 
 
@@ -21,11 +28,14 @@ import javax.swing.JOptionPane;
 
 public class Emprestimos extends javax.swing.JFrame {
     Bibliotecario bibliotecario;
+    Usuario usuario;
     List<Livro> livro;
-    Usuario user;
-    LocalDate devolucao;
+    JList<String> listaSugestoes;
+    DefaultListModel<String> modeloLista;
+    List<String> usuarios;
     LocalDate dataAtual = LocalDate.now();
-    Double multa;
+    double multa;
+    LocalDate devolucao;
 
     /**
      * Creates new form Emprestimo
@@ -35,13 +45,13 @@ public class Emprestimos extends javax.swing.JFrame {
         initComponents();
     }
     
-    public Emprestimos(Usuario user, List<Livro> livro) {
+    public Emprestimos(Usuario usuario, List<Livro> livro) {
         initComponents();
         
-        this.user = user;
+        this.usuario = usuario;
         this.livro = livro;
         
-        textoUsuario.setText(user.getUsuario());
+        textoUsuario.setText(usuario.getUsuario());
         
         BancoDeDados bancoDeDados = BancoDeDados.getInstance();
         String[] lv = bancoDeDados.getLivro()
@@ -51,7 +61,7 @@ public class Emprestimos extends javax.swing.JFrame {
         
         livroSelecionado.setText(Arrays.toString(lv));
         
-        if (user.isProfessor()) {
+        if (usuario.isProfessor()) { //Data de Devolucao e Multa.
             devolucao = dataAtual.plusDays(60);
             
             // Define um formato (por exemplo, dd/MM/yyyy)
@@ -65,7 +75,7 @@ public class Emprestimos extends javax.swing.JFrame {
             valorMulta.setText("Valor da multa pelo atraso: 0,80/dia");
         }
         
-        if (!(user.isProfessor())) {
+        if (!(usuario.isProfessor())) { //Data de Devolucao e Multa.
             devolucao = dataAtual.plusDays(30);
             
             // Define um formato (por exemplo, dd/MM/yyyy)
@@ -80,23 +90,59 @@ public class Emprestimos extends javax.swing.JFrame {
         }
     }
     
-    public Emprestimos(Bibliotecario bibliotecario, Usuario user, List<Livro> livro) {
-        initComponents();
-        
-        this.bibliotecario = bibliotecario;
-        this.user = user;
-        this.livro = livro;
-        textoUsuario.setText(user.getUsuario());
-        
+    public Emprestimos(Bibliotecario bibliotecario, List<Livro> livro) {
+        textoUsuario.setEditable(true);
         BancoDeDados bancoDeDados = BancoDeDados.getInstance();
         String[] lv = bancoDeDados.getLivro()
                              .stream()
                              .map(Livro::getTitulo)
                              .toArray(String[]::new);
         
+        initComponents();
+        
+        this.bibliotecario = bibliotecario;
+        this.livro = livro;
+        
+        List<Usuario> usuarios = new ArrayList<>(bancoDeDados.getUsuario());
+        DefaultListModel modeloLista = new DefaultListModel<>();
+        listaSugestoes = new JList<>(modeloLista);
+        JScrollPane srollPane = new JScrollPane(listaSugestoes);
+        
+        // Configurar lógica de autocomplete para usuários
+        textoUsuario.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                atualizarSugestoes();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                atualizarSugestoes();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                atualizarSugestoes();
+            }
+        });
+
+        // Selecionar usuário ao clicar na sugestão
+        listaSugestoes.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (!listaSugestoes.isSelectionEmpty()) {
+                    String usuarioSelecionado = listaSugestoes.getSelectedValue();
+                    textoUsuario.setText(usuarioSelecionado);
+                    this.usuario = usuarioSelecionado;
+                    modeloLista.clear(); // Oculta sugestões
+                }
+            }
+        });
+        
+        textoUsuario.setText(usuario.getUsuario());
         livroSelecionado.setText(Arrays.toString(lv));
         
-        if (user.isProfessor()) {
+        if (usuario.isProfessor()) { //Data de Devolucao e Multa.
             devolucao = dataAtual.plusDays(40);
             
             // Define um formato (por exemplo, dd/MM/yyyy)
@@ -110,7 +156,7 @@ public class Emprestimos extends javax.swing.JFrame {
             valorMulta.setText("Valor da multa pelo atraso: 2,00/dia");
         }
         
-        if (!(user.isProfessor())) {
+        if (!(usuario.isProfessor())) { //Data de Devolucao e Multa.
             devolucao = dataAtual.plusDays(20);
             
             // Define um formato (por exemplo, dd/MM/yyyy)
@@ -122,6 +168,19 @@ public class Emprestimos extends javax.swing.JFrame {
             dataDevolucao.setText(dataFormatada);
             multa = 1.50;
             valorMulta.setText("Valor da multa pelo atraso: 1,50/dia");
+        }
+    }
+    
+    private void atualizarSugestoes() {
+        String texto = textoUsuario.getText().toLowerCase();
+        modeloLista.clear();
+
+        if (!texto.isEmpty()) {
+            for (String usuario : usuarios) {
+                if (usuario.toLowerCase().contains(texto)) {
+                    modeloLista.addElement(usuario);
+                }
+            }
         }
     }
 
@@ -271,11 +330,11 @@ public class Emprestimos extends javax.swing.JFrame {
                     break;
                 }
                 else {
-                Emprestimo emprestimo = new Emprestimo(user, livro, devolucao, multa);
+                Emprestimo emprestimo = new Emprestimo(usuario, livro, devolucao, multa);
                         }
             }
         }
-        Emprestimo emprestimo = new Emprestimo(user, bibliotecario,livro, devolucao, multa);
+        Emprestimo emprestimo = new Emprestimo(usuario, bibliotecario,livro, devolucao, multa);
         
         BancoDeDados banquinho = BancoDeDados.getInstance();
         banquinho.addEmprestimo(emprestimo);
