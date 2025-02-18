@@ -55,36 +55,34 @@ public class TelaMenu extends javax.swing.JFrame {
         BotaoCadastroBibliotecario.setVisible(false);
 
         if ((usuario != null) && !(usuario.isProfessor())) {
-            case "comum":
                 // Comum: Empréstimo e Acervo
                 BotaoCadastroUsuario.setVisible(false);
                 BotaoCadastroLivros.setVisible(false);
                 BotaoCadastroBibliotecario.setVisible(false);
-                break;
-            case "professor":
+            }
+        if ((usuario != null) && (usuario.isProfessor())) {
                 // Professor: Empréstimo e Acervo
                 BotaoCadastroUsuario.setVisible(false);
                 BotaoCadastroLivros.setVisible(false);
                 BotaoCadastroBibliotecario.setVisible(false);
-                break;
-            case "bibliotecario":
+            }
+        if (bibliotecario != null) {
                 // Bibliotecário: Empréstimo, Acervo, Cadastro de Usuário e Livro
                 BotaoCadastroUsuario.setVisible(true);
                 BotaoCadastroLivros.setVisible(true);
                 BotaoCadastroBibliotecario.setVisible(false);
-                break;
-            case "admin":
+            }
+        if (admin != null) {
                 // Administrador: Todos os botões
                 BotaoCadastroUsuario.setVisible(true);
                 BotaoCadastroLivros.setVisible(true);
                 BotaoCadastroBibliotecario.setVisible(true);
-                break;
-            default:
+            }
+        else {
                 // Caso padrão (não deve acontecer)
                 BotaoCadastroUsuario.setVisible(false);
                 BotaoCadastroLivros.setVisible(false);
                 BotaoCadastroBibliotecario.setVisible(false);
-                break;
         }
     }
 
@@ -254,23 +252,37 @@ public class TelaMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_BotaoCadastroUsuarioActionPerformed
 
     private void BotaoAcervoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoAcervoActionPerformed
-        // TODO add your handling code here:
-        listaLivros lista = new listaLivros();
-        lista.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
+        if (usuario != null) {
+            // TODO add your handling code here:
+            listaLivros lista = new listaLivros(usuario);
+            lista.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        // Torna a janela visível
-        lista.setVisible(true);
-        // Centraliza a janela na tela
-        lista.setLocationRelativeTo(null);
+            // Torna a janela visível
+            lista.setVisible(true);
+            // Centraliza a janela na tela
+            lista.setLocationRelativeTo(null);
+        }
+        if (bibliotecario != null){
+            // TODO add your handling code here:
+            listaLivros lista = new listaLivros(bibliotecario);
+            lista.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+            // Torna a janela visível
+            lista.setVisible(true);
+            // Centraliza a janela na tela
+            lista.setLocationRelativeTo(null);
+        }
     }//GEN-LAST:event_BotaoAcervoActionPerformed
 
     private void BotaoEmprestimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoEmprestimoActionPerformed
-        Emprestimos emprestimo = new Emprestimos();
-        emprestimo.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        listaEmprestimos emprestimos = new listaEmprestimos();
+        emprestimos.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
-        emprestimo.setVisible(true);
-        
-        emprestimo.setLocationRelativeTo(null);
+        // Torna a janela visível
+        emprestimos.setVisible(true);
+        // Centraliza a janela na tela
+        emprestimos.setLocationRelativeTo(null);
     }//GEN-LAST:event_BotaoEmprestimoActionPerformed
 
     private void BotaoSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoSairActionPerformed

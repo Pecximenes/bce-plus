@@ -24,7 +24,7 @@ import javax.swing.SwingConstants;
  * @author samuelcds
  */
 public class listaLivros extends javax.swing.JFrame {
-    Usuario user;
+    Usuario usuario;
     Bibliotecario bibliotecario;
     BancoDeDados banco = BancoDeDados.getInstance();
     List<Livro> livrosSelec;
@@ -80,7 +80,7 @@ public listaLivros() {
     livrosPainel.repaint();
 }
     
-public listaLivros(Usuario user) {
+public listaLivros(Usuario usuario) {
     initComponents();
     
     botaoEditarLivro.setVisible(false);
@@ -132,7 +132,7 @@ public listaLivros(Usuario user) {
     livrosPainel.repaint();
 }
     
-public listaLivros(Usuario user, Bibliotecario bibliotecario) {
+public listaLivros(Bibliotecario bibliotecario) {
     initComponents();
 
     int colunas = 3; // Máximo de 4 livros por linha
@@ -279,8 +279,9 @@ public listaLivros(Usuario user, Bibliotecario bibliotecario) {
     }//GEN-LAST:event_botaoSelecionarLivroActionPerformed
 
     private void botaoEditarLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEditarLivroActionPerformed
-        JOptionPane.showMessageDialog(null, "Voce não possui autorizacao para alterar livros!", "Erro", JOptionPane.ERROR_MESSAGE);
-        return;
+        if (usuario != null){
+            botaoEditarLivro.setVisible(false);
+        }
     }//GEN-LAST:event_botaoEditarLivroActionPerformed
 
     /**
