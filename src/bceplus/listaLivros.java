@@ -83,6 +83,7 @@ public listaLivros() {
     
     public listaLivros(Usuario usuario) {
         initComponents();
+        this.usuario = usuario;
 
         botaoEditarLivro.setVisible(false);
 
@@ -137,6 +138,7 @@ public listaLivros() {
     
     public listaLivros(Bibliotecario bibliotecario) {
         initComponents();
+        this.bibliotecario = bibliotecario;
         botaoEditarLivro.setVisible(true);
         
         int colunas = 3; // Máximo de 4 livros por linha
@@ -295,12 +297,14 @@ public listaLivros() {
         System.out.println(livrosSelec);
         
         if (usuario != null) {
+            System.out.println(usuario);
             Emprestimos emprestimos = new Emprestimos(usuario, livrosSelec);
             emprestimos.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             emprestimos.setVisible(true);
             emprestimos.setLocationRelativeTo(null);
         }
         if (bibliotecario != null) {
+            System.out.println(bibliotecario);
             Emprestimos emprestimos = new Emprestimos(bibliotecario, livrosSelec);
             emprestimos.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             emprestimos.setVisible(true);

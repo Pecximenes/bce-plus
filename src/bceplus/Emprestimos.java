@@ -4,6 +4,8 @@ import Entidades.Bibliotecario;
 import Entidades.Livro;
 import Entidades.Usuario;
 import Entidades.Emprestimo;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.lang.reflect.Array;
@@ -29,7 +31,7 @@ import javax.swing.event.DocumentListener;
 public class Emprestimos extends javax.swing.JFrame {
     Bibliotecario bibliotecario;
     Usuario usuario;
-    List<Livro> livro;
+    List<Livro> livros;
     JList<String> listaSugestoes;
     DefaultListModel<String> modeloLista;
     List<String> usuarios;
@@ -49,7 +51,7 @@ public class Emprestimos extends javax.swing.JFrame {
         initComponents();
         
         this.usuario = usuario;
-        this.livro = livro;
+        this.livros = livro;
         
         textoUsuario.setText(usuario.getUsuario());
         
@@ -89,99 +91,96 @@ public class Emprestimos extends javax.swing.JFrame {
             valorMulta.setText("Valor da multa pelo atraso: 0,50/dia");
         }
     }
-    
-    public Emprestimos(Bibliotecario bibliotecario, List<Livro> livro) {
-        textoUsuario.setEditable(true);
-        BancoDeDados bancoDeDados = BancoDeDados.getInstance();
-        String[] lv = bancoDeDados.getLivro()
-                             .stream()
-                             .map(Livro::getTitulo)
-                             .toArray(String[]::new);
-        
+    public Emprestimos(Bibliotecario bibliotecario, List<Livro> livros) {
         initComponents();
+        textoUsuario.setEditable(true);
         
         this.bibliotecario = bibliotecario;
-        this.livro = livro;
+        this.livros = livros;
+        this.dataAtual = LocalDate.now();
+        List<String> exemplares = new ArrayList<>();
         
-        List<Usuario> usuarios = new ArrayList<>(bancoDeDados.getUsuario());
-        DefaultListModel modeloLista = new DefaultListModel<>();
+        for (Livro lv : livros) {
+            exemplares.add(lv.getTitulo());
+        }
+        
+        livroSelecionado.setText(String.join(", ", exemplares));
+        
+        modeloLista = new DefaultListModel<>();
         listaSugestoes = new JList<>(modeloLista);
-        JScrollPane srollPane = new JScrollPane(listaSugestoes);
-        
-        // Configurar lógica de autocomplete para usuários
-        textoUsuario.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                atualizarSugestoes();
-            }
+        JScrollPane scrollPane = new JScrollPane(listaSugestoes);
 
+        textoUsuario.addKeyListener(new KeyAdapter() {
             @Override
-            public void removeUpdate(DocumentEvent e) {
-                atualizarSugestoes();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                atualizarSugestoes();
+            public void keyReleased(KeyEvent e) {
+                atualizarSugestoes(textoUsuario.getText());
             }
         });
 
-        // Selecionar usuário ao clicar na sugestão
         listaSugestoes.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (!listaSugestoes.isSelectionEmpty()) {
-                    String usuarioSelecionado = listaSugestoes.getSelectedValue();
-                    textoUsuario.setText(usuarioSelecionado);
-                    this.usuario = usuarioSelecionado;
-                    modeloLista.clear(); // Oculta sugestões
+                    String nomeSelecionado = listaSugestoes.getSelectedValue();
+
+                    // Encontrar o usuário pelo nome
+                    usuario = buscarUsuariosPorNome(nomeSelecionado).stream()
+                                .filter(u -> u.getNome().equals(nomeSelecionado))
+                                .findFirst()
+                                .orElse(null);
+
+                    if (usuario != null) {
+                        textoUsuario.setText(usuario.getNome());
+                        calcularDataDevolucao();
+                    }
                 }
             }
         });
-        
-        textoUsuario.setText(usuario.getUsuario());
-        livroSelecionado.setText(Arrays.toString(lv));
-        
-        if (usuario.isProfessor()) { //Data de Devolucao e Multa.
-            devolucao = dataAtual.plusDays(40);
-            
-            // Define um formato (por exemplo, dd/MM/yyyy)
-            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            
-            // Converte LocalDate para String
-            String dataFormatada = dataAtual.format(formato);
-            
-            dataDevolucao.setText(dataFormatada);
-            multa = 2.00;
-            valorMulta.setText("Valor da multa pelo atraso: 2,00/dia");
-        }
-        
-        if (!(usuario.isProfessor())) { //Data de Devolucao e Multa.
-            devolucao = dataAtual.plusDays(20);
-            
-            // Define um formato (por exemplo, dd/MM/yyyy)
-            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            
-            // Converte LocalDate para String
-            String dataFormatada = dataAtual.format(formato);
-            
-            dataDevolucao.setText(dataFormatada);
-            multa = 1.50;
-            valorMulta.setText("Valor da multa pelo atraso: 1,50/dia");
-        }
     }
     
-    private void atualizarSugestoes() {
-        String texto = textoUsuario.getText().toLowerCase();
-        modeloLista.clear();
-
-        if (!texto.isEmpty()) {
-            for (String usuario : usuarios) {
-                if (usuario.toLowerCase().contains(texto)) {
-                    modeloLista.addElement(usuario);
-                }
+    private List<Usuario> buscarUsuariosPorNome(String palavra) {
+        System.out.println(palavra);
+        BancoDeDados bancoDeDados = BancoDeDados.getInstance();
+        List<Usuario> usuarios = bancoDeDados.getUsuario();
+        List<Usuario> usuFiltrados = new ArrayList<>();
+        
+        for (Usuario user : usuarios) {
+            boolean cpfGeneroUsuario = false;
+            boolean nomeCursoId = false;
+            
+            if ((user.getCpf().toLowerCase().contains(palavra.toLowerCase())) || user.getGenero().toLowerCase().contains(palavra.toLowerCase()) || (user.getUsuario().toLowerCase().contains(palavra.toLowerCase()))) {
+                cpfGeneroUsuario = true;
+            }
+            
+            if ((user.getNome().toLowerCase().contains(palavra.toLowerCase())) || (user.getCurso().toLowerCase().contains(palavra.toLowerCase())) || (Integer.toString(user.getId()).toString().contains(palavra))) {
+                nomeCursoId = true;
+            }
+            
+            if (cpfGeneroUsuario || nomeCursoId) {
+                usuFiltrados.add(user);
             }
         }
+        return usuFiltrados;
+    }
+
+    private void atualizarSugestoes(String texto) {
+        System.out.println(texto);
+        modeloLista.clear();
+        if (texto.isEmpty()) {
+            return;
+        }
+        List<Usuario> usuarios = buscarUsuariosPorNome(texto);
+        for (Usuario u : usuarios) {
+            modeloLista.addElement(u.getNome());
+        }
+        listaSugestoes.setVisible(!modeloLista.isEmpty());
+    }
+
+    private void calcularDataDevolucao() {
+        if (usuario == null) return;
+        int dias = usuario.isProfessor() ? 30 : 15;
+        LocalDate devolucao = dataAtual.plusDays(dias);
+        dataDevolucao.setText("Data de devolução: " + devolucao);
     }
 
     /**
@@ -323,23 +322,33 @@ public class Emprestimos extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoCancelarActionPerformed
 
     private void botaoFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoFinalizarActionPerformed
-        if (bibliotecario == null){
-            for (Livro i : livro) {
-                if (i.isLivroRaro() && (bibliotecario == null)) {
-                    JOptionPane.showMessageDialog(null, "Você não possui autorização para realizar o Empréstimo de um Livro Raro, solicite a um bibliocário para realizar o empréstimo.é", "Erro", JOptionPane.ERROR_MESSAGE);
-                    break;
-                }
-                else {
-                Emprestimo emprestimo = new Emprestimo(usuario, livro, devolucao, multa);
-                        }
+        if (bibliotecario != null) {
+            if (usuario == null) {
+                JOptionPane.showMessageDialog(this, "Selecione um usuário antes de finalizar o empréstimo.", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
             }
+            if (livros.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Nenhum livro selecionado.", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            for (Livro livro : livros) {
+                if (livro.isLivroRaro() && !usuario.isProfessor()) {
+                    JOptionPane.showMessageDialog(this, "Apenas professores podem pegar livros Raros emprestados.", "Erro", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }
+            Emprestimo emprestimo = new Emprestimo(usuario, bibliotecario,livros, devolucao, multa);
+            BancoDeDados banquinho = BancoDeDados.getInstance();
+            banquinho.addEmprestimo(emprestimo);
+            JOptionPane.showMessageDialog(this, "Empréstimo realizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
         }
-        Emprestimo emprestimo = new Emprestimo(usuario, bibliotecario,livro, devolucao, multa);
-        
+        Emprestimo emprestimo = new Emprestimo(usuario,livros, devolucao, multa);
         BancoDeDados banquinho = BancoDeDados.getInstance();
         banquinho.addEmprestimo(emprestimo);
-        
+        JOptionPane.showMessageDialog(this, "Empréstimo realizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         this.dispose();
+
     }//GEN-LAST:event_botaoFinalizarActionPerformed
 
     /**
