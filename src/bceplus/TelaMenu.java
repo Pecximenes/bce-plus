@@ -116,14 +116,14 @@ public class TelaMenu extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(190, Short.MAX_VALUE)
+                .addContainerGap(181, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(169, 169, 169))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addGap(0, 14, Short.MAX_VALUE)
+                .addGap(0, 12, Short.MAX_VALUE)
                 .addComponent(jLabel1))
         );
 
@@ -141,7 +141,7 @@ public class TelaMenu extends javax.swing.JFrame {
             }
         });
 
-        BotaoCadastroUsuario.setText("Cadastro de Usuário");
+        BotaoCadastroUsuario.setText("Listar usuários");
         BotaoCadastroUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotaoCadastroUsuarioActionPerformed(evt);
@@ -246,7 +246,14 @@ public class TelaMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotaoCadastroUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoCadastroUsuarioActionPerformed
-       
+       // Cria uma instância da janela de lista de usuário
+       listaUsuarios listausuario = new listaUsuarios();
+
+       // Torna a janela visível
+       listausuario.setVisible(true);
+
+       // Centraliza a janela na tela
+       listausuario.setLocationRelativeTo(null);
     }//GEN-LAST:event_BotaoCadastroUsuarioActionPerformed
 
     private void BotaoAcervoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoAcervoActionPerformed
@@ -263,7 +270,12 @@ public class TelaMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_BotaoEmprestimoActionPerformed
 
     private void BotaoSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoSairActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
+
+        // Abre a tela de login
+        Login telaLogin = new Login();
+        telaLogin.setVisible(true);
+        telaLogin.setLocationRelativeTo(null); // Centraliza a tela de login
     }//GEN-LAST:event_BotaoSairActionPerformed
 
     private void BotaoCadastroBibliotecarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoCadastroBibliotecarioActionPerformed

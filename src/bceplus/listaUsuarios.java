@@ -27,22 +27,17 @@ import javax.swing.JOptionPane;
 public class listaUsuarios extends javax.swing.JFrame {
 
 
-    public listaUsuarios() {
-        initComponents();
-        
+    private void atualizarTabela() {
         BancoDeDados bancoDeDados = BancoDeDados.getInstance();
-        
         List<Usuario> listaUsuarios = bancoDeDados.getUsuario();
-        tabelaUsuarios.getColumnModel().getColumn(0).setPreferredWidth(10);
-        tabelaUsuarios.getColumnModel().getColumn(5).setPreferredWidth(40);
-        
 
+        // Limpa a tabela
         DefaultTableModel modelo = (DefaultTableModel) tabelaUsuarios.getModel();
+        modelo.setRowCount(0);
+
+        // Recarrega a tabela com os dados atualizados
         for (Usuario usuario : listaUsuarios) {
-//            List<String> titulos = emprestimo.getLivro().stream()
-//                                          .map(Livro::getTitulo)
-//                                          .collect(Collectors.toList());
-//            System.out.println(titulos);
+            String senhaOcultada = "*".repeat(usuario.getSenha().length());
             modelo.addRow(new Object[]{
                 usuario.getId(),
                 usuario.getNome(),
@@ -51,10 +46,35 @@ public class listaUsuarios extends javax.swing.JFrame {
                 usuario.getCurso(),
                 usuario.isProfessor() ? "Professor" : "Aluno",
                 usuario.getUsuario(),
-                usuario.getSenha()
+                senhaOcultada
             });
         }
-        
+    }
+
+    public listaUsuarios() {
+        initComponents();
+
+        BancoDeDados bancoDeDados = BancoDeDados.getInstance();
+        List<Usuario> listaUsuarios = bancoDeDados.getUsuario();
+
+        tabelaUsuarios.getColumnModel().getColumn(0).setPreferredWidth(10);
+        tabelaUsuarios.getColumnModel().getColumn(5).setPreferredWidth(40);
+
+        DefaultTableModel modelo = (DefaultTableModel) tabelaUsuarios.getModel();
+        for (Usuario usuario : listaUsuarios) {
+            String senhaOcultada = "*".repeat(usuario.getSenha().length());
+            modelo.addRow(new Object[]{
+                usuario.getId(),
+                usuario.getNome(),
+                usuario.getGenero(),
+                usuario.getCpf(),
+                usuario.getCurso(),
+                usuario.isProfessor() ? "Professor" : "Aluno",
+                usuario.getUsuario(),
+                senhaOcultada
+            });
+        }
+
         tabelaUsuarios.getSelectionModel().addListSelectionListener(e -> {
             // Verifica se a seleção está em curso e se há uma linha selecionada
             if (!e.getValueIsAdjusting()) {
@@ -82,6 +102,7 @@ public class listaUsuarios extends javax.swing.JFrame {
         cadastrarNovoUsuario = new javax.swing.JButton();
         botaoRemover = new javax.swing.JButton();
         botaoEditar = new javax.swing.JButton();
+        botaoSair = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -142,6 +163,13 @@ public class listaUsuarios extends javax.swing.JFrame {
             }
         });
 
+        botaoSair.setText("Sair");
+        botaoSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoSairActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -152,7 +180,8 @@ public class listaUsuarios extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 778, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(botaoSair)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(botaoEditar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botaoRemover)
@@ -171,7 +200,8 @@ public class listaUsuarios extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cadastrarNovoUsuario)
                     .addComponent(botaoRemover)
-                    .addComponent(botaoEditar))
+                    .addComponent(botaoEditar)
+                    .addComponent(botaoSair))
                 .addContainerGap())
         );
 
@@ -179,14 +209,50 @@ public class listaUsuarios extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEditarActionPerformed
-        // TODO add your handling code here:
+       BancoDeDados bancoDeDados = BancoDeDados.getInstance();
+        List<Usuario> listaUsuarios = bancoDeDados.getUsuario();
+
+        Integer linhaSelecionada = tabelaUsuarios.getSelectedRow();
+        Usuario usuario = listaUsuarios.get(linhaSelecionada);
+
+        // Cria e exibe a nova tela de cadastro
+        CadastroUsuario telaCadastroUsuario = new CadastroUsuario(
+                usuario.getId(),
+                usuario.getNome(),
+                usuario.getCpf(),
+                usuario.getGenero(),
+                usuario.getCurso(),
+                usuario.isProfessor(),
+                usuario.getUsuario(),
+                usuario.getSenha()
+        );
+
+        // Adiciona um listener para quando a tela de cadastro for fechada
+        telaCadastroUsuario.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                // Atualiza a tabela quando a tela de cadastro for fechada
+                atualizarTabela();
+            }
+        });
+
+        telaCadastroUsuario.setVisible(true);
+        telaCadastroUsuario.setLocationRelativeTo(null);  // Centraliza a nova tela
     }//GEN-LAST:event_botaoEditarActionPerformed
 
     private void cadastrarNovoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarNovoUsuarioActionPerformed
-        // Cria e exibe a nova tela
+        // Cria e exibe a nova tela de cadastro
         CadastroUsuario telaCadastroUsuario = new CadastroUsuario();
+
+        // Adiciona um listener para quando a tela de cadastro for fechada
+        telaCadastroUsuario.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                // Atualiza a tabela quando a tela de cadastro for fechada
+                atualizarTabela();
+            }
+        });
+
         telaCadastroUsuario.setVisible(true);
-        telaCadastroUsuario.setLocationRelativeTo(null); // Centraliza a nova tela
+        telaCadastroUsuario.setLocationRelativeTo(null);  // Centraliza a nova tela
     }//GEN-LAST:event_cadastrarNovoUsuarioActionPerformed
 
     private void botaoRemoverPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_botaoRemoverPropertyChange
@@ -243,6 +309,10 @@ public class listaUsuarios extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botaoRemoverActionPerformed
 
+    private void botaoSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSairActionPerformed
+        dispose();
+    }//GEN-LAST:event_botaoSairActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -284,6 +354,7 @@ public class listaUsuarios extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoEditar;
     private javax.swing.JButton botaoRemover;
+    private javax.swing.JButton botaoSair;
     private javax.swing.JButton cadastrarNovoUsuario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
