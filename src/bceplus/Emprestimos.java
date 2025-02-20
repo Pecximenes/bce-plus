@@ -122,17 +122,21 @@ public class Emprestimos extends javax.swing.JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (!listaSugestoes.isSelectionEmpty()) {
-                    String nomeSelecionado = listaSugestoes.getSelectedValue();
+                    String nomeSelecionado = (String) Sugeridos.getSelectedItem();;
 
-                    // Encontrar o usuário pelo nome
-                    usuario = buscarUsuariosPorNome(nomeSelecionado).stream()
-                                .filter(u -> u.getNome().equals(nomeSelecionado))
+                    List<Usuario> usuariosEncontrados = buscarUsuariosPorNome(nomeSelecionado);
+                    System.out.println("Usuários encontrados: " + usuariosEncontrados.size());
+
+                    usuario = usuariosEncontrados.stream()
+                                .filter(u -> u.getNome().equalsIgnoreCase(nomeSelecionado))
                                 .findFirst()
                                 .orElse(null);
 
                     if (usuario != null) {
                         textoUsuario.setText(usuario.getNome());
                         calcularDataDevolucao();
+                    } else {
+                        System.out.println("Usuário não encontrado!");
                     }
                 }
             }
@@ -163,7 +167,7 @@ public class Emprestimos extends javax.swing.JFrame {
             }
         }
         for (Usuario lv : usuFiltrados) {
-            String str = lv.getNome() + ", " + lv.getCpf() + ", " + lv.getId();
+            String str = lv.getNome();
             idTemp = lv.getId();
             Sugeridos.addItem(str);
         }
@@ -360,6 +364,13 @@ public class Emprestimos extends javax.swing.JFrame {
 
     private void botaoFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoFinalizarActionPerformed
         System.out.println(bibliotecario);
+        BancoDeDados bancoDeDados = BancoDeDados.getInstance();
+        for (Usuario usr : bancoDeDados.getUsuario()) {
+            if (usr.getNome() == Sugeridos.getSelectedItem()){
+                this.usuario = usr;
+            }
+        }
+        
         if (bibliotecario != null) {
             if (Sugeridos.getSelectedItem() == null) {
                 JOptionPane.showMessageDialog(this, "Selecione um usuário antes de finalizar o empréstimo.", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -369,6 +380,8 @@ public class Emprestimos extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Nenhum livro selecionado.", "Erro", JOptionPane.ERROR_MESSAGE);
                 return;
             }
+            System.out.println(Sugeridos.getSelectedItem());
+            System.out.println(this.usuario);
             Emprestimo emprestimo = new Emprestimo(usuario, bibliotecario,livros, devolucao, multa);
             BancoDeDados banquinho = BancoDeDados.getInstance();
             banquinho.addEmprestimo(emprestimo);

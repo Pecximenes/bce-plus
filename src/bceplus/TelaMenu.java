@@ -59,6 +59,7 @@ public class TelaMenu extends javax.swing.JFrame {
             }
         if (admin != null) {
                 // Administrador: Todos os botões
+                BotaoAcervo.setVisible(false);
                 BotaoCadastroUsuario.setVisible(true);
                 BotaoCadastroLivros.setVisible(false);
                 BotaoCadastroBibliotecario.setVisible(true);
