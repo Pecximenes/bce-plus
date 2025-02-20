@@ -100,6 +100,16 @@ public class BancoDeDados {
         return listaUsuarios;
     };
     
+    public Usuario getUsuarioById(int id) {
+        Usuario usuario = null;
+        for (Usuario user : listaUsuarios) {
+            if (user.getId() == id) {
+                usuario = user;
+            }
+        }
+        return usuario;
+    };
+    
     public void addLivro(Livro livro) {
         listaLivro.add(livro);
     };
