@@ -1,3 +1,5 @@
+package bceplus;
+
 import Entidades.BancoDeDados;
 import Entidades.Livro;
 import Entidades.Bibliotecario;
@@ -65,8 +67,6 @@ public class cadastroLivro extends javax.swing.JFrame {
         livroRaro = new javax.swing.JCheckBox();
         caminhoImagem = new javax.swing.JTextField();
         selecImagem = new javax.swing.JToggleButton();
-        caminhoPDF = new javax.swing.JTextField();
-        pdfSelec = new javax.swing.JButton();
         botaoCalcelar = new javax.swing.JButton();
         botaoSalvar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -106,20 +106,6 @@ public class cadastroLivro extends javax.swing.JFrame {
         selecImagem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 selecImagemActionPerformed(evt);
-            }
-        });
-
-        caminhoPDF.setEditable(false);
-        caminhoPDF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                caminhoPDFActionPerformed(evt);
-            }
-        });
-
-        pdfSelec.setText("Selecionar PDF");
-        pdfSelec.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pdfSelecActionPerformed(evt);
             }
         });
 
@@ -183,7 +169,6 @@ public class cadastroLivro extends javax.swing.JFrame {
                                 .addGap(75, 75, 75)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(caminhoImagem)
-                                    .addComponent(caminhoPDF, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addGap(0, 0, Short.MAX_VALUE)
                                         .addComponent(botaoCalcelar)
@@ -191,9 +176,7 @@ public class cadastroLivro extends javax.swing.JFrame {
                                         .addComponent(botaoSalvar))))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(selecImagem, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(pdfSelec, javax.swing.GroupLayout.Alignment.TRAILING)))))
+                                .addComponent(selecImagem))))
                     .addComponent(CadastroDeLivros, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -233,11 +216,7 @@ public class cadastroLivro extends javax.swing.JFrame {
                         .addComponent(caminhoImagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(selecImagem)
-                        .addGap(31, 31, 31)
-                        .addComponent(caminhoPDF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(pdfSelec)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 162, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(botaoSalvar)
                             .addComponent(botaoCalcelar))))
@@ -251,56 +230,9 @@ public class cadastroLivro extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tituloInseridoActionPerformed
 
-    private void selecImagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecImagemActionPerformed
-        JFileChooser arquivo = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("Arquivos (JPG, JPEG e PNG)", "jpg", "jpeg", "png");
-        arquivo.setFileFilter(filter);
-        arquivo.setDialogTitle("Abrir Imagem");
-        arquivo.showOpenDialog(null);
-        File selecArq = arquivo.getSelectedFile();
-        caminhoImagem.setText(selecArq.getAbsolutePath());
-        
-        // Verifica se o arquivo selecionado não é nulo
-            if (selecArq != null) {
-                ImageIcon icon = new ImageIcon(selecArq.getPath());
-                // Verifica se a imagem foi carregada corretamente
-                if (icon.getImageLoadStatus() == MediaTracker.COMPLETE) {
-                    // Redimensionando a imagem para se ajustar à JLabel
-                    Image image = icon.getImage();
-                    Image newImg = image.getScaledInstance(imagemLocal.getWidth(), imagemLocal.getHeight(),
-                            java.awt.Image.SCALE_SMOOTH);
-                    icon = new ImageIcon(newImg);
-
-                    // Definindo a imagem na JLabel
-                    imagemLocal.setIcon(icon);
-
-                    caminhoImagem.setText(selecArq.getAbsolutePath());
-
-                } else {
-                    System.out.println("Erro ao carregar a imagem.");
-                }
-            } else {
-                System.out.println("Nenhum arquivo foi selecionado.");
-            }
-    }//GEN-LAST:event_selecImagemActionPerformed
-
-    private void caminhoPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caminhoPDFActionPerformed
-        
-    }//GEN-LAST:event_caminhoPDFActionPerformed
-
     private void botaoCalcelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCalcelarActionPerformed
         this.dispose();
     }//GEN-LAST:event_botaoCalcelarActionPerformed
-
-    private void pdfSelecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pdfSelecActionPerformed
-        JFileChooser arquivo = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("Arquivos PDF (PDF)", "pdf");
-        arquivo.setFileFilter(filter);
-        arquivo.setDialogTitle("Abrir PDF");
-        arquivo.showOpenDialog(null);
-        File selecArq = arquivo.getSelectedFile();
-        caminhoPDF.setText(selecArq.getAbsolutePath());
-    }//GEN-LAST:event_pdfSelecActionPerformed
 
     private void botaoSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSalvarActionPerformed
         
@@ -350,6 +282,39 @@ public class cadastroLivro extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_botaoSalvarActionPerformed
 
+    private void selecImagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecImagemActionPerformed
+        JFileChooser arquivo = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Arquivos (JPG, JPEG e PNG)", "jpg", "jpeg", "png");
+        arquivo.setFileFilter(filter);
+        arquivo.setDialogTitle("Abrir Imagem");
+        arquivo.showOpenDialog(null);
+        File selecArq = arquivo.getSelectedFile();
+        caminhoImagem.setText(selecArq.getAbsolutePath());
+
+        // Verifica se o arquivo selecionado não é nulo
+        if (selecArq != null) {
+            ImageIcon icon = new ImageIcon(selecArq.getPath());
+            // Verifica se a imagem foi carregada corretamente
+            if (icon.getImageLoadStatus() == MediaTracker.COMPLETE) {
+                // Redimensionando a imagem para se ajustar à JLabel
+                Image image = icon.getImage();
+                Image newImg = image.getScaledInstance(imagemLocal.getWidth(), imagemLocal.getHeight(),
+                    java.awt.Image.SCALE_SMOOTH);
+                icon = new ImageIcon(newImg);
+
+                // Definindo a imagem na JLabel
+                imagemLocal.setIcon(icon);
+
+                caminhoImagem.setText(selecArq.getAbsolutePath());
+
+            } else {
+                System.out.println("Erro ao carregar a imagem.");
+            }
+        } else {
+            System.out.println("Nenhum arquivo foi selecionado.");
+        }
+    }//GEN-LAST:event_selecImagemActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel CadastroDeLivros;
@@ -361,7 +326,6 @@ public class cadastroLivro extends javax.swing.JFrame {
     private javax.swing.JButton botaoCalcelar;
     private javax.swing.JButton botaoSalvar;
     private javax.swing.JTextField caminhoImagem;
-    private javax.swing.JTextField caminhoPDF;
     private javax.swing.JCheckBox copiaDigital;
     private javax.swing.JCheckBox copiaFisica;
     private javax.swing.JLabel editora;
@@ -370,7 +334,6 @@ public class cadastroLivro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JCheckBox livroRaro;
-    private javax.swing.JButton pdfSelec;
     private javax.swing.JToggleButton selecImagem;
     private javax.swing.JTextField tituloInserido;
     // End of variables declaration//GEN-END:variables

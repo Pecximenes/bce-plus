@@ -30,10 +30,6 @@
                   <Component id="jLabel1" alignment="1" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="botaoEditar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="botaoRemover" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="realizarNovoEmprestimo" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -49,11 +45,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="351" max="-2" attributes="0"/>
               <EmptySpace pref="28" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="realizarNovoEmprestimo" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="botaoRemover" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="botaoEditar" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
+              <Component id="realizarNovoEmprestimo" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -131,23 +123,10 @@
     </Container>
     <Component class="javax.swing.JButton" name="realizarNovoEmprestimo">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Realizar Novo Emprestimo"/>
+        <Property name="text" type="java.lang.String" value="Sair"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="realizarNovoEmprestimoActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="botaoRemover">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Remover"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="botaoEditar">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Editar"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoEditarActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

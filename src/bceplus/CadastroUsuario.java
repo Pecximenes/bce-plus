@@ -5,14 +5,35 @@ package bceplus;
  */
 import javax.swing.JOptionPane;
 import Entidades.Usuario;
+import Entidades.BancoDeDados;
         
 public class CadastroUsuario extends javax.swing.JFrame {
 
-    /**
-     * Creates new form CadastroUsuario
-     */
+    private String tipoCadastro; // "criar" ou "atualizar"
+    private Integer idDeEdicao; // ID do usuário em caso de edição
+
+    // Construtor para cadastro de novo usuário
     public CadastroUsuario() {
         initComponents();
+        tipoCadastro = "criar";
+    }
+
+    // Construtor para edição de usuário
+    public CadastroUsuario(Integer id, String nome, String cpf, String genero, String curso, boolean isProfessor, String usuario, String senha) {
+        initComponents();
+        tipoCadastro = "atualizar";
+        idDeEdicao = id;
+
+        // Preenche os campos com os valores passados
+        CampoNomeCompleto.setText(nome);
+        CampoCPF.setText(cpf);
+        CampoGenero.setSelectedItem(genero);
+        CampoCurso.setText(curso);
+        CampoUsuario.setText(usuario);
+        CampoSenha.setText(senha);
+        CampoRepSenha.setText(senha);
+        ProfessorTrue.setSelected(isProfessor);
+        ProfessorFalse.setSelected(!isProfessor);
     }
 
     /**
@@ -254,7 +275,9 @@ public class CadastroUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_CampoUsuarioActionPerformed
 
     private void botaoSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSalvarActionPerformed
-        // Lógica para salvar os dados
+        BancoDeDados bancoDeDados = BancoDeDados.getInstance();
+
+        // Captura os valores dos campos
         String nomeCompleto = CampoNomeCompleto.getText();
         String cpf = CampoCPF.getText();
         String genero = (String) CampoGenero.getSelectedItem();
@@ -263,14 +286,13 @@ public class CadastroUsuario extends javax.swing.JFrame {
         String senha = new String(CampoSenha.getPassword());
         String repSenha = new String(CampoRepSenha.getPassword());
         boolean isProfessor = ProfessorTrue.isSelected();
-        boolean isNotProfessor = ProfessorFalse.isSelected();
 
         // Validação básica dos campos
         if (nomeCompleto.isEmpty() || cpf.isEmpty() || genero.isEmpty() || curso.isEmpty() || usuario.isEmpty() || senha.isEmpty() || repSenha.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Todos os campos são obrigatórios!", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
+
         // Validação do campo "Gênero"
         if (genero.equals("Selecione")) {
             JOptionPane.showMessageDialog(this, "Por favor, selecione um gênero válido!", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -282,20 +304,38 @@ public class CadastroUsuario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Por favor, selecione se você é professor ou não!", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
+
         // Validação do campo "senha"
         if (!senha.equals(repSenha)) {
             JOptionPane.showMessageDialog(this, "As senhas não coincidem!", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // Criando um novo usuário
-        Usuario novoUsuario = new Usuario(0, nomeCompleto, genero, senha, cpf, curso, isProfessor, usuario, null);
+        // Criação ou atualização do usuário
+        switch (tipoCadastro) {
+            case "criar":
+                // Gera um ID temporário (substitua por uma lógica adequada)
+                String stringId = Long.toString(System.currentTimeMillis() % Integer.MAX_VALUE).substring(1);
+                Integer id = Integer.parseInt(stringId);
 
-        JOptionPane.showMessageDialog(this, "Usuário cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                // Cria um novo usuário
+                Usuario novoUsuario = new Usuario(id, nomeCompleto, genero, senha, cpf, curso, isProfessor, usuario, null);
+                bancoDeDados.addUsuario(novoUsuario);
+                JOptionPane.showMessageDialog(this, "Usuário cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                break;
 
-        // Limpar os campos após o cadastro
+            case "atualizar":
+                // Atualiza o usuário existente
+                Usuario usuarioAtualizado = new Usuario(idDeEdicao, nomeCompleto, genero, senha, cpf, curso, isProfessor, usuario, null);
+                bancoDeDados.removeUsuarioPorId(idDeEdicao);
+                bancoDeDados.addUsuario(usuarioAtualizado);
+                JOptionPane.showMessageDialog(this, "Usuário atualizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                break;
+        }
+
+        // Limpa os campos e fecha a janela
         limparCampos();
+        dispose();
     }//GEN-LAST:event_botaoSalvarActionPerformed
 
     private void ProfessorTrueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProfessorTrueActionPerformed

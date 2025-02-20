@@ -1,6 +1,5 @@
 package bceplus;
 
-
 /**
  *
  * @author samuelcds

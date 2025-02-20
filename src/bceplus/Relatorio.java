@@ -4,6 +4,8 @@
  */
 package bceplus;
 
+import Entidades.BancoDeDados;
+
 /**
  *
  * @author pedro
@@ -15,6 +17,23 @@ public class Relatorio extends javax.swing.JFrame {
      */
     public Relatorio() {
         initComponents();
+        
+        Integer quantidadeUsuarios = BancoDeDados.getInstance().getUsuario().size();
+        Integer quantidadeLivros   = BancoDeDados.getInstance().getLivro().size();
+        Integer quantidadeEmprestimos   = BancoDeDados.getInstance().getEmprestimo().size();
+        
+        long professores   = BancoDeDados.getInstance().getUsuario().stream()
+                .filter(user -> user.isProfessor())
+                .count();
+        long quantidadeLivrosRaros   = BancoDeDados.getInstance().getLivro().stream()
+                .filter(livro -> livro.isLivroRaro())
+                .count();
+        TextoUsuarios.setText(quantidadeUsuarios.toString());
+        TextoLivrosListados.setText(quantidadeLivros.toString());
+        TextoLivrosRaros.setText(Long.toString(quantidadeLivrosRaros));
+        TextoProfessores.setText(Long.toString(professores));
+        TextoEmprestimos.setText(quantidadeEmprestimos.toString());
+        
     }
 
     /**
@@ -31,36 +50,33 @@ public class Relatorio extends javax.swing.JFrame {
         txtTitulo = new javax.swing.JLabel();
         areaBtnAdmin1 = new javax.swing.JPanel();
         BotaoSair = new javax.swing.JButton();
-        areaBtnAdmin = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         ladoDireito = new javax.swing.JPanel();
         areaRelatorio = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        TextoLivrosListados = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jPanel16 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
+        TextoLivrosEmprestados = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jPanel17 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
+        TextoEmprestimos = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jPanel18 = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
+        TextoLivrosRaros = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jPanel19 = new javax.swing.JPanel();
-        jLabel11 = new javax.swing.JLabel();
+        TextoUsuarios = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jPanel14 = new javax.swing.JPanel();
         jPanel20 = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
+        TextoProfessores = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -118,28 +134,6 @@ public class Relatorio extends javax.swing.JFrame {
 
         ladoEsquerdo.add(areaBtnAdmin1);
 
-        areaBtnAdmin.setBackground(new java.awt.Color(255, 255, 255));
-        areaBtnAdmin.setPreferredSize(new java.awt.Dimension(176, 110));
-
-        jButton2.setBackground(new java.awt.Color(204, 204, 204));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/assetRelatorio.png"))); // NOI18N
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        areaBtnAdmin.add(jButton2);
-
-        jLabel1.setBackground(new java.awt.Color(204, 204, 204));
-        jLabel1.setFont(new java.awt.Font("Roboto Condensed", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Download do Relatório");
-        jLabel1.setPreferredSize(new java.awt.Dimension(176, 17));
-        areaBtnAdmin.add(jLabel1);
-
-        ladoEsquerdo.add(areaBtnAdmin);
-
         getContentPane().add(ladoEsquerdo);
 
         ladoDireito.setBackground(new java.awt.Color(204, 204, 204));
@@ -161,12 +155,12 @@ public class Relatorio extends javax.swing.JFrame {
 
         jPanel9.setPreferredSize(new java.awt.Dimension(200, 150));
 
-        jLabel2.setFont(new java.awt.Font("Roboto Condensed", 1, 48)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("45");
-        jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jLabel2.setPreferredSize(new java.awt.Dimension(200, 100));
-        jPanel9.add(jLabel2);
+        TextoLivrosListados.setFont(new java.awt.Font("Roboto Condensed", 1, 48)); // NOI18N
+        TextoLivrosListados.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TextoLivrosListados.setText("45");
+        TextoLivrosListados.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        TextoLivrosListados.setPreferredSize(new java.awt.Dimension(200, 100));
+        jPanel9.add(TextoLivrosListados);
 
         jLabel3.setFont(new java.awt.Font("Roboto Condensed", 1, 18)); // NOI18N
         jLabel3.setText("Livros Listados");
@@ -193,12 +187,12 @@ public class Relatorio extends javax.swing.JFrame {
 
         jPanel16.setPreferredSize(new java.awt.Dimension(200, 150));
 
-        jLabel5.setFont(new java.awt.Font("Roboto Condensed", 1, 48)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("17/45");
-        jLabel5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jLabel5.setPreferredSize(new java.awt.Dimension(200, 100));
-        jPanel16.add(jLabel5);
+        TextoLivrosEmprestados.setFont(new java.awt.Font("Roboto Condensed", 1, 48)); // NOI18N
+        TextoLivrosEmprestados.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TextoLivrosEmprestados.setText("17/45");
+        TextoLivrosEmprestados.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        TextoLivrosEmprestados.setPreferredSize(new java.awt.Dimension(200, 100));
+        jPanel16.add(TextoLivrosEmprestados);
 
         jLabel6.setFont(new java.awt.Font("Roboto Condensed", 1, 18)); // NOI18N
         jLabel6.setText("Livros Emprestados");
@@ -225,12 +219,12 @@ public class Relatorio extends javax.swing.JFrame {
 
         jPanel17.setPreferredSize(new java.awt.Dimension(200, 150));
 
-        jLabel7.setFont(new java.awt.Font("Roboto Condensed", 1, 48)); // NOI18N
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("84");
-        jLabel7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jLabel7.setPreferredSize(new java.awt.Dimension(200, 100));
-        jPanel17.add(jLabel7);
+        TextoEmprestimos.setFont(new java.awt.Font("Roboto Condensed", 1, 48)); // NOI18N
+        TextoEmprestimos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TextoEmprestimos.setText("84");
+        TextoEmprestimos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        TextoEmprestimos.setPreferredSize(new java.awt.Dimension(200, 100));
+        jPanel17.add(TextoEmprestimos);
 
         jLabel8.setFont(new java.awt.Font("Roboto Condensed", 1, 18)); // NOI18N
         jLabel8.setText("Empréstimos/Mês");
@@ -257,12 +251,12 @@ public class Relatorio extends javax.swing.JFrame {
 
         jPanel18.setPreferredSize(new java.awt.Dimension(200, 150));
 
-        jLabel9.setFont(new java.awt.Font("Roboto Condensed", 1, 48)); // NOI18N
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("12");
-        jLabel9.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jLabel9.setPreferredSize(new java.awt.Dimension(200, 100));
-        jPanel18.add(jLabel9);
+        TextoLivrosRaros.setFont(new java.awt.Font("Roboto Condensed", 1, 48)); // NOI18N
+        TextoLivrosRaros.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TextoLivrosRaros.setText("12");
+        TextoLivrosRaros.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        TextoLivrosRaros.setPreferredSize(new java.awt.Dimension(200, 100));
+        jPanel18.add(TextoLivrosRaros);
 
         jLabel10.setFont(new java.awt.Font("Roboto Condensed", 1, 18)); // NOI18N
         jLabel10.setText("Livros Raros");
@@ -289,12 +283,12 @@ public class Relatorio extends javax.swing.JFrame {
 
         jPanel19.setPreferredSize(new java.awt.Dimension(200, 150));
 
-        jLabel11.setFont(new java.awt.Font("Roboto Condensed", 1, 48)); // NOI18N
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText("60");
-        jLabel11.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jLabel11.setPreferredSize(new java.awt.Dimension(200, 100));
-        jPanel19.add(jLabel11);
+        TextoUsuarios.setFont(new java.awt.Font("Roboto Condensed", 1, 48)); // NOI18N
+        TextoUsuarios.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TextoUsuarios.setText("60");
+        TextoUsuarios.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        TextoUsuarios.setPreferredSize(new java.awt.Dimension(200, 100));
+        jPanel19.add(TextoUsuarios);
 
         jLabel12.setFont(new java.awt.Font("Roboto Condensed", 1, 18)); // NOI18N
         jLabel12.setText("Usuários");
@@ -321,12 +315,12 @@ public class Relatorio extends javax.swing.JFrame {
 
         jPanel20.setPreferredSize(new java.awt.Dimension(200, 150));
 
-        jLabel13.setFont(new java.awt.Font("Roboto Condensed", 1, 48)); // NOI18N
-        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel13.setText("22");
-        jLabel13.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jLabel13.setPreferredSize(new java.awt.Dimension(200, 100));
-        jPanel20.add(jLabel13);
+        TextoProfessores.setFont(new java.awt.Font("Roboto Condensed", 1, 48)); // NOI18N
+        TextoProfessores.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TextoProfessores.setText("22");
+        TextoProfessores.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        TextoProfessores.setPreferredSize(new java.awt.Dimension(200, 100));
+        jPanel20.add(TextoProfessores);
 
         jLabel14.setFont(new java.awt.Font("Roboto Condensed", 1, 18)); // NOI18N
         jLabel14.setText("Professores");
@@ -361,10 +355,6 @@ public class Relatorio extends javax.swing.JFrame {
     private void BotaoSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoSairActionPerformed
         dispose();
     }//GEN-LAST:event_BotaoSairActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -466,25 +456,22 @@ public class Relatorio extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotaoSair;
-    private javax.swing.JPanel areaBtnAdmin;
+    private javax.swing.JLabel TextoEmprestimos;
+    private javax.swing.JLabel TextoLivrosEmprestados;
+    private javax.swing.JLabel TextoLivrosListados;
+    private javax.swing.JLabel TextoLivrosRaros;
+    private javax.swing.JLabel TextoProfessores;
+    private javax.swing.JLabel TextoUsuarios;
     private javax.swing.JPanel areaBtnAdmin1;
     private javax.swing.JPanel areaRelatorio;
     private javax.swing.JPanel areaTitulo;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel16;

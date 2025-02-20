@@ -1,5 +1,5 @@
 id,nome,genero,cpf,usuario,senha,primeiroLogin
-1,João Silva,Masculino,123.456.789-00,joaosilva,senha123,True
-2,Maria Oliveira,Feminino,987.654.321-00,mariaoliveira,senha456,False
-3,Carlos Souza,Masculino,111.222.333-44,carlossouza,senha789,True
-4,Ana Lima,Feminino,555.666.777-88,analima,senha321,False
+1,João Silva,Masculino,123.456.789-00,joaosilva,senha123,true
+2,Maria Oliveira,Feminino,987.654.321-00,mariaoliveira,senha456,false
+3,Carlos Souza,Masculino,111.222.333-44,carlossouza,senha789,true
+4,Ana Lima,Feminino,555.666.777-88,b,b,true

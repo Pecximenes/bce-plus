@@ -1,10 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package bceplus;
 
-import Entidades.Administrador;
 import Entidades.BancoDeDados;
 import java.util.List;
 import Entidades.Usuario;
@@ -17,12 +12,17 @@ import Entidades.Bibliotecario; // Importação da classe Bibliotecario
  * @author pedro
  */
 public class Login extends javax.swing.JFrame {
+    Administrador admin;
+    Usuario usuario;
+    Bibliotecario bibliotecario;
 
     /**
      * Creates new form Login
      */
     public Login() {
         initComponents();
+        newPassword.setVisible(false);
+        BotaoCadastro.setVisible(false);
         BancoDeDados bancoDeDados = BancoDeDados.getInstance();
         
         List<Administrador> listaAdmin = bancoDeDados.getAdmin();
@@ -52,12 +52,15 @@ public class Login extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         Password = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        passwordInput = new javax.swing.JPasswordField();
-        jPanel6 = new javax.swing.JPanel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jLabel4 = new javax.swing.JLabel();
+        passwordInputt = new javax.swing.JPasswordField();
+        jLabel6 = new javax.swing.JLabel();
+        newPassword = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        newpasswordInput = new javax.swing.JPasswordField();
+        jLabel8 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
+        BotaoCadastro = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -144,42 +147,24 @@ public class Login extends javax.swing.JFrame {
 
         jLabel3.setText("Senha:");
         Password.add(jLabel3, java.awt.BorderLayout.PAGE_START);
-        Password.add(passwordInput, java.awt.BorderLayout.PAGE_END);
+        Password.add(passwordInputt, java.awt.BorderLayout.PAGE_END);
+
+        jLabel6.setText("Senha:");
+        Password.add(jLabel6, java.awt.BorderLayout.PAGE_START);
 
         jPanel5.add(Password);
 
-        jPanel6.setPreferredSize(new java.awt.Dimension(300, 30));
+        newPassword.setPreferredSize(new java.awt.Dimension(300, 40));
+        newPassword.setLayout(new java.awt.BorderLayout());
 
-        jCheckBox1.setText("Manter Conectado");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
-            }
-        });
+        jLabel7.setText("Senha:");
+        newPassword.add(jLabel7, java.awt.BorderLayout.PAGE_START);
+        newPassword.add(newpasswordInput, java.awt.BorderLayout.PAGE_END);
 
-        jLabel4.setForeground(new java.awt.Color(0, 153, 0));
-        jLabel4.setText("Esqueci minha senha");
+        jLabel8.setText("Nova Senha:");
+        newPassword.add(jLabel8, java.awt.BorderLayout.PAGE_START);
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addComponent(jCheckBox1)
-                .addGap(27, 27, 27)
-                .addComponent(jLabel4)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox1)
-                    .addComponent(jLabel4))
-                .addGap(0, 9, Short.MAX_VALUE))
-        );
-
-        jPanel5.add(jPanel6);
+        jPanel5.add(newPassword);
 
         LeftComponent.add(jPanel5);
 
@@ -192,13 +177,22 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        BotaoCadastro.setText("Cadastro");
+        BotaoCadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotaoCadastroActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGap(39, 39, 39)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(BotaoCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(43, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
@@ -206,7 +200,8 @@ public class Login extends javax.swing.JFrame {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addComponent(BotaoCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         LeftComponent.add(jPanel7);
@@ -220,13 +215,10 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_usernameInputActionPerformed
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-            String username = usernameInput.getText();
-        String password = passwordInput.getText();
+        String username = usernameInput.getText();
+        String password = passwordInputt.getText();
+        System.out.println(password);
 
         if (username.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Preencha o campo de usuário e senha!", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -234,7 +226,7 @@ public class Login extends javax.swing.JFrame {
             String caminhoUsuario = "src/data/DadosUsuario.csv";
             String caminhoAdmin = "src/data/DadosAdmin.csv";
             String caminhoBibliotecario = "src/data/DadosBibliotecario.csv";
-           
+
             List<Usuario> listaUsuarios = BancoDeDados.getInstance().getUsuario();
             List<Administrador> listaAdmins = BancoDeDados.getInstance().getAdmin();
             List<Bibliotecario> listaBibliotecarios = BancoDeDados.getInstance().getBibliotecario();
@@ -246,6 +238,7 @@ public class Login extends javax.swing.JFrame {
             for (Administrador admin : listaAdmins) {
                 if (username.equals(admin.getUsuario()) && password.equals(admin.getSenha())) {
                     loginSucesso = true;
+                    this.admin = admin;
                     tipoUsuario = "admin";
                     break;
                 }
@@ -255,9 +248,15 @@ public class Login extends javax.swing.JFrame {
             if (!loginSucesso) {
                 for (Bibliotecario bibliotecario : listaBibliotecarios) {
                     if (username.equals(bibliotecario.getUsuario()) && password.equals(bibliotecario.getSenha())) {
-                        loginSucesso = true;
-                        tipoUsuario = "bibliotecario";
-                        break;
+                        if (bibliotecario.getPrimeiroLogin() == true) {
+                            newPassword.setVisible(true);
+                            BotaoCadastro.setVisible(true);
+                        } else {
+                            loginSucesso = true;
+                            this.bibliotecario = bibliotecario;
+                            tipoUsuario = "bibliotecario";
+                            break;
+                        }
                     }
                 }
             }
@@ -267,6 +266,7 @@ public class Login extends javax.swing.JFrame {
                 for (Usuario usuario : listaUsuarios) {
                     if (username.equals(usuario.getUsuario()) && password.equals(usuario.getSenha())) {
                         loginSucesso = true;
+                        this.usuario = usuario;
                         tipoUsuario = usuario.isCadastrado() ? "professor" : "comum";
                         break;
                     }
@@ -279,11 +279,31 @@ public class Login extends javax.swing.JFrame {
                 // Abre a tela de menu com o tipo de usuário
                 final String tipoUsuarioFinal = tipoUsuario;
 
-                TelaMenu telaMenu = new TelaMenu(tipoUsuarioFinal);
-                // Torna a janela visível
-                telaMenu.setVisible(true);
-                // Centraliza a janela na tela
-                telaMenu.setLocationRelativeTo(null);
+                // Abre a tela de menu com o tipo de usuário
+                if (tipoUsuarioFinal == "admin") {
+                    TelaMenu telaMenu = new TelaMenu(admin);
+                    telaMenu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    telaMenu.setVisible(true);
+                    telaMenu.setLocationRelativeTo(null);
+                    System.out.println("Entrando como admin!");
+                }
+                
+                if (tipoUsuarioFinal == "bibliotecario") {
+                    TelaMenu telaMenu = new TelaMenu(bibliotecario);
+                    telaMenu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    telaMenu.setVisible(true);
+                    telaMenu.setLocationRelativeTo(null);
+                    System.out.println("Entrando como Bibliotecario!");
+                }
+                
+                if ((tipoUsuarioFinal == "comum") || (tipoUsuarioFinal == "professor")) {
+                    TelaMenu telaMenu = new TelaMenu(usuario);
+                    telaMenu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    telaMenu.setVisible(true);
+                    telaMenu.setLocationRelativeTo(null);
+                    System.out.println("Entrando como Usuario!");
+                }
+                
 
                 // Fecha a tela de login
                 this.dispose();
@@ -291,29 +311,58 @@ public class Login extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Usuário ou senha incorretos!", "Erro", JOptionPane.ERROR_MESSAGE);
             }
         }
-    
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void BotaoCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoCadastroActionPerformed
+        String username = usernameInput.getText();
+        String password = passwordInputt.getText();
+        String newPassword = newpasswordInput.getText();
+         if (username.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Preencha o campo de usuário e senha!", "Erro", JOptionPane.ERROR_MESSAGE);
+        } else {
+            List<Bibliotecario> listaBibliotecarios = BancoDeDados.getInstance().getBibliotecario();
+            for (Bibliotecario bibliotecario : listaBibliotecarios) {
+                if (username.equals(bibliotecario.getUsuario()) && password.equals(bibliotecario.getSenha())) {
+                    if (!newPassword.isEmpty()) {
+                        bibliotecario.setSenha(newPassword);
+                        bibliotecario.setPrimeiroLogin(false);
+                        TelaMenu telaMenu = new TelaMenu(bibliotecario);
+                        telaMenu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                        telaMenu.setVisible(true);
+                        telaMenu.setLocationRelativeTo(null);
+                        this.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Crie uma nova senha", "Erro", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+        }
+        
+    }//GEN-LAST:event_BotaoCadastroActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BotaoCadastro;
     private javax.swing.JPanel LeftComponent;
     private javax.swing.JPanel Password;
     private javax.swing.JPanel RightComponent;
     private javax.swing.JPanel User;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JPasswordField passwordInput;
+    private javax.swing.JPanel newPassword;
+    private javax.swing.JPasswordField newpasswordInput;
+    private javax.swing.JPasswordField passwordInputt;
     private javax.swing.JTextField usernameInput;
     // End of variables declaration//GEN-END:variables
 }

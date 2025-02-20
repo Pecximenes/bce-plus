@@ -61,16 +61,15 @@ public class BancoDeDados {
         return sucesso;
     }
     
-//    public Boolean updateBibliotecarioPorId(Integer id, Bibliotecario bibli) {
-//        Boolean sucesso = true;
-//        try {
-//            this.removeBibliotecarioPorId(id);
-//            this.addBibliotecario(bibli);
-//        } catch (Exception e) {
-//            sucesso = false;
-//        }
-//        return sucesso;
-//    }
+     public Usuario getUsuarioById(int id) {
+        Usuario usuario = null;
+        for (Usuario user : listaUsuarios) {
+            if (user.getId() == id) {
+                usuario = user;
+            }
+        }
+        return usuario;
+    };
     
     public void addUsuario(Usuario usuario) {
         listaUsuarios.add(usuario);

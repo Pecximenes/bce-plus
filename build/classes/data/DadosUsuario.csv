@@ -8,4 +8,4 @@ id,nome,genero,senha,cpf,curso,cadastrado,usuario
 7,Fernando Almeida,Masculino,senha404,111.222.333-44,Economia,True,fernando.almeida
 8,Beatriz Lima,Feminino,senha505,555.666.777-88,Enfermagem,False,beatriz.lima
 9,Gustavo Rocha,Masculino,senha606,999.888.777-66,Computação,True,gustavo.rocha
-10,Camila Mendes,Feminino,senha707,333.444.555-22,Design,False,camila.mendes
+10,Camila Mendes,Feminino,c,333.444.555-22,Design,False,c
