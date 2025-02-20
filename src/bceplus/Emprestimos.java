@@ -38,6 +38,7 @@ public class Emprestimos extends javax.swing.JFrame {
     LocalDate dataAtual = LocalDate.now();
     double multa;
     LocalDate devolucao;
+    Integer idTemp;
 
     /**
      * Creates new form Emprestimo
@@ -64,7 +65,7 @@ public class Emprestimos extends javax.swing.JFrame {
         livroSelecionado.setText(Arrays.toString(lv));
         
         if (usuario.isProfessor()) { //Data de Devolucao e Multa.
-            devolucao = dataAtual.plusDays(60);
+            this.devolucao = dataAtual.plusDays(60);
             
             // Define um formato (por exemplo, dd/MM/yyyy)
             DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -72,13 +73,13 @@ public class Emprestimos extends javax.swing.JFrame {
             // Converte LocalDate para String
             String dataFormatada = dataAtual.format(formato);
             
-            dataDevolucao.setText(dataFormatada);
+            dataDevolucao.setText(devolucao.toString());
             multa = 0.80;
             valorMulta.setText("Valor da multa pelo atraso: 0,80/dia");
         }
         
         if (!(usuario.isProfessor())) { //Data de Devolucao e Multa.
-            devolucao = dataAtual.plusDays(30);
+            this.devolucao = dataAtual.plusDays(30);
             
             // Define um formato (por exemplo, dd/MM/yyyy)
             DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -86,7 +87,7 @@ public class Emprestimos extends javax.swing.JFrame {
             // Converte LocalDate para String
             String dataFormatada = dataAtual.format(formato);
             
-            dataDevolucao.setText(dataFormatada);
+            dataDevolucao.setText(devolucao.toString());
             multa = 0.50;
             valorMulta.setText("Valor da multa pelo atraso: 0,50/dia");
         }
@@ -99,6 +100,7 @@ public class Emprestimos extends javax.swing.JFrame {
         this.livros = livros;
         this.dataAtual = LocalDate.now();
         List<String> exemplares = new ArrayList<>();
+
         
         for (Livro lv : livros) {
             exemplares.add(lv.getTitulo());
@@ -108,7 +110,6 @@ public class Emprestimos extends javax.swing.JFrame {
         
         modeloLista = new DefaultListModel<>();
         listaSugestoes = new JList<>(modeloLista);
-        JScrollPane scrollPane = new JScrollPane(listaSugestoes);
 
         textoUsuario.addKeyListener(new KeyAdapter() {
             @Override
@@ -139,6 +140,7 @@ public class Emprestimos extends javax.swing.JFrame {
     }
     
     private List<Usuario> buscarUsuariosPorNome(String palavra) {
+        Sugeridos.removeAllItems();
         System.out.println(palavra);
         BancoDeDados bancoDeDados = BancoDeDados.getInstance();
         List<Usuario> usuarios = bancoDeDados.getUsuario();
@@ -160,6 +162,12 @@ public class Emprestimos extends javax.swing.JFrame {
                 usuFiltrados.add(user);
             }
         }
+        for (Usuario lv : usuFiltrados) {
+            String str = lv.getNome() + ", " + lv.getCpf() + ", " + lv.getId();
+            idTemp = lv.getId();
+            Sugeridos.addItem(str);
+        }
+        System.out.println(usuFiltrados);
         return usuFiltrados;
     }
 
@@ -179,8 +187,9 @@ public class Emprestimos extends javax.swing.JFrame {
     private void calcularDataDevolucao() {
         if (usuario == null) return;
         int dias = usuario.isProfessor() ? 30 : 15;
-        LocalDate devolucao = dataAtual.plusDays(dias);
-        dataDevolucao.setText("Data de devolução: " + devolucao);
+        this.devolucao = dataAtual.plusDays(dias);
+        dataDevolucao.setText(devolucao.toString());
+
     }
 
     /**
@@ -205,6 +214,7 @@ public class Emprestimos extends javax.swing.JFrame {
         botaoCancelar = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         valorMulta = new javax.swing.JTextArea();
+        Sugeridos = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -230,7 +240,6 @@ public class Emprestimos extends javax.swing.JFrame {
 
         jLabel4.setText("Data para devolução:");
 
-        dataDevolucao.setEditable(false);
         jScrollPane2.setViewportView(dataDevolucao);
 
         botaoFinalizar.setText("Finalizar Emprestimo");
@@ -251,7 +260,7 @@ public class Emprestimos extends javax.swing.JFrame {
         valorMulta.setColumns(2);
         valorMulta.setRows(2);
         valorMulta.setTabSize(2);
-        valorMulta.setText("Valor da multa pelo atraso:");
+        valorMulta.setText("Valor da multa pelo atraso: 0,80/dia, para Professor.\n0,50/dia para Aluno.");
         jScrollPane3.setViewportView(valorMulta);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -262,7 +271,6 @@ public class Emprestimos extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(textoUsuario)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
@@ -278,7 +286,11 @@ public class Emprestimos extends javax.swing.JFrame {
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(textoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Sugeridos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -289,7 +301,9 @@ public class Emprestimos extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Sugeridos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -299,8 +313,8 @@ public class Emprestimos extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(botaoFinalizar)
                             .addComponent(botaoCancelar)))
@@ -314,7 +328,30 @@ public class Emprestimos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void textoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoUsuarioActionPerformed
-        // TODO add your handling code here:
+        BancoDeDados bancoDeDados = BancoDeDados.getInstance();
+        Object selecionado = Sugeridos.getSelectedItem();
+        if (selecionado != null) {
+            String itemSelecionado = selecionado.toString();
+            System.out.println("Item selecionado: " + itemSelecionado);
+
+            // Faz o split da string usando ", " como delimitador
+            String[] partes = itemSelecionado.split(", ");
+
+            // Verifica se o array tem pelo menos um elemento
+            if (partes.length > 0) {
+                // Pega o último item do array
+                String ultimoItem = partes[partes.length - 1];
+
+                try {
+                    // Converte o último item para inteiro
+                    int valorInteiro = Integer.parseInt(ultimoItem);
+                    System.out.println("Último item como inteiro: " + valorInteiro);
+                    this.usuario = bancoDeDados.getUsuarioById(valorInteiro);
+                } catch (NumberFormatException e) {
+                    System.out.println("O último item não é um número válido: " + ultimoItem);
+                }
+            }
+        }
     }//GEN-LAST:event_textoUsuarioActionPerformed
 
     private void botaoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarActionPerformed
@@ -322,8 +359,9 @@ public class Emprestimos extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoCancelarActionPerformed
 
     private void botaoFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoFinalizarActionPerformed
+        System.out.println(bibliotecario);
         if (bibliotecario != null) {
-            if (usuario == null) {
+            if (Sugeridos.getSelectedItem() == null) {
                 JOptionPane.showMessageDialog(this, "Selecione um usuário antes de finalizar o empréstimo.", "Erro", JOptionPane.ERROR_MESSAGE);
                 return;
             }
@@ -331,24 +369,24 @@ public class Emprestimos extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Nenhum livro selecionado.", "Erro", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            for (Livro livro : livros) {
-                if (livro.isLivroRaro() && !usuario.isProfessor()) {
-                    JOptionPane.showMessageDialog(this, "Apenas professores podem pegar livros Raros emprestados.", "Erro", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-            }
             Emprestimo emprestimo = new Emprestimo(usuario, bibliotecario,livros, devolucao, multa);
             BancoDeDados banquinho = BancoDeDados.getInstance();
             banquinho.addEmprestimo(emprestimo);
             JOptionPane.showMessageDialog(this, "Empréstimo realizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
+        } else {
+            for (Livro livro : livros) {
+                if (livro.isLivroRaro() && (bibliotecario == null)) {
+                    JOptionPane.showMessageDialog(this, "Apenas bibliotecarios podem pegar livros Raros emprestados.", "Erro", JOptionPane.ERROR_MESSAGE);
+                    return;
+                } 
+            }
+            Emprestimo emprestimo = new Emprestimo(usuario,livros, devolucao, multa);
+            BancoDeDados banquinho = BancoDeDados.getInstance();
+            banquinho.addEmprestimo(emprestimo);
+            JOptionPane.showMessageDialog(this, "Empréstimo realizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
         }
-        Emprestimo emprestimo = new Emprestimo(usuario,livros, devolucao, multa);
-        BancoDeDados banquinho = BancoDeDados.getInstance();
-        banquinho.addEmprestimo(emprestimo);
-        JOptionPane.showMessageDialog(this, "Empréstimo realizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-        this.dispose();
-
     }//GEN-LAST:event_botaoFinalizarActionPerformed
 
     /**
@@ -389,6 +427,7 @@ public class Emprestimos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> Sugeridos;
     private javax.swing.JButton botaoCancelar;
     private javax.swing.JButton botaoFinalizar;
     private javax.swing.JTextPane dataDevolucao;

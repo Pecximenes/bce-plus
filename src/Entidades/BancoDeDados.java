@@ -87,4 +87,15 @@ public class BancoDeDados {
         return listaEmprestimos;
     };
     
+    public Usuario getUsuarioById(int id) {
+        Usuario usuario = null;
+        for (Usuario user : listaUsuarios) {
+            if (user.getId() == id) {
+                usuario = user;
+            }
+        }
+        return usuario;
+    };
+    
+    
 };

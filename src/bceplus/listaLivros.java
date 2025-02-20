@@ -295,6 +295,10 @@ public listaLivros() {
 
     private void botaoSelecionarLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSelecionarLivroActionPerformed
         System.out.println(livrosSelec);
+        if (livrosSelec.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Selecione ao menos um livro!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         
         if (usuario != null) {
             System.out.println(usuario);
@@ -316,7 +320,8 @@ public listaLivros() {
     private void botaoEditarLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEditarLivroActionPerformed
         System.out.println(livrosSelec.isEmpty());
         if (livrosSelec.isEmpty()){
-            JOptionPane.showMessageDialog(null, "Selecione ao menos um livro para edita-lo!", "Erro", JOptionPane.ERROR_MESSAGE);  
+            JOptionPane.showMessageDialog(null, "Selecione ao menos um livro para edita-lo!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
         } else {
             for (Livro livroEdit : livrosSelec) {
                 cadastroLivro cadastroLivro = new cadastroLivro(livroEdit, bibliotecario);
