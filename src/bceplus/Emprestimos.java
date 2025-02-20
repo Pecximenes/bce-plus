@@ -100,7 +100,7 @@ public class Emprestimos extends javax.swing.JFrame {
         this.livros = livros;
         this.dataAtual = LocalDate.now();
         List<String> exemplares = new ArrayList<>();
-
+        
         
         for (Livro lv : livros) {
             exemplares.add(lv.getTitulo());
@@ -381,8 +381,8 @@ public class Emprestimos extends javax.swing.JFrame {
                 return;
             }
             System.out.println(Sugeridos.getSelectedItem());
-            System.out.println(this.usuario);
-            Emprestimo emprestimo = new Emprestimo(usuario, bibliotecario,livros, devolucao, multa);
+            System.out.println(this.devolucao);
+            Emprestimo emprestimo = new Emprestimo(usuario, bibliotecario,livros, this.devolucao, multa);
             BancoDeDados banquinho = BancoDeDados.getInstance();
             banquinho.addEmprestimo(emprestimo);
             JOptionPane.showMessageDialog(this, "Empréstimo realizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
@@ -394,7 +394,7 @@ public class Emprestimos extends javax.swing.JFrame {
                     return;
                 } 
             }
-            Emprestimo emprestimo = new Emprestimo(usuario,livros, devolucao, multa);
+            Emprestimo emprestimo = new Emprestimo(usuario,livros, this.devolucao, multa);
             BancoDeDados banquinho = BancoDeDados.getInstance();
             banquinho.addEmprestimo(emprestimo);
             JOptionPane.showMessageDialog(this, "Empréstimo realizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
