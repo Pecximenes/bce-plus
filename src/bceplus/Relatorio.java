@@ -30,7 +30,7 @@ public class Relatorio extends javax.swing.JFrame {
         areaTitulo = new javax.swing.JPanel();
         txtTitulo = new javax.swing.JLabel();
         areaBtnAdmin1 = new javax.swing.JPanel();
-        BotaoListarUsuarios = new javax.swing.JButton();
+        BotaoSair = new javax.swing.JButton();
         areaBtnAdmin = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -69,7 +69,7 @@ public class Relatorio extends javax.swing.JFrame {
         ladoEsquerdo.setBackground(new java.awt.Color(255, 255, 255));
         ladoEsquerdo.setMaximumSize(new java.awt.Dimension(2000, 32767));
         ladoEsquerdo.setPreferredSize(new java.awt.Dimension(176, 524));
-        ladoEsquerdo.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 10));
+        ladoEsquerdo.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 20));
 
         areaTitulo.setBackground(new java.awt.Color(255, 255, 255));
         areaTitulo.setPreferredSize(new java.awt.Dimension(176, 110));
@@ -105,16 +105,16 @@ public class Relatorio extends javax.swing.JFrame {
         areaBtnAdmin1.setBackground(new java.awt.Color(255, 255, 255));
         areaBtnAdmin1.setPreferredSize(new java.awt.Dimension(176, 30));
 
-        BotaoListarUsuarios.setBackground(new java.awt.Color(204, 204, 204));
-        BotaoListarUsuarios.setFont(new java.awt.Font("Roboto Condensed", 1, 13)); // NOI18N
-        BotaoListarUsuarios.setForeground(new java.awt.Color(51, 51, 51));
-        BotaoListarUsuarios.setText("Listar Usuários");
-        BotaoListarUsuarios.addActionListener(new java.awt.event.ActionListener() {
+        BotaoSair.setBackground(new java.awt.Color(204, 204, 204));
+        BotaoSair.setFont(new java.awt.Font("Roboto Condensed", 1, 13)); // NOI18N
+        BotaoSair.setForeground(new java.awt.Color(51, 51, 51));
+        BotaoSair.setText("Sair");
+        BotaoSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotaoListarUsuariosActionPerformed(evt);
+                BotaoSairActionPerformed(evt);
             }
         });
-        areaBtnAdmin1.add(BotaoListarUsuarios);
+        areaBtnAdmin1.add(BotaoSair);
 
         ladoEsquerdo.add(areaBtnAdmin1);
 
@@ -358,13 +358,13 @@ public class Relatorio extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void BotaoSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoSairActionPerformed
+        dispose();
+    }//GEN-LAST:event_BotaoSairActionPerformed
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void BotaoListarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoListarUsuariosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BotaoListarUsuariosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -465,7 +465,7 @@ public class Relatorio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BotaoListarUsuarios;
+    private javax.swing.JButton BotaoSair;
     private javax.swing.JPanel areaBtnAdmin;
     private javax.swing.JPanel areaBtnAdmin1;
     private javax.swing.JPanel areaRelatorio;

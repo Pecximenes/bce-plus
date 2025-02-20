@@ -267,7 +267,6 @@ public class TelaMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_BotaoSairActionPerformed
 
     private void BotaoCadastroBibliotecarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoCadastroBibliotecarioActionPerformed
-        // TODO add your handling code here:
         // Cria uma instância da janela de cadastro de bibliotecário
         ListaBibliotecarios listarBibliotecario = new ListaBibliotecarios();
         // Torna a janela visível
@@ -288,7 +287,11 @@ public class TelaMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_BotaoCadastroLivrosActionPerformed
 
     private void BotaoGerarRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoGerarRelatorioActionPerformed
-        // TODO add your handling code here:
+        Relatorio telaRelatorio = new Relatorio();
+        // Torna a janela visível
+        telaRelatorio.setVisible(true);
+        // Centraliza a janela na tela
+        telaRelatorio.setLocationRelativeTo(null);
     }//GEN-LAST:event_BotaoGerarRelatorioActionPerformed
 
     /**

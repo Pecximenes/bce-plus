@@ -40,7 +40,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout">
         <Property name="horizontalGap" type="int" value="0"/>
-        <Property name="verticalGap" type="int" value="10"/>
+        <Property name="verticalGap" type="int" value="20"/>
       </Layout>
       <SubComponents>
         <Container class="javax.swing.JPanel" name="areaTitulo">
@@ -108,7 +108,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="BotaoListarUsuarios">
+            <Component class="javax.swing.JButton" name="BotaoSair">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="cc" green="cc" red="cc" type="rgb"/>
@@ -119,10 +119,10 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="33" green="33" red="33" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Listar Usu&#xe1;rios"/>
+                <Property name="text" type="java.lang.String" value="Sair"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotaoListarUsuariosActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotaoSairActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

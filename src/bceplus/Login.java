@@ -279,10 +279,11 @@ public class Login extends javax.swing.JFrame {
                 // Abre a tela de menu com o tipo de usuário
                 final String tipoUsuarioFinal = tipoUsuario;
 
-                // Abre a tela de menu com o tipo de usuário
-                java.awt.EventQueue.invokeLater(() -> {
-                    new TelaMenu(tipoUsuarioFinal).setVisible(true);
-                });
+                TelaMenu telaMenu = new TelaMenu(tipoUsuarioFinal);
+                // Torna a janela visível
+                telaMenu.setVisible(true);
+                // Centraliza a janela na tela
+                telaMenu.setLocationRelativeTo(null);
 
                 // Fecha a tela de login
                 this.dispose();

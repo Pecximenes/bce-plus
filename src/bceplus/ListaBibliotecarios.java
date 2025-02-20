@@ -1,27 +1,16 @@
 package bceplus;
 
 
-
-
-/*
- * ClioDeDados;
-import Entidades.Empreck nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 /**
  *
  * @author samuelcds
  */
 
 import Entidades.BancoDeDados;
-import Entidades.Emprestimo;
-import Entidades.Livro;
-import Entidades.Administrador;
 import Entidades.Bibliotecario;
-import Entidades.Usuario;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
-import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
 
 
@@ -100,6 +89,10 @@ public class ListaBibliotecarios extends javax.swing.JFrame {
         botaoRemover = new javax.swing.JButton();
         botaoEditar = new javax.swing.JButton();
         botaoSair = new javax.swing.JButton();
+        CampoTextoBusca = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        BotaoPesquisar = new javax.swing.JButton();
+        BotaoLimpar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -167,6 +160,22 @@ public class ListaBibliotecarios extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setText("Filtro de pesquisa:");
+
+        BotaoPesquisar.setText("Pesquisar");
+        BotaoPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotaoPesquisarActionPerformed(evt);
+            }
+        });
+
+        BotaoLimpar.setText("Limpar");
+        BotaoLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotaoLimparActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -186,14 +195,33 @@ public class ListaBibliotecarios extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cadastrarNovoUsuario)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(CampoTextoBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(BotaoPesquisar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(BotaoLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
+                .addGap(4, 4, 4)
+                .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(CampoTextoBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(BotaoPesquisar)
+                        .addComponent(BotaoLimpar)))
+                .addGap(15, 15, 15)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cadastrarNovoUsuario)
@@ -267,10 +295,9 @@ public class ListaBibliotecarios extends javax.swing.JFrame {
 
         if (resposta == JOptionPane.YES_OPTION) {
             BancoDeDados bancoDeDados = BancoDeDados.getInstance();
-            List<Bibliotecario> listaBibliotecarios = bancoDeDados.getBibliotecario();
             Integer linhaSelecionada = tabelaBibliotecarios.getSelectedRow();
 
-            Integer id = Integer.parseInt(tabelaBibliotecarios.getValueAt(linhaSelecionada, 0).toString());
+            Integer id = Integer.valueOf(tabelaBibliotecarios.getValueAt(linhaSelecionada, 0).toString());
             Boolean sucesso = bancoDeDados.removeBibliotecarioPorId(id);
             if (sucesso) {
                 JOptionPane.showMessageDialog(null, "Bibliotecário removido com sucesso!", "Sucesso", JOptionPane.PLAIN_MESSAGE);
@@ -286,6 +313,42 @@ public class ListaBibliotecarios extends javax.swing.JFrame {
     private void botaoSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSairActionPerformed
         dispose();
     }//GEN-LAST:event_botaoSairActionPerformed
+
+    private void BotaoPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoPesquisarActionPerformed
+        String palavraBuscada = CampoTextoBusca.getText().toLowerCase();
+        System.out.println(palavraBuscada);
+        
+        BancoDeDados bancoDeDados = BancoDeDados.getInstance();
+        List<Bibliotecario> listaBibliotecarios = bancoDeDados.getBibliotecario();
+        List<Bibliotecario> listaDeBibliotecariosSelecionados = new ArrayList<>();
+        
+        for (Bibliotecario bibli : listaBibliotecarios) {
+            if (bibli.getNome().toLowerCase().contains(palavraBuscada) || bibli.getCpf().toLowerCase().contains(palavraBuscada) || bibli.getUsuario().toLowerCase().contains(palavraBuscada)) {
+                listaDeBibliotecariosSelecionados.add(bibli);
+            }
+        }
+        
+        
+        // Atualiza a lista
+        DefaultTableModel modelo = (DefaultTableModel) tabelaBibliotecarios.getModel();
+        modelo.setRowCount(0);
+        for (Bibliotecario bibliotecario : listaDeBibliotecariosSelecionados) {
+            modelo.addRow(new Object[]{
+                bibliotecario.getId(),
+                bibliotecario.getNome(),
+                bibliotecario.getGenero(),
+                bibliotecario.getCpf(),
+                bibliotecario.getUsuario(),
+                bibliotecario.getSenha(),
+                bibliotecario.getPrimeiroLogin()
+            });
+        }
+    }//GEN-LAST:event_BotaoPesquisarActionPerformed
+
+    private void BotaoLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoLimparActionPerformed
+        atualizarTabela();
+        CampoTextoBusca.setText("");
+    }//GEN-LAST:event_BotaoLimparActionPerformed
 
     /**
      * @param args the command line arguments
@@ -328,11 +391,15 @@ public class ListaBibliotecarios extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BotaoLimpar;
+    private javax.swing.JButton BotaoPesquisar;
+    private javax.swing.JTextField CampoTextoBusca;
     private javax.swing.JButton botaoEditar;
     private javax.swing.JButton botaoRemover;
     private javax.swing.JButton botaoSair;
     private javax.swing.JButton cadastrarNovoUsuario;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabelaBibliotecarios;
     // End of variables declaration//GEN-END:variables
